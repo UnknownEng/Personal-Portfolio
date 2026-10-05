@@ -7,9 +7,9 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
-import { dataStore } from './store';
-import { requireAuth, comparePassword, hashPassword, generateToken, AuthenticatedRequest, setAdminVerifier } from './auth';
-import { MediaFile, PortfolioData } from '../src/types/portfolio';
+import { dataStore } from './store.ts';
+import { requireAuth, comparePassword, hashPassword, generateToken, AuthenticatedRequest, setAdminVerifier } from './auth.ts';
+import { MediaFile, PortfolioData } from '../src/types/portfolio.ts';
 
 // Register admin verifier for immediate session revocation upon password updates
 setAdminVerifier(() => dataStore.getAdmin());

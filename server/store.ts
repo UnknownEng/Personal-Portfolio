@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { PortfolioData, ContactMessage, MediaFile } from '../src/types/portfolio';
-import { initialPortfolioData } from '../src/data/initialData';
-import { AdminUser } from './types';
-import { hashPassword } from './auth';
+import { PortfolioData, ContactMessage, MediaFile } from '../src/types/portfolio.ts';
+import { initialPortfolioData } from '../src/data/initialData.ts';
+import { AdminUser } from './types.ts';
+import { hashPassword } from './auth.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
