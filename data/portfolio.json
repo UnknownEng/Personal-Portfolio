@@ -116,7 +116,7 @@
     "primaryButtonLink": "#projects",
     "secondaryButtonText": "Connect on LinkedIn",
     "secondaryButtonLink": "https://www.linkedin.com/in/mansoorahmedrind",
-    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+    "profileImage": "/uploads/1791240164754-de9427931d88-1778339546695.jpg",
     "backgroundEffect": "radar",
     "telemetryStats": {
       "alt": "120.4 M [SIMULATED]",
@@ -132,7 +132,7 @@
     "badge": "CORE PROFILE",
     "bioParagraph": "Bachelor’s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Highly skilled in robotics systems integration, automation, embedded systems, and full-stack web development.",
     "secondaryBio": "Proven experience in research, development, and deployment of innovative technological solutions, with strong leadership in technical teams and student organizations. From leading autonomous disaster-relief UAV development to engineering decentralized multi-drone swarm coordination algorithms, I engineer mission-critical hardware-software systems that perform reliably in real-world scenarios.",
-    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+    "profileImage": "/uploads/1791240171093-5224f174a81d-1778339546695.jpg",
     "engineeringPhilosophy": "Reliable autonomy requires seamless integration between bare-metal flight hardware, real-time telemetry links, and higher-level perception pipelines. Every flight stack is engineered for determinism, fault-tolerance, and precision.",
     "focusAreas": [
       "Autonomous UAV Navigation & Mission Planning",
@@ -182,6 +182,7 @@
       "id": "sk-1",
       "name": "Autonomous UAV Navigation",
       "category": "Robotics & Navigation",
+      "description": "",
       "icon": "Compass",
       "featured": true,
       "order": 1,
@@ -194,7 +195,7 @@
       "icon": "Map",
       "featured": true,
       "order": 2,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-3",
@@ -221,7 +222,7 @@
       "icon": "GitBranch",
       "featured": false,
       "order": 6,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-7",
@@ -230,7 +231,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 7,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-8",
@@ -248,7 +249,7 @@
       "icon": "Code",
       "featured": true,
       "order": 9,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-10",
@@ -257,7 +258,7 @@
       "icon": "Box",
       "featured": true,
       "order": 10,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-11",
@@ -275,7 +276,7 @@
       "icon": "Activity",
       "featured": true,
       "order": 12,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-13",
@@ -284,7 +285,7 @@
       "icon": "Monitor",
       "featured": false,
       "order": 13,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-14",
@@ -293,7 +294,7 @@
       "icon": "Crosshair",
       "featured": false,
       "order": 14,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-15",
@@ -302,7 +303,7 @@
       "icon": "Terminal",
       "featured": false,
       "order": 15,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-16",
@@ -311,7 +312,7 @@
       "icon": "Terminal",
       "featured": true,
       "order": 16,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-17",
@@ -320,7 +321,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 17,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-18",
@@ -329,7 +330,7 @@
       "icon": "Eye",
       "featured": true,
       "order": 18,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-19",
@@ -338,7 +339,7 @@
       "icon": "Crosshair",
       "featured": true,
       "order": 19,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-20",
@@ -347,7 +348,7 @@
       "icon": "Layout",
       "featured": false,
       "order": 20,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-21",
@@ -356,7 +357,7 @@
       "icon": "FileCode",
       "featured": false,
       "order": 21,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-22",
@@ -365,7 +366,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 22,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-23",
@@ -374,7 +375,7 @@
       "icon": "Layers",
       "featured": true,
       "order": 23,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-24",
@@ -383,7 +384,7 @@
       "icon": "Server",
       "featured": true,
       "order": 24,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-25",
@@ -392,7 +393,7 @@
       "icon": "Cpu",
       "featured": false,
       "order": 25,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-26",
@@ -419,7 +420,7 @@
       "icon": "Shield",
       "featured": false,
       "order": 28,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-29",
@@ -438,7 +439,7 @@
       "icon": "Globe",
       "featured": true,
       "order": 30,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-soc-2",
@@ -448,7 +449,7 @@
       "icon": "Users",
       "featured": true,
       "order": 31,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-soc-3",
@@ -458,7 +459,7 @@
       "icon": "Briefcase",
       "featured": true,
       "order": 32,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-soc-4",
@@ -468,27 +469,7 @@
       "icon": "MessageSquare",
       "featured": false,
       "order": 33,
-      "enabled": true
-    },
-    {
-      "id": "sk-soc-5",
-      "name": "Crisis Management & Mission-Critical Operations",
-      "category": "Leadership & Social Skills",
-      "description": "Commanded live telemetry pipelines, flight-line safety protocols, and emergency recovery loops under high pressure at Teknofest Turkey and National Aerothon.",
-      "icon": "Shield",
-      "featured": true,
-      "order": 34,
-      "enabled": true
-    },
-    {
-      "id": "sk-soc-6",
-      "name": "Sponsorship Acquisition & Negotiation",
-      "category": "Leadership & Social Skills",
-      "description": "Headed Sponsorship & Operations at NUST Digital Club, successfully securing corporate sponsorships and institutional partnerships for campus technical conventions.",
-      "icon": "Award",
-      "featured": false,
-      "order": 35,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "sk-soc-7",
@@ -498,17 +479,7 @@
       "icon": "Zap",
       "featured": true,
       "order": 36,
-      "enabled": true
-    },
-    {
-      "id": "sk-soc-8",
-      "name": "Multilingual Fluency & Global Collaboration",
-      "category": "Leadership & Social Skills",
-      "description": "Fluent in English (Professional Working Proficiency), Urdu (Native / Bilingual), and Sindhi (Native / Bilingual).",
-      "icon": "Languages",
-      "featured": false,
-      "order": 37,
-      "enabled": true
+      "enabled": false
     }
   ],
   "projects": [
@@ -526,10 +497,16 @@
         "Vercel"
       ],
       "category": "AI Systems & Web Apps",
-      "projectImage": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "projectImage": "/uploads/1791238961887-88f386eb07ce-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "galleryImages": [
+        "/uploads/1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.png",
+        "/uploads/1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.png"
+      ],
+      "githubUrl": "https://github.com/UnknownEng/lawerai",
       "liveDemoUrl": "https://lawerai-alpha.vercel.app/",
-      "documentationUrl": "https://lawerai-alpha.vercel.app/",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/dVFmpw2D",
+      "diagramUrl": "",
       "myRole": "Founder & Full-Stack AI Engineer (maverick_.tech)",
       "projectDate": "2026",
       "featured": true,
@@ -550,10 +527,16 @@
         "Vercel"
       ],
       "category": "Healthcare & Web Systems",
-      "projectImage": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "projectImage": "/uploads/1791239111899-b7dc863a0f03-pomelli_creative_image_9_16_4k_1004__5_.png",
+      "galleryImages": [
+        "/uploads/1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.png",
+        "/uploads/1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.png"
+      ],
+      "githubUrl": "https://github.com/UnknownEng/sasta-dawa-finder",
       "liveDemoUrl": "https://sasta-dawa-finder.vercel.app/",
-      "documentationUrl": "https://sasta-dawa-finder.vercel.app/",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/d2s5WFnz",
+      "diagramUrl": "",
       "myRole": "Founder & Lead Developer (maverick_.tech)",
       "projectDate": "2026",
       "featured": true,
@@ -574,10 +557,15 @@
         "ROS"
       ],
       "category": "Swarm Systems",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239299140-de160f03f525-1784286261890.jpg",
+      "galleryImages": [
+        "/uploads/1791239304163-f01b0213586a-1784286261890.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/dQpJFSaR",
+      "diagramUrl": "",
       "myRole": "System Architecture & Telemetry Integration",
       "projectDate": "2025 – 2026",
       "featured": true,
@@ -598,10 +586,15 @@
         "Embedded Linux"
       ],
       "category": "Autonomous Guidance",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239883354-1b35c0f66e92-1758909062587.jpg",
+      "galleryImages": [
+        "/uploads/1791239886248-1cb93c386cf4-1758909062587.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Lead Autonomy & Guidance Engineer",
       "projectDate": "2025",
       "featured": true,
@@ -622,10 +615,15 @@
         "C++"
       ],
       "category": "Autonomous Guidance",
-      "projectImage": "",
-      "githubUrl": "",
-      "liveDemoUrl": "",
+      "projectImage": "/uploads/1791239852355-9f87c81d2160-1774310452377.jpg",
+      "galleryImages": [
+        "/uploads/1791239863697-695df3a16828-1774310452377.jpg"
+      ],
+      "githubUrl": "https://github.com/UnknownEng/Interceptor-Code",
+      "liveDemoUrl": "https://drive.google.com/file/d/1wCutPewCVz9VDBB-NcRUmZ2H2x5LT3j1/view",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Lead Systems Developer",
       "projectDate": "2024 – 2025",
       "featured": true,
@@ -646,10 +644,16 @@
         "OpenCV"
       ],
       "category": "Aerial Mapping",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239483814-0ffbb57a4e0c-1771795527978.jpg",
+      "galleryImages": [
+        "/uploads/1791239489849-9dc97d6b70ca-1771795571854.jpg",
+        "/uploads/1791239493590-24709cdb916c-1771795589042.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Workflow & Processing Engineer",
       "projectDate": "2025",
       "featured": false,
@@ -670,10 +674,15 @@
         "EKF"
       ],
       "category": "Autonomous Navigation",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239910783-c4d7e3e889c8-1759771283051.jpg",
+      "galleryImages": [
+        "/uploads/1791239914114-8d2b744984b9-1759771283051.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Autonomy Researcher",
       "projectDate": "2025",
       "featured": true,
@@ -694,10 +703,15 @@
         "Python"
       ],
       "category": "Swarm Systems",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239927399-a79b5aad575e-1758907419720.jpg",
+      "galleryImages": [
+        "/uploads/1791239931178-7391ceece0b5-1758907419720.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Swarm Autonomy Developer",
       "projectDate": "2025 – 2026",
       "featured": true,
@@ -718,10 +732,13 @@
         "Embedded Linux"
       ],
       "category": "Computer Vision",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239978779-a4d4bf149b7e-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Computer Vision Engineer",
       "projectDate": "2024",
       "featured": false,
@@ -742,10 +759,16 @@
         "Mission Planner"
       ],
       "category": "UAV & Flight Stack",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239956712-8b4d9e56e4ad-1758909062581.jpg",
+      "galleryImages": [
+        "/uploads/1791239962367-ca2ce1d55e8f-1758909062581.jpg",
+        "/uploads/1791239969095-ef9aaf329353-output_still_image_c668377b-bcd2-430f-9e.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Electronics & Autonomy Developer",
       "projectDate": "2024 – 2025",
       "featured": false,
@@ -767,10 +790,15 @@
         "C++"
       ],
       "category": "Simulation & ROS",
-      "projectImage": "",
+      "projectImage": "/uploads/1791239604408-e9e81dc53be4-1774126892270.jpg",
+      "galleryImages": [
+        "/uploads/1791239607975-90e00765bff6-1774126892270.jpg"
+      ],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Simulation Engineer",
       "projectDate": "2024",
       "featured": false,
@@ -914,9 +942,9 @@
         "Full-Stack Architecture"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236721278-c99e96b8993e-Code_Generated_Image.png",
       "status": "published",
-      "order": 1,
-      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+      "order": 1
     },
     {
       "id": "exp-1",
@@ -945,9 +973,9 @@
         "UAV Electronics"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236894788-de7d8d9afe5a-1771788458397.jpg",
       "status": "published",
-      "order": 2,
-      "image": ""
+      "order": 2
     },
     {
       "id": "exp-2",
@@ -974,9 +1002,9 @@
         "Telemetry"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236903847-30cb8522e7a4-intelgency_logo.jpg",
       "status": "published",
-      "order": 3,
-      "image": ""
+      "order": 3
     },
     {
       "id": "exp-3",
@@ -1006,9 +1034,9 @@
         "Swarm Coordination"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236951491-89c8d07e5cca-1740558321053.jpg",
       "status": "published",
-      "order": 4,
-      "image": ""
+      "order": 4
     },
     {
       "id": "exp-4",
@@ -1035,9 +1063,9 @@
         "Vision Servoing"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237032081-701e32dcc6d0-1675983634915.jpg",
       "status": "published",
-      "order": 5,
-      "image": ""
+      "order": 5
     },
     {
       "id": "exp-5",
@@ -1063,9 +1091,9 @@
         "Technical Documentation"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237075210-701fc0b3dc2b-fiverr_com_logo.jpg",
       "status": "published",
-      "order": 6,
-      "image": ""
+      "order": 6
     },
     {
       "id": "exp-6",
@@ -1092,9 +1120,9 @@
         "Telemetry"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237119823-c4700b88f749-1644149247801.jpg",
       "status": "published",
-      "order": 7,
-      "image": ""
+      "order": 7
     },
     {
       "id": "exp-7",
@@ -1118,9 +1146,9 @@
         "Responsive Web Design"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
       "status": "published",
-      "order": 8,
-      "image": ""
+      "order": 8
     },
     {
       "id": "exp-8",
@@ -1143,9 +1171,9 @@
         "Power Systems"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237162451-6cc5aec1b141-koreaeht_logo.jpg",
       "status": "published",
-      "order": 9,
-      "image": ""
+      "order": 9
     },
     {
       "id": "exp-9",
@@ -1168,9 +1196,9 @@
         "Sensors & Actuators"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237318870-aad6b669f052-pexels-max-fischer-5212648.jpg",
       "status": "published",
-      "order": 10,
-      "image": ""
+      "order": 10
     }
   ],
   "education": [
@@ -1514,6 +1542,15 @@
   },
   "contactMessages": [
     {
+      "id": "msg-1791240262255",
+      "name": "Mansoor Ahmed RInd",
+      "email": "ahmedmansoorrind1210@gmail.com",
+      "subject": "UAV",
+      "message": "Sure",
+      "createdAt": "2026-10-05T22:44:22.255Z",
+      "read": false
+    },
+    {
       "id": "msg-1789073520371",
       "name": "Integration Test Recruiter",
       "email": "recruiter@aerospace.test",
@@ -1524,6 +1561,456 @@
     }
   ],
   "media": [
+    {
+      "id": "media-1791240171099",
+      "filename": "1791240171093-5224f174a81d-1778339546695.jpg",
+      "originalName": "1778339546695.jpg",
+      "mimeType": "image/jpeg",
+      "size": 50732,
+      "url": "/uploads/1791240171093-5224f174a81d-1778339546695.jpg",
+      "uploadedAt": "2026-10-05T22:42:51.099Z"
+    },
+    {
+      "id": "media-1791240164757",
+      "filename": "1791240164754-de9427931d88-1778339546695.jpg",
+      "originalName": "1778339546695.jpg",
+      "mimeType": "image/jpeg",
+      "size": 50732,
+      "url": "/uploads/1791240164754-de9427931d88-1778339546695.jpg",
+      "uploadedAt": "2026-10-05T22:42:44.757Z"
+    },
+    {
+      "id": "media-1791240115572",
+      "filename": "1791240115571-bc679937b476-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791240115571-bc679937b476-1774126892270.jpg",
+      "uploadedAt": "2026-10-05T22:41:55.572Z"
+    },
+    {
+      "id": "media-1791240110736",
+      "filename": "1791240110734-5bad31572de2-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791240110734-5bad31572de2-1758907419720.jpg",
+      "uploadedAt": "2026-10-05T22:41:50.736Z"
+    },
+    {
+      "id": "media-1791240098933",
+      "filename": "1791240098931-1a8ee611a9e6-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791240098931-1a8ee611a9e6-1774310452377.jpg",
+      "uploadedAt": "2026-10-05T22:41:38.933Z"
+    },
+    {
+      "id": "media-1791240089832",
+      "filename": "1791240089831-5ddd1693300d-1771795571854.jpg",
+      "originalName": "1771795571854.jpg",
+      "mimeType": "image/jpeg",
+      "size": 23513,
+      "url": "/uploads/1791240089831-5ddd1693300d-1771795571854.jpg",
+      "uploadedAt": "2026-10-05T22:41:29.832Z"
+    },
+    {
+      "id": "media-1791240086194",
+      "filename": "1791240086184-ef7ced3cdd08-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791240086184-ef7ced3cdd08-1784286261890.jpg",
+      "uploadedAt": "2026-10-05T22:41:26.194Z"
+    },
+    {
+      "id": "media-1791240076591",
+      "filename": "1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
+      "originalName": "Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3515505,
+      "url": "/uploads/1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
+      "uploadedAt": "2026-10-05T22:41:16.591Z"
+    },
+    {
+      "id": "media-1791239978780",
+      "filename": "1791239978779-a4d4bf149b7e-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "originalName": "output_still_image_c668377b-bcd2-430f-9e4d-d1952e192090.jpg",
+      "mimeType": "image/jpeg",
+      "size": 31302,
+      "url": "/uploads/1791239978779-a4d4bf149b7e-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "uploadedAt": "2026-10-05T22:39:38.780Z"
+    },
+    {
+      "id": "media-1791239969096",
+      "filename": "1791239969095-ef9aaf329353-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "originalName": "output_still_image_c668377b-bcd2-430f-9e4d-d1952e192090.jpg",
+      "mimeType": "image/jpeg",
+      "size": 31302,
+      "url": "/uploads/1791239969095-ef9aaf329353-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "uploadedAt": "2026-10-05T22:39:29.096Z"
+    },
+    {
+      "id": "media-1791239962369",
+      "filename": "1791239962367-ca2ce1d55e8f-1758909062581.jpg",
+      "originalName": "1758909062581.jpg",
+      "mimeType": "image/jpeg",
+      "size": 106663,
+      "url": "/uploads/1791239962367-ca2ce1d55e8f-1758909062581.jpg",
+      "uploadedAt": "2026-10-05T22:39:22.369Z"
+    },
+    {
+      "id": "media-1791239956716",
+      "filename": "1791239956712-8b4d9e56e4ad-1758909062581.jpg",
+      "originalName": "1758909062581.jpg",
+      "mimeType": "image/jpeg",
+      "size": 106663,
+      "url": "/uploads/1791239956712-8b4d9e56e4ad-1758909062581.jpg",
+      "uploadedAt": "2026-10-05T22:39:16.716Z"
+    },
+    {
+      "id": "media-1791239950569",
+      "filename": "1791239950568-ab26c9eee630-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239950568-ab26c9eee630-1758909062587.jpg",
+      "uploadedAt": "2026-10-05T22:39:10.569Z"
+    },
+    {
+      "id": "media-1791239931179",
+      "filename": "1791239931178-7391ceece0b5-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791239931178-7391ceece0b5-1758907419720.jpg",
+      "uploadedAt": "2026-10-05T22:38:51.179Z"
+    },
+    {
+      "id": "media-1791239927401",
+      "filename": "1791239927399-a79b5aad575e-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791239927399-a79b5aad575e-1758907419720.jpg",
+      "uploadedAt": "2026-10-05T22:38:47.401Z"
+    },
+    {
+      "id": "media-1791239914115",
+      "filename": "1791239914114-8d2b744984b9-1759771283051.jpg",
+      "originalName": "1759771283051.jpg",
+      "mimeType": "image/jpeg",
+      "size": 26538,
+      "url": "/uploads/1791239914114-8d2b744984b9-1759771283051.jpg",
+      "uploadedAt": "2026-10-05T22:38:34.115Z"
+    },
+    {
+      "id": "media-1791239910784",
+      "filename": "1791239910783-c4d7e3e889c8-1759771283051.jpg",
+      "originalName": "1759771283051.jpg",
+      "mimeType": "image/jpeg",
+      "size": 26538,
+      "url": "/uploads/1791239910783-c4d7e3e889c8-1759771283051.jpg",
+      "uploadedAt": "2026-10-05T22:38:30.784Z"
+    },
+    {
+      "id": "media-1791239886250",
+      "filename": "1791239886248-1cb93c386cf4-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239886248-1cb93c386cf4-1758909062587.jpg",
+      "uploadedAt": "2026-10-05T22:38:06.250Z"
+    },
+    {
+      "id": "media-1791239883358",
+      "filename": "1791239883354-1b35c0f66e92-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239883354-1b35c0f66e92-1758909062587.jpg",
+      "uploadedAt": "2026-10-05T22:38:03.358Z"
+    },
+    {
+      "id": "media-1791239863699",
+      "filename": "1791239863697-695df3a16828-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239863697-695df3a16828-1774310452377.jpg",
+      "uploadedAt": "2026-10-05T22:37:43.699Z"
+    },
+    {
+      "id": "media-1791239852361",
+      "filename": "1791239852355-9f87c81d2160-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239852355-9f87c81d2160-1774310452377.jpg",
+      "uploadedAt": "2026-10-05T22:37:32.361Z"
+    },
+    {
+      "id": "media-1791239631460",
+      "filename": "1791239631458-43773b3a7edb-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239631458-43773b3a7edb-1774310452377.jpg",
+      "uploadedAt": "2026-10-05T22:33:51.460Z"
+    },
+    {
+      "id": "media-1791239626979",
+      "filename": "1791239626964-88494d839f58-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239626964-88494d839f58-1774310452377.jpg",
+      "uploadedAt": "2026-10-05T22:33:46.979Z"
+    },
+    {
+      "id": "media-1791239607976",
+      "filename": "1791239607975-90e00765bff6-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791239607975-90e00765bff6-1774126892270.jpg",
+      "uploadedAt": "2026-10-05T22:33:27.976Z"
+    },
+    {
+      "id": "media-1791239604409",
+      "filename": "1791239604408-e9e81dc53be4-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791239604408-e9e81dc53be4-1774126892270.jpg",
+      "uploadedAt": "2026-10-05T22:33:24.409Z"
+    },
+    {
+      "id": "media-1791239493591",
+      "filename": "1791239493590-24709cdb916c-1771795589042.jpg",
+      "originalName": "1771795589042.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3557,
+      "url": "/uploads/1791239493590-24709cdb916c-1771795589042.jpg",
+      "uploadedAt": "2026-10-05T22:31:33.591Z"
+    },
+    {
+      "id": "media-1791239489850",
+      "filename": "1791239489849-9dc97d6b70ca-1771795571854.jpg",
+      "originalName": "1771795571854.jpg",
+      "mimeType": "image/jpeg",
+      "size": 23513,
+      "url": "/uploads/1791239489849-9dc97d6b70ca-1771795571854.jpg",
+      "uploadedAt": "2026-10-05T22:31:29.850Z"
+    },
+    {
+      "id": "media-1791239483816",
+      "filename": "1791239483814-0ffbb57a4e0c-1771795527978.jpg",
+      "originalName": "1771795527978.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4357,
+      "url": "/uploads/1791239483814-0ffbb57a4e0c-1771795527978.jpg",
+      "uploadedAt": "2026-10-05T22:31:23.816Z"
+    },
+    {
+      "id": "media-1791239304164",
+      "filename": "1791239304163-f01b0213586a-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791239304163-f01b0213586a-1784286261890.jpg",
+      "uploadedAt": "2026-10-05T22:28:24.164Z"
+    },
+    {
+      "id": "media-1791239299142",
+      "filename": "1791239299140-de160f03f525-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791239299140-de160f03f525-1784286261890.jpg",
+      "uploadedAt": "2026-10-05T22:28:19.142Z"
+    },
+    {
+      "id": "media-1791239147317",
+      "filename": "1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004.png",
+      "mimeType": "image/png",
+      "size": 9026044,
+      "url": "/uploads/1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.png",
+      "uploadedAt": "2026-10-05T22:25:47.317Z"
+    },
+    {
+      "id": "media-1791239131380",
+      "filename": "1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004 (3).png",
+      "mimeType": "image/png",
+      "size": 3117890,
+      "url": "/uploads/1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.png",
+      "uploadedAt": "2026-10-05T22:25:31.380Z"
+    },
+    {
+      "id": "media-1791239112139",
+      "filename": "1791239111899-b7dc863a0f03-pomelli_creative_image_9_16_4k_1004__5_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004 (5).png",
+      "mimeType": "image/png",
+      "size": 7991250,
+      "url": "/uploads/1791239111899-b7dc863a0f03-pomelli_creative_image_9_16_4k_1004__5_.png",
+      "uploadedAt": "2026-10-05T22:25:12.139Z"
+    },
+    {
+      "id": "media-1791238975113",
+      "filename": "1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005.png",
+      "mimeType": "image/png",
+      "size": 9075013,
+      "url": "/uploads/1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.png",
+      "uploadedAt": "2026-10-05T22:22:55.113Z"
+    },
+    {
+      "id": "media-1791238961966",
+      "filename": "1791238961887-88f386eb07ce-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005 (1).png",
+      "mimeType": "image/png",
+      "size": 7691389,
+      "url": "/uploads/1791238961887-88f386eb07ce-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "uploadedAt": "2026-10-05T22:22:41.966Z"
+    },
+    {
+      "id": "media-1791238952388",
+      "filename": "1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005 (1).png",
+      "mimeType": "image/png",
+      "size": 7691389,
+      "url": "/uploads/1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "uploadedAt": "2026-10-05T22:22:32.388Z"
+    },
+    {
+      "id": "media-1791238940321",
+      "filename": "1791238940233-64f2bd54e71a-pomelli_creative_image_9_16_4k_1005.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005.png",
+      "mimeType": "image/png",
+      "size": 9075013,
+      "url": "/uploads/1791238940233-64f2bd54e71a-pomelli_creative_image_9_16_4k_1005.png",
+      "uploadedAt": "2026-10-05T22:22:20.321Z"
+    },
+    {
+      "id": "media-1791237318914",
+      "filename": "1791237318870-aad6b669f052-pexels-max-fischer-5212648.jpg",
+      "originalName": "pexels-max-fischer-5212648.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2825816,
+      "url": "/uploads/1791237318870-aad6b669f052-pexels-max-fischer-5212648.jpg",
+      "uploadedAt": "2026-10-05T21:55:18.914Z"
+    },
+    {
+      "id": "media-1791237276209",
+      "filename": "1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "originalName": "cfb0df5c-8deb-4230-969e-0e41c1d19ec7_1344x256.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3522,
+      "url": "/uploads/1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "uploadedAt": "2026-10-05T21:54:36.209Z"
+    },
+    {
+      "id": "media-1791237255378",
+      "filename": "1791237255376-af440c291fde-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "originalName": "cfb0df5c-8deb-4230-969e-0e41c1d19ec7_1344x256.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3522,
+      "url": "/uploads/1791237255376-af440c291fde-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "uploadedAt": "2026-10-05T21:54:15.378Z"
+    },
+    {
+      "id": "media-1791237162452",
+      "filename": "1791237162451-6cc5aec1b141-koreaeht_logo.jpg",
+      "originalName": "koreaeht_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2244,
+      "url": "/uploads/1791237162451-6cc5aec1b141-koreaeht_logo.jpg",
+      "uploadedAt": "2026-10-05T21:52:42.452Z"
+    },
+    {
+      "id": "media-1791237119824",
+      "filename": "1791237119823-c4700b88f749-1644149247801.jpg",
+      "originalName": "1644149247801.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3694,
+      "url": "/uploads/1791237119823-c4700b88f749-1644149247801.jpg",
+      "uploadedAt": "2026-10-05T21:51:59.824Z"
+    },
+    {
+      "id": "media-1791237075217",
+      "filename": "1791237075210-701fc0b3dc2b-fiverr_com_logo.jpg",
+      "originalName": "fiverr_com_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2888,
+      "url": "/uploads/1791237075210-701fc0b3dc2b-fiverr_com_logo.jpg",
+      "uploadedAt": "2026-10-05T21:51:15.217Z"
+    },
+    {
+      "id": "media-1791237032082",
+      "filename": "1791237032081-701e32dcc6d0-1675983634915.jpg",
+      "originalName": "1675983634915.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4429,
+      "url": "/uploads/1791237032081-701e32dcc6d0-1675983634915.jpg",
+      "uploadedAt": "2026-10-05T21:50:32.082Z"
+    },
+    {
+      "id": "media-1791236951494",
+      "filename": "1791236951491-89c8d07e5cca-1740558321053.jpg",
+      "originalName": "1740558321053.jpg",
+      "mimeType": "image/jpeg",
+      "size": 5655,
+      "url": "/uploads/1791236951491-89c8d07e5cca-1740558321053.jpg",
+      "uploadedAt": "2026-10-05T21:49:11.494Z"
+    },
+    {
+      "id": "media-1791236903848",
+      "filename": "1791236903847-30cb8522e7a4-intelgency_logo.jpg",
+      "originalName": "intelgency_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4598,
+      "url": "/uploads/1791236903847-30cb8522e7a4-intelgency_logo.jpg",
+      "uploadedAt": "2026-10-05T21:48:23.848Z"
+    },
+    {
+      "id": "media-1791236894797",
+      "filename": "1791236894788-de7d8d9afe5a-1771788458397.jpg",
+      "originalName": "1771788458397.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3860,
+      "url": "/uploads/1791236894788-de7d8d9afe5a-1771788458397.jpg",
+      "uploadedAt": "2026-10-05T21:48:14.797Z"
+    },
+    {
+      "id": "media-1791236805694",
+      "filename": "1791236805692-2e9829e39c94-560620559_17855307960541100_488530118246.jpg",
+      "originalName": "560620559_17855307960541100_4885301182467722117_n.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4646,
+      "url": "/uploads/1791236805692-2e9829e39c94-560620559_17855307960541100_488530118246.jpg",
+      "uploadedAt": "2026-10-05T21:46:45.694Z"
+    },
+    {
+      "id": "media-1791236721281",
+      "filename": "1791236721278-c99e96b8993e-Code_Generated_Image.png",
+      "originalName": "Code_Generated_Image.png",
+      "mimeType": "image/png",
+      "size": 190981,
+      "url": "/uploads/1791236721278-c99e96b8993e-Code_Generated_Image.png",
+      "uploadedAt": "2026-10-05T21:45:21.281Z"
+    },
+    {
+      "id": "media-1791236397662",
+      "filename": "1791236397656-f87dfa52f2a1-test_check.png",
+      "originalName": "test_check.png",
+      "mimeType": "image/png",
+      "size": 68,
+      "url": "/uploads/1791236397656-f87dfa52f2a1-test_check.png",
+      "uploadedAt": "2026-10-05T21:39:57.662Z"
+    },
     {
       "id": "media-1791235061962",
       "filename": "1791235061899-3643d016e66a-test_valid_upload.png",
@@ -1552,7 +2039,7 @@
       "category": "Research & Autonomy",
       "organization": "SEECS — NUST (Advised by Dr. Moazzam Ali & Muhammad Saad Zia)",
       "summary": "Synthesized 27 recent papers on GPS-denied VI-SLAM, categorizing detection-based, geometry-based, and semantic-geometric frameworks running on sub-2 kg UAV compute budgets.",
-      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
       "highlights": [
         "Synthesized 27 state-of-the-art papers classifying dynamic-handling pipelines.",
         "Prioritized techniques running under strict sub-2 kg UAV embedded compute constraints.",
@@ -1624,7 +2111,7 @@
       "category": "GCS",
       "organization": "Team AeroMavericks",
       "summary": "Developed a centralized, MAVLink-integrated ground control application capable of simultaneous telemetry ingestion, packet inspection, and real-time waypoint mission dispatching for multi-drone fleets.",
-      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240086184-ef7ced3cdd08-1784286261890.jpg",
       "highlights": [
         "Real-time visualization of GPS coordinates, battery voltage, airspeed, and flight modes for up to 10 vehicles.",
         "Asynchronous telemetry parser built with PyMAVLink and multi-threaded socket pipelines.",
@@ -1646,7 +2133,7 @@
       "category": "Teknofest",
       "organization": "Team Vitesse — Teknofest Turkey",
       "summary": "Engineered an autonomous visual servoing and precision landing pipeline enabling a hexacopter UAV to detect, track, and land on an autonomous moving unmanned surface vessel (USV).",
-      "mediaUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240089831-5ddd1693300d-1771795571854.jpg",
       "highlights": [
         "Trained visual detection algorithms for dynamic fiducial AprilTags and platform motion estimation.",
         "Constructed Kalman filter velocity estimator to compensate for wave-induced pitch, roll, and heave.",
@@ -1668,7 +2155,7 @@
       "category": "Aerospace",
       "organization": "Team Vitesse — Teknofest Turkey",
       "summary": "Designed high-speed avionics, power distribution, and computer vision guidance loops for an aerial interceptor quadcopter designed to autonomously pursue rogue drones.",
-      "mediaUrl": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240098931-1a8ee611a9e6-1774310452377.jpg",
       "highlights": [
         "Integrated onboard companion computer running YOLO object detection at 30+ FPS.",
         "Developed proportional navigation guidance algorithms to close line-of-sight velocity vectors.",
@@ -1690,7 +2177,7 @@
       "category": "Aerothon",
       "organization": "Team AeroMavericks",
       "summary": "Architected an autonomous disaster-relief UAV system with custom payload winch mechanism, GPS precision navigation, and autonomous sample collection routines.",
-      "mediaUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240110734-5bad31572de2-1758907419720.jpg",
       "highlights": [
         "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon ’25.",
         "Designed fail-safe payload mechanism with optical confirmation and telemetry feedback.",
@@ -1712,7 +2199,7 @@
       "category": "Research",
       "organization": "CSN Lab, SEECS — NUST",
       "summary": "Built full digital twin testing environments in Gazebo and ROS for simulating complex aerodynamic disturbances, sensor noise, GPS-denied environments, and multi-rotor dynamics.",
-      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240115571-bc679937b476-1774126892270.jpg",
       "highlights": [
         "Integrated multi-vehicle ArduPilot SITL instances communicating via simulated MAVLink network.",
         "Modeled wind gusts, rotor ground effect, and camera gimbal dynamics.",
@@ -1744,10 +2231,10 @@
         "SEECS NUST"
       ],
       "category": "Technical Review (FYP)",
-      "projectImage": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "projectImage": "https://drive.google.com/file/d/17V9iNkDPI_k27N5nx_rU5o8iiJ6M_7yk/view?usp=sharing=1200&q=80",
+      "githubUrl": "",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "documentationUrl": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7447982",
       "myRole": "Lead Author & FYP Researcher (SEECS NUST)",
       "projectDate": "2026",
       "featured": true,
@@ -1768,39 +2255,15 @@
         "Deterministic Systems"
       ],
       "category": "Peer-Reviewed Paper",
-      "projectImage": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
+      "projectImage": "https://drive.google.com/file/d/1Dz71ZpKJyoNv5Vh97RsaJ3tgn0N7tSvW/view?usp=sharing",
       "githubUrl": "https://github.com/UnknownEng",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "documentationUrl": "https://zenodo.org/records/22587966?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6Ijk1NmY3YWQ3LTcyMDEtNDYzOC04Zjc2LWY0MDEzNWYwNjE5ZSIsImRhdGEiOnt9LCJyYW5kb20iOiI0NDk4YjI1MDNkMjE0OWFhMWM2NzMyYzI4OTk2MzJhZSJ9.mVwCYTe07Fly3ewNowEUQ6WrzVqKg-a8hStj2MQ4_SREBc1sT2AzIJEohaguaWARSnQUwwKyfLDrzZr4t9Wwfg",
       "myRole": "Author & Autonomy Architect",
-      "projectDate": "2025 – 2026",
+      "projectDate": "2026",
       "featured": true,
       "status": "published",
       "order": 2
-    },
-    {
-      "id": "res-swarm",
-      "title": "Decentralized Multi-UAV Swarm Formation Control & Peer-to-Peer Consensus",
-      "shortDescription": "Field-deployed decentralized flocking protocols and multi-agent coordination for autonomous quadcopter swarms via MAVLink mesh.",
-      "fullDescription": "Researched and implemented decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms. Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests, achieving sub-meter formation spacing with collision-avoidance potential fields.",
-      "technologies": [
-        "MAVLink",
-        "ROS",
-        "Swarm Robotics",
-        "Gazebo",
-        "Distributed Consensus",
-        "ArduPilot"
-      ],
-      "category": "Swarm Research",
-      "projectImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
-      "liveDemoUrl": "",
-      "documentationUrl": "",
-      "myRole": "Lead Research Engineer (CSN Lab)",
-      "projectDate": "2025 – 2026",
-      "featured": true,
-      "status": "published",
-      "order": 3
     }
   ]
 }
