@@ -19,7 +19,12 @@ export const AchievementsManager: React.FC<AchievementsManagerProps> = ({
   const [editingItem, setEditingItem] = useState<AchievementItem | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<AchievementItem>>({});
+
+  React.useEffect(() => {
+    setItems(achievements || []);
+  }, [achievements]);
 
   const handleOpenAdd = () => {
     setIsNew(true);
@@ -43,6 +48,7 @@ export const AchievementsManager: React.FC<AchievementsManagerProps> = ({
   };
 
   const handleSaveModal = async () => {
+    if (isSaving) return;
     if (!formData.title) {
       onShowToast('error', 'Title is required');
       return;
@@ -67,14 +73,20 @@ export const AchievementsManager: React.FC<AchievementsManagerProps> = ({
       nextItems = items.map((a) => (a.id === updatedItem.id ? updatedItem : a));
     }
 
-    setItems(nextItems);
-    setEditingItem(null);
-
-    const res = await onSaveAchievements(nextItems);
-    if (res.success) {
-      onShowToast('success', `Honor "${updatedItem.title}" saved!`);
-    } else {
-      onShowToast('error', res.error || 'Failed to save achievement');
+    setIsSaving(true);
+    try {
+      const res = await onSaveAchievements(nextItems);
+      if (res.success) {
+        setItems(nextItems);
+        setEditingItem(null);
+        onShowToast('success', `Honor "${updatedItem.title}" saved!`);
+      } else {
+        onShowToast('error', res.error || 'Failed to save achievement');
+      }
+    } catch (err: any) {
+      onShowToast('error', err.message || 'Failed to save achievement');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -268,17 +280,19 @@ export const AchievementsManager: React.FC<AchievementsManagerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1E293B]">
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={() => setEditingItem(null)}
-                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 rounded-lg"
+                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 disabled:opacity-50 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={handleSaveModal}
-                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 rounded-lg"
+                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
               >
-                Save Award
+                {isSaving ? 'Saving...' : 'Save Award'}
               </button>
             </div>
           </div>

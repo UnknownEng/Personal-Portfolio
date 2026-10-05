@@ -4,6 +4,7 @@ import { SocialLinkItem } from '../../types/portfolio';
 import { Modal } from '../ui/Modal';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { SocialPlatformIcon } from '../ui/Icons';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface SocialLinksEditorProps {
   socialLinks: SocialLinkItem[];
@@ -224,14 +225,20 @@ export const SocialLinksEditor: React.FC<SocialLinksEditorProps> = ({
                       </span>
                     )}
                   </div>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-mono text-cyan-400 hover:underline truncate block mt-0.5"
-                  >
-                    {item.url}
-                  </a>
+                  {isSafeUrl(item.url) ? (
+                    <a
+                      href={sanitizeUrl(item.url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono text-cyan-400 hover:underline truncate block mt-0.5"
+                    >
+                      {item.url}
+                    </a>
+                  ) : (
+                    <span className="text-xs font-mono text-red-400 truncate block mt-0.5" title="Unsafe scheme rejected">
+                      {item.url} (Unsafe Link)
+                    </span>
+                  )}
                 </div>
               </div>
 

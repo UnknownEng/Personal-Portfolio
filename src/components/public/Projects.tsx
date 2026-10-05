@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ProjectItem } from '../../types/portfolio';
 import { DetailModal, ModalItem } from './DetailModal';
 import { ChevronLeft, ChevronRight, ArrowUpRight, FolderGit2 } from 'lucide-react';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface ProjectsProps {
   projects: ProjectItem[];
@@ -129,9 +130,9 @@ export const Projects: React.FC<ProjectsProps> = ({
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
 
-                {activeCarouselProject?.liveDemoUrl && (
+                {activeCarouselProject?.liveDemoUrl && isSafeUrl(activeCarouselProject.liveDemoUrl) && (
                   <a
-                    href={activeCarouselProject.liveDemoUrl}
+                    href={sanitizeUrl(activeCarouselProject.liveDemoUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold transition shadow-lg hover:scale-105"
@@ -209,9 +210,9 @@ export const Projects: React.FC<ProjectsProps> = ({
                     >
                       {currentLang === 'zh' ? '阅读更多' : 'Read More'}
                     </button>
-                    {proj.liveDemoUrl && (
+                    {proj.liveDemoUrl && isSafeUrl(proj.liveDemoUrl) && (
                       <a
-                        href={proj.liveDemoUrl}
+                        href={sanitizeUrl(proj.liveDemoUrl)}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}

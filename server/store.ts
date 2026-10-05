@@ -45,7 +45,16 @@ export class DataStore {
     try {
       if (fs.existsSync(PORTFOLIO_FILE)) {
         const raw = fs.readFileSync(PORTFOLIO_FILE, 'utf-8');
-        return JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        return {
+          ...initialPortfolioData,
+          ...parsed,
+          contactMessages: parsed.contactMessages || [],
+          media: parsed.media || [],
+          research: parsed.research || initialPortfolioData.research || [],
+          projects: parsed.projects || initialPortfolioData.projects || [],
+          skills: parsed.skills || initialPortfolioData.skills || [],
+        };
       }
     } catch (e) {
       console.error('Error loading portfolio.json, seeding initial data:', e);
@@ -78,6 +87,7 @@ export class DataStore {
         email: 'admin@mansoor.eng',
         passwordHash: hashPassword('admin123'),
         createdAt: new Date().toISOString(),
+        tokenVersion: 1,
       };
       atomicWriteJson(ADMIN_FILE, devAdmin);
       return devAdmin;
@@ -113,6 +123,7 @@ export class DataStore {
       email: email.trim().toLowerCase(),
       passwordHash: hashPassword(passwordPlain),
       createdAt: new Date().toISOString(),
+      tokenVersion: 1,
     };
 
     atomicWriteJson(ADMIN_FILE, newAdmin);
@@ -126,9 +137,15 @@ export class DataStore {
 
   public savePortfolio(data: PortfolioData): PortfolioData {
     this.portfolio = {
+      ...this.portfolio,
       ...data,
+      contactMessages: data.contactMessages || this.portfolio.contactMessages || [],
+      media: data.media || this.portfolio.media || [],
+      research: data.research || this.portfolio.research || [],
+      projects: data.projects || this.portfolio.projects || [],
       siteSettings: {
-        ...data.siteSettings,
+        ...this.portfolio.siteSettings,
+        ...(data.siteSettings || {}),
         lastUpdated: new Date().toISOString().split('T')[0],
       },
     };
@@ -138,7 +155,9 @@ export class DataStore {
 
   public updateSection<K extends keyof PortfolioData>(section: K, value: PortfolioData[K]): PortfolioData {
     this.portfolio[section] = value;
-    this.portfolio.siteSettings.lastUpdated = new Date().toISOString().split('T')[0];
+    if (this.portfolio.siteSettings) {
+      this.portfolio.siteSettings.lastUpdated = new Date().toISOString().split('T')[0];
+    }
     atomicWriteJson(PORTFOLIO_FILE, this.portfolio);
     return this.portfolio;
   }
@@ -162,12 +181,19 @@ export class DataStore {
       createdAt: new Date().toISOString(),
       read: false,
     };
+    if (!Array.isArray(this.portfolio.contactMessages)) {
+      this.portfolio.contactMessages = [];
+    }
     this.portfolio.contactMessages.unshift(newMessage);
     atomicWriteJson(PORTFOLIO_FILE, this.portfolio);
     return newMessage;
   }
 
   public deleteContactMessage(id: string): boolean {
+    if (!Array.isArray(this.portfolio.contactMessages)) {
+      this.portfolio.contactMessages = [];
+      return false;
+    }
     const prevLen = this.portfolio.contactMessages.length;
     this.portfolio.contactMessages = this.portfolio.contactMessages.filter(m => m.id !== id);
     if (this.portfolio.contactMessages.length !== prevLen) {
@@ -178,6 +204,10 @@ export class DataStore {
   }
 
   public markContactMessageRead(id: string, read: boolean): boolean {
+    if (!Array.isArray(this.portfolio.contactMessages)) {
+      this.portfolio.contactMessages = [];
+      return false;
+    }
     const msg = this.portfolio.contactMessages.find(m => m.id === id);
     if (msg) {
       msg.read = read;
@@ -188,18 +218,26 @@ export class DataStore {
   }
 
   public addMedia(media: MediaFile): MediaFile {
+    if (!Array.isArray(this.portfolio.media)) {
+      this.portfolio.media = [];
+    }
     this.portfolio.media.unshift(media);
     atomicWriteJson(PORTFOLIO_FILE, this.portfolio);
     return media;
   }
 
   public deleteMedia(id: string): boolean {
+    if (!Array.isArray(this.portfolio.media)) {
+      this.portfolio.media = [];
+      return false;
+    }
     const item = this.portfolio.media.find(m => m.id === id);
     if (item) {
       this.portfolio.media = this.portfolio.media.filter(m => m.id !== id);
       atomicWriteJson(PORTFOLIO_FILE, this.portfolio);
-      // Remove file from disk if exists
-      const filePath = path.join(UPLOADS_DIR, item.filename);
+      // Remove file from disk securely, strictly preventing path traversal
+      const safeFilename = path.basename(item.filename);
+      const filePath = path.join(UPLOADS_DIR, safeFilename);
       if (fs.existsSync(filePath)) {
         try {
           fs.unlinkSync(filePath);

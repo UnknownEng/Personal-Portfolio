@@ -90,13 +90,17 @@ const AppRouter: React.FC = () => {
   );
 };
 
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
 export const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <PortfolioProvider>
-        <AppRouter />
-      </PortfolioProvider>
-    </AuthProvider>
+    <ErrorBoundary fallbackTitle="Portfolio Application Safe Mode">
+      <AuthProvider>
+        <PortfolioProvider>
+          <AppRouter />
+        </PortfolioProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 };
 

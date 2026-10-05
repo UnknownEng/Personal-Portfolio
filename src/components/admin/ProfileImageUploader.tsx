@@ -47,12 +47,18 @@ export const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
         body: formData,
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = { error: `Server response error (${res.status})` };
+      }
+
+      if (res.ok && data?.success && data?.media?.url) {
         onChange(data.media.url);
         onShowToast('success', `Photo "${file.name}" uploaded and set!`);
       } else {
-        onShowToast('error', data.error || 'Upload failed');
+        onShowToast('error', data?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');

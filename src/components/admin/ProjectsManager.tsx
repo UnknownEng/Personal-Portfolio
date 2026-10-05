@@ -47,6 +47,10 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
+  React.useEffect(() => {
+    setItems(projects || []);
+  }, [projects]);
+
   // Form State
   const [formData, setFormData] = useState<Partial<ProjectItem>>({});
   const [modalTab, setModalTab] = useState<'basic' | 'tech' | 'specs' | 'links'>('basic');
@@ -133,12 +137,17 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
         headers: { Authorization: `Bearer ${token}` },
         body: data,
       });
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server error (${res.status})` };
+      }
+      if (res.ok && resJson?.success && resJson?.media?.url) {
         setFormData((prev) => ({ ...prev, projectImage: resJson.media.url }));
         onShowToast('success', 'Cover image uploaded!');
       } else {
-        onShowToast('error', resJson.error || 'Upload failed');
+        onShowToast('error', resJson?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');
@@ -152,8 +161,8 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 15 * 1024 * 1024) {
-      onShowToast('error', 'Image size must be less than 15MB');
+    if (file.size > 10 * 1024 * 1024) {
+      onShowToast('error', 'Image size must be less than 10MB');
       return;
     }
 
@@ -166,8 +175,13 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
         headers: { Authorization: `Bearer ${token}` },
         body: data,
       });
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server error (${res.status})` };
+      }
+      if (res.ok && resJson?.success && resJson?.media?.url) {
         setFormData((prev) => ({
           ...prev,
           galleryImages: [...(prev.galleryImages || []), resJson.media.url],

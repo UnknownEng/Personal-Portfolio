@@ -1,7 +1,7 @@
 {
   "siteSettings": {
     "websiteName": "Mansoor Ahmed Rind | Engineering Portfolio",
-    "footerText": "© 2026 Mansoor Ahmed Rind. Electrical & Electronics Engineering, UAV Systems & Robotics.",
+    "footerText": "© 2026 Aeromaverick Technologies. All rights reserved.",
     "defaultLanguage": "en",
     "maintenanceMode": false,
     "animationsEnabled": true,
@@ -24,10 +24,10 @@
   },
   "seo": {
     "websiteTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
-    "metaDescription": "Personal engineering portfolio of Mansoor Ahmed Rind - Electrical & Electronics Engineering student at NUST, Gold Medalist, specializing in UAV Electronics, Swarm Robotics, and Autonomous Navigation.",
+    "metaDescription": "Mansoor Ahmed Rind — NUST Electrical & Electronics Engineering student and Gold Medalist specializing in UAV Electronics, Swarm Robotics, and Autonomous Navigation.",
     "keywords": "Mansoor Ahmed Rind, Electrical Engineering, UAV Electronics, Drone Swarm, ROS, MAVROS, ArduPilot, PX4, Pixhawk, NUST Gold Medalist, Autonomous Robotics, Teknofest, Computer Vision",
-    "ogTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
-    "ogDescription": "Explore verified autonomous UAV projects, multi-drone swarm coordination research, flight-stack integration, and engineering achievements by Mansoor Ahmed Rind.",
+    "ogTitle": "Mansoor Ahmed Rind | UAV Electronics & Autonomous Systems",
+    "ogDescription": "Electrical & Electronics Engineering student at NUST and Gold Medalist, specializing in UAV Electronics, Swarm Robotics, VSLAM, and Autonomous Navigation.",
     "ogImage": "",
     "favicon": ""
   },
@@ -203,15 +203,6 @@
       "icon": "Share2",
       "featured": true,
       "order": 3,
-      "enabled": true
-    },
-    {
-      "id": "sk-4",
-      "name": "Precision Dynamic/Static Landing",
-      "category": "Robotics & Navigation",
-      "icon": "Target",
-      "featured": true,
-      "order": 4,
       "enabled": true
     },
     {
@@ -896,7 +887,7 @@
   "experience": [
     {
       "id": "exp-maverick",
-      "company": "maverick_.tech (AeroMavericks Technologies)",
+      "company": "Mavericks Technologies",
       "position": "Founder & Lead Systems Architect",
       "location": "Islamabad, Pakistan / Remote",
       "startDate": "Nov 2025",
@@ -1208,7 +1199,7 @@
       ],
       "status": "published",
       "order": 1,
-      "image": ""
+      "image": "/uploads/1791227395373-522409-Glance-picture.jpg"
     },
     {
       "id": "edu-2",
@@ -1230,7 +1221,7 @@
       ],
       "status": "published",
       "order": 2,
-      "image": ""
+      "image": "/uploads/1791227523142-138729-niversity-of-california-irvine-logo-vector-png_1020x.jpg"
     },
     {
       "id": "edu-3",
@@ -1252,7 +1243,7 @@
       ],
       "status": "published",
       "order": 3,
-      "image": ""
+      "image": "/uploads/1791227579604-332032-unina-federico-ii-logo-png_seeklogo-516317.png"
     },
     {
       "id": "edu-4",
@@ -1274,7 +1265,7 @@
       ],
       "status": "published",
       "order": 4,
-      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+      "image": "/uploads/1791227646159-427649-images.png"
     }
   ],
   "certifications": [
@@ -1433,6 +1424,16 @@
       ],
       "status": "published",
       "order": 5
+    },
+    {
+      "id": "lead-1791228861382",
+      "role": "President",
+      "organization": "TABA Youth Force NUST Chapter",
+      "date": "2026 – 2027",
+      "description": "",
+      "bullets": [],
+      "status": "published",
+      "order": 6
     }
   ],
   "socialLinks": [
@@ -1458,7 +1459,7 @@
       "id": "soc-3",
       "platform": "fiverr",
       "label": "Robotics Consulting on Fiverr",
-      "url": "https://www.fiverr.com",
+      "url": "https://www.fiverr.com/sellers/mansoor_rind/",
       "icon": "Briefcase",
       "order": 3,
       "enabled": true
@@ -1470,6 +1471,33 @@
       "url": "https://github.com/UnknownEng",
       "icon": "Github",
       "order": 4,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228243261",
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/_unknown._.engineer/",
+      "icon": "instagram",
+      "order": 5,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228280205",
+      "platform": "googlescholar",
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=PW06l9YAAAAJ&hl=en",
+      "icon": "googlescholar",
+      "order": 6,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228442725",
+      "platform": "researchgate",
+      "label": "ResearchGate",
+      "url": "researchgate.net/profile/Mansoor-Ahmed-43?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImhvbWUiLCJwYWdlIjoiaG9tZSIsInBvc2l0aW9uIjoiZ2xvYmFsSGVhZGVyIn19",
+      "icon": "researchgate",
+      "order": 7,
       "enabled": true
     }
   ],
@@ -1497,31 +1525,22 @@
   ],
   "media": [
     {
-      "id": "media-1789073575177",
-      "filename": "1789073575174-677234-test_schematic.png",
-      "originalName": "test_schematic.png",
+      "id": "media-1791235061962",
+      "filename": "1791235061899-3643d016e66a-test_valid_upload.png",
+      "originalName": "test_valid_upload.png",
       "mimeType": "image/png",
-      "size": 33,
-      "url": "/uploads/1789073575174-677234-test_schematic.png",
-      "uploadedAt": "2026-09-10T20:52:55.177Z"
+      "size": 68,
+      "url": "/uploads/1791235061899-3643d016e66a-test_valid_upload.png",
+      "uploadedAt": "2026-10-05T21:17:41.962Z"
     },
     {
-      "id": "media-1789073551849",
-      "filename": "1789073551796-370609-test_schematic.png",
-      "originalName": "test_schematic.png",
+      "id": "media-1791232550644",
+      "filename": "1791232550631-a0199d9b645b-Code_Generated_Image.png",
+      "originalName": "Code_Generated_Image.png",
       "mimeType": "image/png",
-      "size": 33,
-      "url": "/uploads/1789073551796-370609-test_schematic.png",
-      "uploadedAt": "2026-09-10T20:52:31.849Z"
-    },
-    {
-      "id": "media-1789070588559",
-      "filename": "1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
-      "originalName": "WhatsApp Image 2026-09-07 at 6.11.37 PM.jpeg",
-      "mimeType": "image/jpeg",
-      "size": 2537315,
-      "url": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
-      "uploadedAt": "2026-09-10T20:03:08.559Z"
+      "size": 190981,
+      "url": "/uploads/1791232550631-a0199d9b645b-Code_Generated_Image.png",
+      "uploadedAt": "2026-10-05T20:35:50.644Z"
     }
   ],
   "showcase": [
@@ -1557,7 +1576,7 @@
       "category": "Startup & AI Products",
       "organization": "maverick_.tech / AeroMavericks Technologies",
       "summary": "Founded maverick_.tech to architect rapid beta systems for modern challenges. Built and deployed LawerAI (legal intelligence) and Sasta Dawa Finder (medicine price transparency).",
-      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791229210095-343482-Code_Generated_Image.png",
       "highlights": [
         "LawerAI: AI-powered legal assistant for automated statute reasoning and case analysis (lawerai-alpha.vercel.app).",
         "Sasta Dawa Finder: Pharmaceutical price transparency and generic medicine engine (sasta-dawa-finder.vercel.app).",
@@ -1581,7 +1600,7 @@
       "category": "Swarm Systems",
       "organization": "CSN Lab, NUST & INTELGENCY IT Solutions",
       "summary": "Engineered decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms.",
-      "mediaUrl": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791227624943-592139-images.png",
       "highlights": [
         "Implemented Reynolds flocking models and virtual leader-follower formation geometry.",
         "Eliminated centralized single points of failure through peer-to-peer telemetry mesh.",

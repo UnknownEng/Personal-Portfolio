@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ContactData } from '../../types/portfolio';
 import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from '../ui/Icons';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface ContactProps {
   contact: ContactData;
@@ -74,7 +75,7 @@ export const Contact: React.FC<ContactProps> = ({
 
           {/* Prominent Clickable Email */}
           <a
-            href={`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`}
+            href={sanitizeUrl(`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`)}
             className="email-link"
           >
             {contact.email || 'mansoorahmedrind@gmail.com'}
@@ -82,9 +83,9 @@ export const Contact: React.FC<ContactProps> = ({
 
           {/* Social Icons row */}
           <div className="social-icons">
-            {contact.linkedIn && (
+            {contact.linkedIn && isSafeUrl(contact.linkedIn) && (
               <a
-                href={contact.linkedIn}
+                href={sanitizeUrl(contact.linkedIn)}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -93,9 +94,9 @@ export const Contact: React.FC<ContactProps> = ({
                 <LinkedinIcon className="w-5 h-5" />
               </a>
             )}
-            {githubUrl && (
+            {githubUrl && isSafeUrl(githubUrl) && (
               <a
-                href={githubUrl}
+                href={sanitizeUrl(githubUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -105,7 +106,7 @@ export const Contact: React.FC<ContactProps> = ({
               </a>
             )}
             <a
-              href={`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`}
+              href={sanitizeUrl(`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`)}
               aria-label="Email"
               title="Direct Email"
             >

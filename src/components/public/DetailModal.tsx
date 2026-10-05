@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { ExternalLink, X, ChevronLeft, ChevronRight, Award, Building, BookOpen, Layers } from 'lucide-react';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 export interface ModalItem {
   id: string;
@@ -94,9 +95,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
             <span className="modal-counter">
               {currentIndex + 1} of {items.length}
             </span>
-            {item.externalUrl && (
+            {item.externalUrl && isSafeUrl(item.externalUrl) && (
               <a
-                href={item.externalUrl}
+                href={sanitizeUrl(item.externalUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-sky-500 p-1.5 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -139,9 +140,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 className="modal-media"
                 loading="lazy"
               />
-              {item.externalUrl && (
+              {item.externalUrl && isSafeUrl(item.externalUrl) && (
                 <a
-                  href={item.externalUrl}
+                  href={sanitizeUrl(item.externalUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="modal-external-link"

@@ -32,6 +32,11 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
   const [editingItem, setEditingItem] = useState<EducationItem | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  React.useEffect(() => {
+    setItems(education || []);
+  }, [education]);
 
   const { token } = useAuth();
   // Form state
@@ -77,8 +82,8 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 15 * 1024 * 1024) {
-      onShowToast('error', 'File size exceeds maximum 15MB limit');
+    if (file.size > 10 * 1024 * 1024) {
+      onShowToast('error', 'File size exceeds maximum 10MB limit');
       return;
     }
 
@@ -92,12 +97,17 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
         headers: { Authorization: `Bearer ${token}` },
         body: data,
       });
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server response error (${res.status})` };
+      }
+      if (res.ok && resJson?.success && resJson?.media) {
         setFormData((prev) => ({ ...prev, image: resJson.media.url }));
         onShowToast('success', 'Cover picture uploaded!');
       } else {
-        onShowToast('error', resJson.error || 'Upload failed');
+        onShowToast('error', resJson?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');
@@ -108,6 +118,7 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
   };
 
   const handleSaveModal = async () => {
+    if (isSaving) return;
     if (!formData.degree || !formData.institution) {
       onShowToast('error', 'Degree and institution are required');
       return;
@@ -148,14 +159,20 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
       nextItems = items.map((e) => (e.id === updatedItem.id ? updatedItem : e));
     }
 
-    setItems(nextItems);
-    setEditingItem(null);
-
-    const res = await onSaveEducation(nextItems);
-    if (res.success) {
-      onShowToast('success', `Education entry saved!`);
-    } else {
-      onShowToast('error', res.error || 'Failed to save education');
+    setIsSaving(true);
+    try {
+      const res = await onSaveEducation(nextItems);
+      if (res.success) {
+        setItems(nextItems);
+        setEditingItem(null);
+        onShowToast('success', `Education entry saved!`);
+      } else {
+        onShowToast('error', res.error || 'Failed to save education');
+      }
+    } catch (err: any) {
+      onShowToast('error', err.message || 'Failed to save education');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -457,17 +474,19 @@ export const EducationManager: React.FC<EducationManagerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1E293B]">
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={() => setEditingItem(null)}
-                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 rounded-lg"
+                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 disabled:opacity-50 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={handleSaveModal}
-                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 rounded-lg"
+                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
               >
-                Save Education
+                {isSaving ? 'Saving...' : 'Save Education'}
               </button>
             </div>
           </div>

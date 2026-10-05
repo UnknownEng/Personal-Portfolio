@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { X, Download, FileText, ExternalLink } from 'lucide-react';
+import { sanitizeUrl } from '../../utils/url';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
   onClose,
   pdfUrl = '/CV.pdf',
 }) => {
+  const safePdfUrl = sanitizeUrl(pdfUrl);
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -58,7 +60,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
           <div className="modal-topbar-actions">
             <a
-              href={pdfUrl}
+              href={safePdfUrl}
               download="Mansoor_Ahmed_Rind_CV.pdf"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800 hover:bg-sky-100 transition"
               title="Download CV"
@@ -66,7 +68,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
               <Download className="w-3.5 h-3.5" /> Download PDF
             </a>
             <a
-              href={pdfUrl}
+              href={safePdfUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="p-1.5 text-slate-500 hover:text-sky-500 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -87,7 +89,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
         {/* Embedded PDF Viewer */}
         <div className="flex-1 w-full h-full mt-4 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 min-h-[550px]">
           <iframe
-            src={`${pdfUrl}#toolbar=0&navpanes=0`}
+            src={safePdfUrl !== '#' ? `${safePdfUrl}#toolbar=0&navpanes=0` : 'about:blank'}
             title="Mansoor Ahmed Rind CV"
             className="w-full h-full min-h-[550px] border-0"
           />

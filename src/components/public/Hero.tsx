@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { HeroData } from '../../types/portfolio';
 import { ArrowDown, FileText } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from '../ui/Icons';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface HeroProps {
   hero: HeroData;
@@ -98,19 +99,21 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Action Buttons matching Steven Feng's site */}
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href={linkedInUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="primary-btn"
-          >
-            <LinkedinIcon className="w-4 h-4 mr-1 inline" />
-            {currentLang === 'zh' ? '与我联系！' : 'CONNECT WITH ME!'}
-          </a>
-
-          {githubUrl && (
+          {linkedInUrl && isSafeUrl(linkedInUrl) && (
             <a
-              href={githubUrl}
+              href={sanitizeUrl(linkedInUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="primary-btn"
+            >
+              <LinkedinIcon className="w-4 h-4 mr-1 inline" />
+              {currentLang === 'zh' ? '与我联系！' : 'CONNECT WITH ME!'}
+            </a>
+          )}
+
+          {githubUrl && isSafeUrl(githubUrl) && (
+            <a
+              href={sanitizeUrl(githubUrl)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 font-bold text-sm hover:bg-slate-800 shadow-sm transition hover:scale-105"

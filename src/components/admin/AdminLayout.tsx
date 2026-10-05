@@ -27,8 +27,37 @@ import { SeoEditor } from './SeoEditor';
 import { SettingsEditor } from './SettingsEditor';
 import { ToastContainer } from '../ui/Toast';
 import { Modal } from '../ui/Modal';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 import { Lock, KeyRound } from 'lucide-react';
 import { MediaFile } from '../../types/portfolio';
+
+const VALID_ADMIN_TABS = new Set<AdminTab>([
+  'dashboard', 'hero', 'about', 'skills', 'research', 'projects',
+  'gallery', 'experience', 'education', 'certifications', 'achievements',
+  'leadership', 'messages', 'contact', 'social-links', 'navigation',
+  'visibility', 'appearance', 'section-images', 'media', 'seo', 'settings'
+]);
+
+function getTabFromUrl(): AdminTab {
+  if (typeof window === 'undefined') return 'dashboard';
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab') as AdminTab;
+    if (tabParam && VALID_ADMIN_TABS.has(tabParam)) {
+      return tabParam;
+    }
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash.startsWith('tab=')) {
+      const hashTab = hash.replace('tab=', '') as AdminTab;
+      if (VALID_ADMIN_TABS.has(hashTab)) return hashTab;
+    } else if (VALID_ADMIN_TABS.has(hash as AdminTab)) {
+      return hash as AdminTab;
+    }
+  } catch {
+    // fallback
+  }
+  return 'dashboard';
+}
 
 interface AdminLayoutProps {
   onViewLiveSite: () => void;
@@ -46,9 +75,40 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onViewLiveSite }) => {
 
   const { logout, changePassword } = useAuth();
 
-  const [currentTab, setCurrentTab] = useState<AdminTab>('dashboard');
+  const [currentTab, setCurrentTab] = useState<AdminTab>(() => getTabFromUrl());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toasts, setToasts] = useState<Array<{ id: string; type: 'success' | 'error' | 'info'; message: string }>>([]);
+
+  // Synchronize tab changes with browser URL and history state (REL-02)
+  const handleSelectTab = React.useCallback((tab: AdminTab) => {
+    setCurrentTab(tab);
+    try {
+      const url = new URL(window.location.href);
+      if (tab === 'dashboard') {
+        url.searchParams.delete('tab');
+      } else {
+        url.searchParams.set('tab', tab);
+      }
+      const newRelativeUrl = url.pathname + (url.search ? url.search : '') + url.hash;
+      const currentRelativeUrl = window.location.pathname + window.location.search + window.location.hash;
+      if (newRelativeUrl !== currentRelativeUrl) {
+        window.history.pushState({ tab }, '', newRelativeUrl);
+      }
+    } catch {
+      // fallback
+    }
+  }, []);
+
+  // Listen to browser Back and Forward navigation
+  React.useEffect(() => {
+    const handlePopState = () => {
+      const tabFromUrl = getTabFromUrl();
+      setCurrentTab(tabFromUrl);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Password Modal
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
@@ -93,14 +153,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onViewLiveSite }) => {
   };
 
   const handleMediaUploaded = (file: MediaFile) => {
-    saveSection('media', [file, ...data.media]);
+    saveSection('media', [file, ...(data?.media || [])]);
   };
 
   const handleMediaDeleted = (id: string) => {
-    saveSection('media', data.media.filter((m) => m.id !== id));
+    saveSection('media', (data?.media || []).filter((m) => m.id !== id));
   };
 
-  const unreadCount = data.contactMessages.filter((m) => !m.read).length;
+  const unreadCount = (data?.contactMessages || []).filter((m) => !m.read).length;
 
   return (
     <div className="min-h-screen bg-[#070A12] text-slate-100 flex font-sans">
@@ -111,7 +171,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onViewLiveSite }) => {
       {/* Sidebar */}
       <AdminSidebar
         currentTab={currentTab}
-        onSelectTab={setCurrentTab}
+        onSelectTab={handleSelectTab}
         onLogout={logout}
         unreadMessagesCount={unreadCount}
         isOpenMobile={mobileMenuOpen}
@@ -131,8 +191,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onViewLiveSite }) => {
 
         {/* Dynamic Section Editor */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+          <ErrorBoundary fallbackTitle="Admin Section Fault Safeguard" onReset={() => handleSelectTab('dashboard')}>
           {currentTab === 'dashboard' && (
-            <DashboardHome data={data} onNavigateTab={setCurrentTab} />
+            <DashboardHome data={data} onNavigateTab={handleSelectTab} />
           )}
 
           {currentTab === 'hero' && (
@@ -308,6 +369,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onViewLiveSite }) => {
               onShowToast={showToast}
             />
           )}
+          </ErrorBoundary>
         </main>
 
       </div>

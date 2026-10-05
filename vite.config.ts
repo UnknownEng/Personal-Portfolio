@@ -10,6 +10,14 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
+    watch: {
+      ignored: [
+        '**/data/**',
+        '**/uploads/**',
+        '**/*.tmp',
+        '**/.git/**',
+      ],
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:5001',

@@ -26,7 +26,12 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
   const [editingItem, setEditingItem] = useState<CertificationItem | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<CertificationItem>>({});
+
+  React.useEffect(() => {
+    setItems(certifications || []);
+  }, [certifications]);
 
   const handleOpenAdd = () => {
     setIsNew(true);
@@ -59,8 +64,8 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 15 * 1024 * 1024) {
-      onShowToast('error', 'File size exceeds 15MB limit');
+    if (file.size > 10 * 1024 * 1024) {
+      onShowToast('error', 'File size exceeds 10MB limit');
       return;
     }
 
@@ -76,8 +81,13 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
         headers: { Authorization: `Bearer ${token}` },
         body: data,
       });
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server response error (${res.status})` };
+      }
+      if (res.ok && resJson?.success && resJson?.media) {
         if (type === 'pdf') {
           setFormData((prev) => ({ ...prev, pdfUrl: resJson.media.url }));
           onShowToast('success', 'Certificate PDF uploaded!');
@@ -86,7 +96,7 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
           onShowToast('success', 'Certificate thumbnail image uploaded!');
         }
       } else {
-        onShowToast('error', resJson.error || 'Upload failed');
+        onShowToast('error', resJson?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');
@@ -102,6 +112,7 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
   };
 
   const handleSaveModal = async () => {
+    if (isSaving) return;
     if (!formData.name || !formData.issuingOrganization) {
       onShowToast('error', 'Name and organization are required');
       return;
@@ -128,14 +139,20 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
       nextItems = items.map((c) => (c.id === updatedItem.id ? updatedItem : c));
     }
 
-    setItems(nextItems);
-    setEditingItem(null);
-
-    const res = await onSaveCertifications(nextItems);
-    if (res.success) {
-      onShowToast('success', `Certification saved!`);
-    } else {
-      onShowToast('error', res.error || 'Failed to save certification');
+    setIsSaving(true);
+    try {
+      const res = await onSaveCertifications(nextItems);
+      if (res.success) {
+        setItems(nextItems);
+        setEditingItem(null);
+        onShowToast('success', `Certification saved!`);
+      } else {
+        onShowToast('error', res.error || 'Failed to save certification');
+      }
+    } catch (err: any) {
+      onShowToast('error', err.message || 'Failed to save certification');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -426,17 +443,19 @@ export const CertificationsManager: React.FC<CertificationsManagerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1E293B]">
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={() => setEditingItem(null)}
-                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 rounded-lg hover:bg-slate-700 transition"
+                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 disabled:opacity-50 rounded-lg hover:bg-slate-700 transition"
               >
                 Cancel
               </button>
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={handleSaveModal}
-                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 rounded-lg transition"
+                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
               >
-                Save Certification
+                {isSaving ? 'Saving...' : 'Save Certification'}
               </button>
             </div>
           </div>

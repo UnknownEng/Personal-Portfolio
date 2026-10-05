@@ -57,6 +57,10 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
 
+  React.useEffect(() => {
+    setItems(gallery || []);
+  }, [gallery]);
+
   const handleOpenAdd = () => {
     setIsNew(true);
     setFormData({
@@ -86,8 +90,8 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 15 * 1024 * 1024) {
-      onShowToast('error', 'Image size must be less than 15MB');
+    if (file.size > 10 * 1024 * 1024) {
+      onShowToast('error', 'Image size must be less than 10MB');
       return;
     }
 
@@ -110,8 +114,14 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
         body: data,
       });
 
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server response error (${res.status})` };
+      }
+
+      if (res.ok && resJson?.success && resJson?.media) {
         setFormData((prev) => ({
           ...prev,
           imageUrl: resJson.media.url,
@@ -119,7 +129,7 @@ export const GalleryManager: React.FC<GalleryManagerProps> = ({
         }));
         onShowToast('success', 'Image uploaded successfully!');
       } else {
-        onShowToast('error', resJson.error || 'Upload failed');
+        onShowToast('error', resJson?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');

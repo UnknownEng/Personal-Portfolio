@@ -3,6 +3,7 @@ import { Image as ImageIcon, Upload, Trash2, Copy, Check, ExternalLink, FileText
 import { MediaFile } from '../../types/portfolio';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { useAuth } from '../../context/AuthContext';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface MediaManagerProps {
   media: MediaFile[];
@@ -53,12 +54,18 @@ export const MediaManager: React.FC<MediaManagerProps> = ({
         body: formData,
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      let data: any = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = { error: `Server response error (${res.status})` };
+      }
+
+      if (res.ok && data?.success && data?.media) {
         onMediaUploaded(data.media);
         onShowToast('success', `File "${file.name}" uploaded successfully!`);
       } else {
-        onShowToast('error', data.error || 'Upload failed');
+        onShowToast('error', data?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');
@@ -185,15 +192,17 @@ export const MediaManager: React.FC<MediaManagerProps> = ({
                     )}
                   </button>
 
-                  <a
-                    href={file.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1 rounded bg-[#090E1A] hover:bg-slate-800 text-slate-400 hover:text-white transition"
-                    title="View Full File"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  {isSafeUrl(file.url) && (
+                    <a
+                      href={sanitizeUrl(file.url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1 rounded bg-[#090E1A] hover:bg-slate-800 text-slate-400 hover:text-white transition"
+                      title="View Full File"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
 
                   <button
                     onClick={() => setDeleteConfirmId(file.id)}

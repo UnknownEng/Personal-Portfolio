@@ -130,18 +130,29 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const res = await fetch(endpoint, { headers });
       if (res.ok) {
         const json = await res.json();
-        setData(json);
-        applyThemeTokens(json.theme);
+        setData((prev) => ({
+          ...initialPortfolioData,
+          ...prev,
+          ...json,
+          contactMessages: json.contactMessages ?? prev.contactMessages ?? initialPortfolioData.contactMessages ?? [],
+          media: json.media ?? prev.media ?? initialPortfolioData.media ?? [],
+          projects: json.projects ?? prev.projects ?? initialPortfolioData.projects ?? [],
+          research: json.research ?? prev.research ?? initialPortfolioData.research ?? [],
+          skills: json.skills ?? prev.skills ?? initialPortfolioData.skills ?? [],
+        }));
+        if (json.theme) {
+          applyThemeTokens(json.theme);
+        }
         setError(null);
       } else {
-        // Fallback to initial data if backend not reachable yet
-        setData(initialPortfolioData);
-        applyThemeTokens(initialPortfolioData.theme);
+        const errorMsg = `Server response error (${res.status}): Failed to load portfolio`;
+        console.warn(errorMsg);
+        setError(errorMsg);
       }
     } catch (err: any) {
-      console.warn('Backend unavailable, using initial CV portfolio data:', err.message);
-      setData(initialPortfolioData);
-      applyThemeTokens(initialPortfolioData.theme);
+      const errorMsg = err.message || 'Network error connecting to backend';
+      console.warn('Backend temporarily unreachable, preserving current portfolio state:', errorMsg);
+      setError(errorMsg);
     } finally {
       setIsLoading(false);
     }
@@ -184,14 +195,24 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       });
 
       if (!res.ok) {
-        const errJson = await res.json();
+        const errJson = await res.json().catch(() => ({ error: 'Failed to save section' }));
         return { success: false, error: errJson.error || 'Failed to save section' };
       }
 
-      const updated = await res.json();
-      setData(updated);
-      if (updated.theme) {
-        applyThemeTokens(updated.theme);
+      const updated = await res.json().catch(() => null);
+      if (updated && typeof updated === 'object') {
+        setData((prev) => ({
+          ...prev,
+          ...updated,
+          contactMessages: updated.contactMessages ?? prev.contactMessages ?? [],
+          media: updated.media ?? prev.media ?? [],
+          projects: updated.projects ?? prev.projects ?? [],
+          research: updated.research ?? prev.research ?? [],
+          skills: updated.skills ?? prev.skills ?? [],
+        }));
+        if (updated.theme) {
+          applyThemeTokens(updated.theme);
+        }
       }
       return { success: true };
     } catch (err: any) {
@@ -201,7 +222,10 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   // Save entire portfolio
   const saveAll = async (newData: PortfolioData) => {
-    setData(newData);
+    setData((prev) => ({
+      ...newData,
+      contactMessages: newData.contactMessages ?? prev.contactMessages ?? [],
+    }));
     applyThemeTokens(newData.theme);
 
     if (!token) return { success: false, error: 'Authentication required' };

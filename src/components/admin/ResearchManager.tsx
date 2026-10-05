@@ -38,6 +38,10 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
   const [saving, setSaving] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    setItems(research || []);
+  }, [research]);
+
   // Form State
   const [formData, setFormData] = useState<Partial<ProjectItem>>({});
   const [modalTab, setModalTab] = useState<'basic' | 'methodology' | 'tags' | 'links'>('basic');

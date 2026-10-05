@@ -4,6 +4,7 @@ export interface AdminUser {
   email: string;
   passwordHash: string;
   createdAt: string;
+  tokenVersion?: number;
 }
 
 export interface AuthResponse {

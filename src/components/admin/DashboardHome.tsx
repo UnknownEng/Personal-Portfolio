@@ -24,16 +24,17 @@ interface DashboardHomeProps {
 }
 
 export const DashboardHome: React.FC<DashboardHomeProps> = ({ data, onNavigateTab }) => {
-  const publishedProjects = data.projects.filter(p => p.status === 'published').length;
-  const draftProjects = data.projects.filter(p => p.status === 'draft').length;
-  const researchPapers = (data.research || []).length;
-  const totalSkills = data.skills.length;
-  const activeSkills = data.skills.filter(s => s.enabled).length;
-  const publishedExperience = data.experience.filter(e => e.status === 'published').length;
-  const educationEntries = data.education.length;
-  const certificationsCount = data.certifications.length;
-  const achievementsCount = data.achievements.length;
-  const unreadMessages = data.contactMessages.filter(m => !m.read).length;
+  const publishedProjects = (data?.projects || []).filter(p => p.status === 'published').length;
+  const draftProjects = (data?.projects || []).filter(p => p.status === 'draft').length;
+  const researchPapers = (data?.research || []).length;
+  const totalSkills = (data?.skills || []).length;
+  const activeSkills = (data?.skills || []).filter(s => s.enabled).length;
+  const publishedExperience = (data?.experience || []).filter(e => e.status === 'published').length;
+  const educationEntries = (data?.education || []).length;
+  const certificationsCount = (data?.certifications || []).length;
+  const achievementsCount = (data?.achievements || []).length;
+  const messages = data?.contactMessages || [];
+  const unreadMessages = messages.filter(m => !m.read).length;
 
   const statCards = [
     {
@@ -187,7 +188,7 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({ data, onNavigateTa
             <div className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-cyan-400" />
               <h3 className="text-sm font-bold text-white font-sans uppercase tracking-wider">
-                Recent Inquiries ({data.contactMessages.length})
+                Recent Inquiries ({messages.length})
               </h3>
             </div>
             {unreadMessages > 0 && (
@@ -197,13 +198,13 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({ data, onNavigateTa
             )}
           </div>
 
-          {data.contactMessages.length === 0 ? (
+          {messages.length === 0 ? (
             <div className="py-12 text-center text-slate-500 font-mono text-xs">
               No inquiries received yet. Visitors submitting messages on the public contact form will appear here.
             </div>
           ) : (
             <div className="space-y-3">
-              {data.contactMessages.slice(0, 4).map((msg) => (
+              {messages.slice(0, 4).map((msg) => (
                 <div
                   key={msg.id}
                   onClick={() => onNavigateTab('messages')}
@@ -228,12 +229,12 @@ export const DashboardHome: React.FC<DashboardHomeProps> = ({ data, onNavigateTa
                 </div>
               ))}
 
-              {data.contactMessages.length > 4 && (
+              {messages.length > 4 && (
                 <button
                   onClick={() => onNavigateTab('messages')}
                   className="w-full text-center py-2 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition"
                 >
-                  View all {data.contactMessages.length} messages →
+                  View all {messages.length} messages →
                 </button>
               )}
             </div>

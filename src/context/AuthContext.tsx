@@ -24,7 +24,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('mansoor_admin_token'));
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const stored = localStorage.getItem('mansoor_admin_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isInitialized, setIsInitialized] = useState<boolean>(true);
   const [allowDevFallback, setAllowDevFallback] = useState<boolean>(false);
@@ -60,10 +67,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user);
-        } else {
+          const userObj: User | null = data.user || (data.id && data.username ? { id: data.id, username: data.username, email: data.email } : null);
+          if (userObj) {
+            setUser(userObj);
+            localStorage.setItem('mansoor_admin_user', JSON.stringify(userObj));
+          } else {
+            localStorage.removeItem('mansoor_admin_token');
+            localStorage.removeItem('mansoor_admin_user');
+            setToken(null);
+            setUser(null);
+          }
+        } else if (res.status === 401 || res.status === 403) {
           // Token expired or invalid
           localStorage.removeItem('mansoor_admin_token');
+          localStorage.removeItem('mansoor_admin_user');
           setToken(null);
           setUser(null);
         }
@@ -90,9 +107,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, error: data.error || 'Failed to initialize administrator account.' };
       }
 
+      const userObj: User = data.user || { id: data.id, username: data.username, email: data.email };
       localStorage.setItem('mansoor_admin_token', data.token);
+      localStorage.setItem('mansoor_admin_user', JSON.stringify(userObj));
       setToken(data.token);
-      setUser(data.user);
+      setUser(userObj);
       setIsInitialized(true);
       return { success: true };
     } catch (err: any) {
@@ -119,9 +138,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
       }
 
+      const userObj: User = data.user || { id: data.id, username: data.username, email: data.email };
       localStorage.setItem('mansoor_admin_token', data.token);
+      localStorage.setItem('mansoor_admin_user', JSON.stringify(userObj));
       setToken(data.token);
-      setUser(data.user);
+      setUser(userObj);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Network error during login' };
@@ -130,6 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     localStorage.removeItem('mansoor_admin_token');
+    localStorage.removeItem('mansoor_admin_user');
     setToken(null);
     setUser(null);
   };

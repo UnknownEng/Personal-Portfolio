@@ -19,6 +19,11 @@ export const LeadershipManager: React.FC<LeadershipManagerProps> = ({
   const [editingItem, setEditingItem] = useState<LeadershipItem | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  React.useEffect(() => {
+    setItems(leadership || []);
+  }, [leadership]);
 
   const [formData, setFormData] = useState<Partial<LeadershipItem>>({});
   const [bulletsText, setBulletsText] = useState('');
@@ -48,6 +53,7 @@ export const LeadershipManager: React.FC<LeadershipManagerProps> = ({
   };
 
   const handleSaveModal = async () => {
+    if (isSaving) return;
     if (!formData.role || !formData.organization) {
       onShowToast('error', 'Role and organization are required');
       return;
@@ -75,14 +81,20 @@ export const LeadershipManager: React.FC<LeadershipManagerProps> = ({
       nextItems = items.map((l) => (l.id === updatedItem.id ? updatedItem : l));
     }
 
-    setItems(nextItems);
-    setEditingItem(null);
-
-    const res = await onSaveLeadership(nextItems);
-    if (res.success) {
-      onShowToast('success', `Leadership entry saved!`);
-    } else {
-      onShowToast('error', res.error || 'Failed to save leadership');
+    setIsSaving(true);
+    try {
+      const res = await onSaveLeadership(nextItems);
+      if (res.success) {
+        setItems(nextItems);
+        setEditingItem(null);
+        onShowToast('success', `Leadership entry saved!`);
+      } else {
+        onShowToast('error', res.error || 'Failed to save leadership');
+      }
+    } catch (err: any) {
+      onShowToast('error', err.message || 'Failed to save leadership');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -267,17 +279,19 @@ export const LeadershipManager: React.FC<LeadershipManagerProps> = ({
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1E293B]">
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={() => setEditingItem(null)}
-                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 rounded-lg"
+                className="px-4 py-2 text-xs font-mono text-slate-400 bg-slate-800 disabled:opacity-50 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 type="button"
+                disabled={isSaving}
                 onClick={handleSaveModal}
-                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 rounded-lg"
+                className="px-5 py-2 text-xs font-mono font-bold text-slate-950 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition"
               >
-                Save Role
+                {isSaving ? 'Saving...' : 'Save Role'}
               </button>
             </div>
           </div>

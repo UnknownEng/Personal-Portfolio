@@ -17,9 +17,11 @@ import {
   Globe,
   Sliders,
   CheckCircle2,
+  BookOpen,
 } from 'lucide-react';
 import { PortfolioData, ShowcaseItem, ProjectItem, EducationItem, ExperienceItem, GalleryItem } from '../../types/portfolio';
 import { useAuth } from '../../context/AuthContext';
+import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
 interface SectionMediaManagerProps {
   data: PortfolioData;
@@ -30,11 +32,11 @@ interface SectionMediaManagerProps {
   onShowToast: (type: 'success' | 'error' | 'info', message: string) => void;
 }
 
-type SectionCategory = 'all' | 'showcase' | 'projects' | 'education' | 'experience' | 'hero_about' | 'gallery';
+type SectionCategory = 'all' | 'showcase' | 'projects' | 'research' | 'education' | 'experience' | 'hero_about' | 'gallery';
 
 interface MediaEntry {
   id: string;
-  category: 'showcase' | 'projects' | 'education' | 'experience' | 'hero' | 'about' | 'gallery';
+  category: 'showcase' | 'projects' | 'research' | 'education' | 'experience' | 'hero' | 'about' | 'gallery';
   sectionLabel: string;
   badgeColor: string;
   title: string;
@@ -269,7 +271,28 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
       };
     }),
 
-    // 3. Education Cards
+    // 3. Research Papers
+    ...(data.research || []).map((r, idx) => {
+      const fallbackList = [
+        'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+      ];
+      const fallback = fallbackList[idx % fallbackList.length];
+      return {
+        id: r.id,
+        category: 'research' as const,
+        sectionLabel: `Research Paper (${idx + 1})`,
+        badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+        title: r.title,
+        subtitle: `${r.category} • ${r.projectDate}`,
+        currentUrl: r.projectImage || fallback,
+        defaultFallbackUrl: fallback,
+        aspectRatio: 'aspect-video',
+        aspectDesc: '16:9 Banner (Technical Publication & Review)',
+      };
+    }),
+
+    // 4. Education Cards
     ...data.education.map((edu, idx) => {
       const eduFallbacks = [
         'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
@@ -364,6 +387,7 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
   const filteredEntries = entries.filter((entry) => {
     if (activeCategory === 'showcase' && entry.category !== 'showcase') return false;
     if (activeCategory === 'projects' && entry.category !== 'projects') return false;
+    if (activeCategory === 'research' && entry.category !== 'research') return false;
     if (activeCategory === 'education' && entry.category !== 'education') return false;
     if (activeCategory === 'experience' && entry.category !== 'experience') return false;
     if (activeCategory === 'hero_about' && entry.category !== 'hero' && entry.category !== 'about') return false;
@@ -398,8 +422,18 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
         } else {
           onShowToast('error', res.error || 'Failed to update showcase picture');
         }
+      } else if (entry.category === 'research') {
+        const nextResearch = (data.research || []).map((r) =>
+          r.id === entry.id ? { ...r, projectImage: cleanUrl } : r
+        );
+        const res = await onSaveSection('research', nextResearch);
+        if (res.success) {
+          onShowToast('success', `Updated picture for research paper "${entry.title}"!`);
+        } else {
+          onShowToast('error', res.error || 'Failed to update research picture');
+        }
       } else if (entry.category === 'projects') {
-        const nextProjects = data.projects.map((p) =>
+        const nextProjects = (data.projects || []).map((p) =>
           p.id === entry.id ? { ...p, projectImage: cleanUrl } : p
         );
         const res = await onSaveSection('projects', nextProjects);
@@ -409,7 +443,7 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
           onShowToast('error', res.error || 'Failed to update project picture');
         }
       } else if (entry.category === 'education') {
-        const nextEducation = data.education.map((edu) =>
+        const nextEducation = (data.education || []).map((edu) =>
           edu.id === entry.id ? { ...edu, image: cleanUrl } : edu
         );
         const res = await onSaveSection('education', nextEducation);
@@ -419,7 +453,7 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
           onShowToast('error', res.error || 'Failed to update education picture');
         }
       } else if (entry.category === 'experience') {
-        const nextExperience = data.experience.map((exp) =>
+        const nextExperience = (data.experience || []).map((exp) =>
           exp.id === entry.id ? { ...exp, image: cleanUrl } : exp
         );
         const res = await onSaveSection('experience', nextExperience);
@@ -429,16 +463,16 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
           onShowToast('error', res.error || 'Failed to update experience picture');
         }
       } else if (entry.category === 'hero') {
-        const nextHero = { ...data.hero, profileImage: cleanUrl };
-        const res = await onSaveSection('hero', nextHero);
+        const nextHero = { ...(data.hero || {}), profileImage: cleanUrl };
+        const res = await onSaveSection('hero', nextHero as any);
         if (res.success) {
           onShowToast('success', 'Updated Hero profile photo!');
         } else {
           onShowToast('error', res.error || 'Failed to update hero photo');
         }
       } else if (entry.category === 'about') {
-        const nextAbout = { ...data.about, profileImage: cleanUrl };
-        const res = await onSaveSection('about', nextAbout);
+        const nextAbout = { ...(data.about || {}), profileImage: cleanUrl };
+        const res = await onSaveSection('about', nextAbout as any);
         if (res.success) {
           onShowToast('success', 'Updated About profile photo!');
         } else {
@@ -478,8 +512,9 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
     const target = currentUploadTargetRef.current;
     if (!file || !target) return;
 
-    if (file.size > 20 * 1024 * 1024) {
-      onShowToast('error', 'File size exceeds maximum 20MB limit');
+    if (file.size > 10 * 1024 * 1024) {
+      onShowToast('error', 'File size exceeds maximum allowed 10MB limit');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
@@ -496,19 +531,26 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
         body: formData,
       });
 
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
+      let resJson: any = null;
+      try {
+        resJson = await res.json();
+      } catch {
+        resJson = { error: `Server response error (${res.status})` };
+      }
+
+      if (res.ok && resJson?.success && resJson?.media?.url) {
         const uploadedUrl = resJson.media.url;
         await applyPictureUpdate(target, uploadedUrl);
         onShowToast('success', `File "${file.name}" uploaded & applied to ${target.sectionLabel}!`);
       } else {
-        onShowToast('error', resJson.error || 'Upload failed');
+        onShowToast('error', resJson?.error || 'Upload failed');
       }
     } catch (err: any) {
       onShowToast('error', err.message || 'Upload error');
     } finally {
       setUploadingId(null);
       currentUploadTargetRef.current = null;
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -552,7 +594,8 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
           {[
             { id: 'all', label: 'All Sections', count: entries.length, icon: Sliders },
             { id: 'showcase', label: 'Showcase Carousel', count: currentShowcase.length, icon: Sparkles },
-            { id: 'projects', label: 'Projects (9 CV)', count: data.projects.length, icon: Layers },
+            { id: 'projects', label: 'Projects (CV & Startups)', count: data.projects.length, icon: Layers },
+            { id: 'research', label: 'Research Papers', count: (data.research || []).length, icon: BookOpen },
             { id: 'education', label: 'Education Cards', count: data.education.length, icon: GraduationCap },
             { id: 'experience', label: 'Experience Cards', count: data.experience.length, icon: Briefcase },
             { id: 'hero_about', label: 'Profile & Avatars', count: 2, icon: User },
@@ -654,9 +697,9 @@ export const SectionMediaManager: React.FC<SectionMediaManagerProps> = ({
                 )}
 
                 {/* External link button */}
-                {entry.currentUrl && (
+                {entry.currentUrl && isSafeUrl(entry.currentUrl) && (
                   <a
-                    href={entry.currentUrl}
+                    href={sanitizeUrl(entry.currentUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-black/60 text-slate-300 hover:text-white backdrop-blur-xs transition z-10"
