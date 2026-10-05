@@ -634,7 +634,14 @@ if (fs.existsSync(DIST_DIR)) {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`[Mansoor Portfolio Backend] Secure API Server listening on port ${PORT}`);
-  console.log(`[Mansoor Portfolio Backend] Storage file: ${path.resolve(__dirname, '../data/portfolio.json')}`);
-});
+// Vercel serverless compatibility:
+// - On Vercel, the platform invokes the exported Express app.
+// - Locally, keep the existing standalone Express server.
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`[Mansoor Portfolio Backend] Secure API Server listening on port ${PORT}`);
+    console.log(`[Mansoor Portfolio Backend] Storage file: ${path.resolve(__dirname, '../data/portfolio.json')}`);
+  });
+}
+
+export default app;
