@@ -9,11 +9,21 @@ import { hashPassword } from './auth.ts';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_DIR = path.resolve(__dirname, '../data');
+// Vercel serverless functions cannot use the deployment directory as
+// persistent writable storage. Use /tmp at runtime on Vercel.
+// Local development continues to use the project's data/ and uploads/ directories.
+const STORAGE_ROOT = process.env.VERCEL === '1'
+  ? '/tmp/portfolio-data'
+  : path.resolve(__dirname, '../data');
+
+const DATA_DIR = STORAGE_ROOT;
 const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
 const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
 const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
-const UPLOADS_DIR = path.resolve(__dirname, '../uploads');
+
+const UPLOADS_DIR = process.env.VERCEL === '1'
+  ? '/tmp/portfolio-uploads'
+  : path.resolve(__dirname, '../uploads');
 
 // Ensure directories exist
 if (!fs.existsSync(DATA_DIR)) {
