@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #22D3EE;
+    --color-primary-hover: #06B6D4;
+    --color-secondary: #3B82F6;
+    --color-secondary-hover: #2563EB;
+    --color-bg: #080B12;
+    --color-bg-secondary: #0D111C;
+    --color-card: #111827;
+    --color-card-hover: #172033;
+    --color-text: #F8FAFC;
+    --color-text-muted: #94A3B8;
+    --color-border: #1E293B;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom Tactical Engineering Backgrounds */
+.bg-tech-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
+}
+
+.bg-hud-dots {
+  background-image: radial-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Engineering Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Glowing Engineering Borders */
+.border-glow-primary {
+  box-shadow: 0 0 15px -3px rgba(34, 211, 238, 0.2);
+}
+
+.border-glow-subtle {
+  box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* Smooth motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}

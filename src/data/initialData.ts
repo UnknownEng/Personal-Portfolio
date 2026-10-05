@@ -1,0 +1,1857 @@
+import { PortfolioData, ThemeColors } from '../types/portfolio';
+
+export const THEME_PRESETS: Record<string, { name: string; colors: ThemeColors }> = {
+  cyan: {
+    name: 'Theme 01 — Engineering Cyan',
+    colors: {
+      primaryColor: '#22D3EE',
+      secondaryColor: '#3B82F6',
+      backgroundColor: '#080B12',
+      backgroundSecondaryColor: '#0D111C',
+      cardColor: '#111827',
+      textColor: '#F8FAFC',
+      mutedTextColor: '#94A3B8',
+      borderColor: '#1E293B',
+    },
+  },
+  aerospace: {
+    name: 'Theme 02 — Aerospace',
+    colors: {
+      primaryColor: '#38BDF8',
+      secondaryColor: '#64748B',
+      backgroundColor: '#0B0F19',
+      backgroundSecondaryColor: '#111827',
+      cardColor: '#1E293B',
+      textColor: '#FFFFFF',
+      mutedTextColor: '#CBD5E1',
+      borderColor: '#334155',
+    },
+  },
+  robotics: {
+    name: 'Theme 03 — Robotics',
+    colors: {
+      primaryColor: '#60A5FA',
+      secondaryColor: '#A855F7',
+      backgroundColor: '#0A0915',
+      backgroundSecondaryColor: '#120E24',
+      cardColor: '#1B1535',
+      textColor: '#F5F3FF',
+      mutedTextColor: '#A78BFA',
+      borderColor: '#2E2356',
+    },
+  },
+  minimal: {
+    name: 'Theme 04 — Minimal Stealth',
+    colors: {
+      primaryColor: '#94A3B8',
+      secondaryColor: '#64748B',
+      backgroundColor: '#030712',
+      backgroundSecondaryColor: '#0B0F17',
+      cardColor: '#111827',
+      textColor: '#FFFFFF',
+      mutedTextColor: '#9CA3AF',
+      borderColor: '#1F2937',
+    },
+  },
+  custom: {
+    name: 'Theme 05 — Custom',
+    colors: {
+      primaryColor: '#22D3EE',
+      secondaryColor: '#3B82F6',
+      backgroundColor: '#080B12',
+      backgroundSecondaryColor: '#0D111C',
+      cardColor: '#111827',
+      textColor: '#F8FAFC',
+      mutedTextColor: '#94A3B8',
+      borderColor: '#1E293B',
+    },
+  },
+};
+
+export const initialPortfolioData: PortfolioData = {
+  "siteSettings": {
+    "websiteName": "Mansoor Ahmed Rind | Engineering Portfolio",
+    "footerText": "\u00a9 2026 Mansoor Ahmed Rind. Electrical & Electronics Engineering, UAV Systems & Robotics.",
+    "defaultLanguage": "en",
+    "maintenanceMode": false,
+    "animationsEnabled": true,
+    "droneVisualizationEnabled": true,
+    "analyticsId": "",
+    "publicWebsiteUrl": "https://www.linkedin.com/in/mansoorahmedrind",
+    "lastUpdated": "2026-09-10"
+  },
+  "theme": {
+    "activePreset": "cyan",
+    "primaryColor": "#22D3EE",
+    "secondaryColor": "#3B82F6",
+    "backgroundColor": "#080B12",
+    "backgroundSecondaryColor": "#0D111C",
+    "cardColor": "#111827",
+    "textColor": "#F8FAFC",
+    "mutedTextColor": "#94A3B8",
+    "borderColor": "#1E293B",
+    "mode": "dark"
+  },
+  "seo": {
+    "websiteTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
+    "metaDescription": "Personal engineering portfolio of Mansoor Ahmed Rind - Electrical & Electronics Engineering student at NUST, Gold Medalist, specializing in UAV Electronics, Swarm Robotics, and Autonomous Navigation.",
+    "keywords": "Mansoor Ahmed Rind, Electrical Engineering, UAV Electronics, Drone Swarm, ROS, MAVROS, ArduPilot, PX4, Pixhawk, NUST Gold Medalist, Autonomous Robotics, Teknofest, Computer Vision",
+    "ogTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
+    "ogDescription": "Explore verified autonomous UAV projects, multi-drone swarm coordination research, flight-stack integration, and engineering achievements by Mansoor Ahmed Rind.",
+    "ogImage": "",
+    "favicon": ""
+  },
+  "sectionVisibility": {
+    "hero": true,
+    "statusBanner": true,
+    "about": true,
+    "skills": true,
+    "projects": true,
+    "gallery": true,
+    "experience": true,
+    "education": true,
+    "competitions": true,
+    "certifications": true,
+    "achievements": true,
+    "leadership": true,
+    "droneSchematic": true,
+    "contact": true,
+    "research": true
+  },
+  "navigation": [
+    {
+      "id": "nav-1",
+      "label": "Overview",
+      "href": "#hero",
+      "enabled": true,
+      "order": 1
+    },
+    {
+      "id": "nav-2",
+      "label": "About",
+      "href": "#about",
+      "enabled": true,
+      "order": 2
+    },
+    {
+      "id": "nav-3",
+      "label": "Skills",
+      "href": "#skills",
+      "enabled": true,
+      "order": 3
+    },
+    {
+      "id": "nav-4",
+      "label": "Projects",
+      "href": "#projects",
+      "enabled": true,
+      "order": 4
+    },
+    {
+      "id": "nav-5",
+      "label": "Experience",
+      "href": "#experience",
+      "enabled": true,
+      "order": 5
+    },
+    {
+      "id": "nav-6",
+      "label": "Competitions",
+      "href": "#competitions",
+      "enabled": true,
+      "order": 6
+    },
+    {
+      "id": "nav-7",
+      "label": "Education",
+      "href": "#education",
+      "enabled": true,
+      "order": 7
+    },
+    {
+      "id": "nav-8",
+      "label": "Contact",
+      "href": "#contact",
+      "enabled": true,
+      "order": 8
+    }
+  ],
+  "hero": {
+    "name": "Mansoor Ahmed Rind",
+    "title": "UAV Electronics & Robotics Systems Engineer",
+    "subtitle": "NUST Gold Medalist | Autonomous UAV Navigation | Swarm Robotics | Flight-Stack Integration",
+    "badge": "AUTONOMY & ROBOTICS SYSTEMS \u2022 ISLAMABAD, PK",
+    "shortIntroduction": "Bachelor\u2019s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Proven experience in multi-UAV swarm coordination, GPS-denied navigation, and embedded robotic flight stacks.",
+    "primaryButtonText": "Inspect Technical Projects",
+    "primaryButtonLink": "#projects",
+    "secondaryButtonText": "Connect on LinkedIn",
+    "secondaryButtonLink": "https://www.linkedin.com/in/mansoorahmedrind",
+    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+    "backgroundEffect": "radar",
+    "telemetryStats": {
+      "alt": "120.4 M [SIMULATED]",
+      "signal": "LINK \u2014 MAVLINK (SIM)",
+      "gps": "GNSS \u2014 3D FIX (SITL)",
+      "battery": "6S LIPO \u2014 DEMO CELL",
+      "flightTime": "28m 42s [TEST RUN]",
+      "mode": "SITL AUTO OFFBOARD"
+    }
+  },
+  "about": {
+    "sectionTitle": "Engineering Profile & Technical Focus",
+    "badge": "CORE PROFILE",
+    "bioParagraph": "Bachelor\u2019s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Highly skilled in robotics systems integration, automation, embedded systems, and full-stack web development.",
+    "secondaryBio": "Proven experience in research, development, and deployment of innovative technological solutions, with strong leadership in technical teams and student organizations. From leading autonomous disaster-relief UAV development to engineering decentralized multi-drone swarm coordination algorithms, I engineer mission-critical hardware-software systems that perform reliably in real-world scenarios.",
+    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+    "engineeringPhilosophy": "Reliable autonomy requires seamless integration between bare-metal flight hardware, real-time telemetry links, and higher-level perception pipelines. Every flight stack is engineered for determinism, fault-tolerance, and precision.",
+    "focusAreas": [
+      "Autonomous UAV Navigation & Mission Planning",
+      "Decentralized Swarm Robotics & Inter-UAV Telemetry",
+      "GPS-Denied Navigation & Computer Vision Guidance",
+      "Precision Dynamic & Static Target Landing",
+      "Embedded Hardware, Pixhawk & Flight-Stack Integration",
+      "Full-Stack Ground Control Systems (MAVLink/GCS)"
+    ],
+    "infoCards": [
+      {
+        "id": "card-1",
+        "title": "NUST Gold Medalist",
+        "subtitle": "Electrical & Electronics Engineering",
+        "description": "Recognized with Gold Medalist honors for academic excellence in Electrical & Electronics Engineering at Pakistan\u2019s premier institution (NUST, 2023\u20132027).",
+        "icon": "Award",
+        "order": 1
+      },
+      {
+        "id": "card-2",
+        "title": "Teknofest International Finalist",
+        "subtitle": "Teknofest Turkey (2024 & 2025)",
+        "description": "Finalist among 160+ international teams for Dynamic UAV Landing on Moving USVs (2025) and Anti-Drone autonomous systems (2024).",
+        "icon": "Shield",
+        "order": 2
+      },
+      {
+        "id": "card-3",
+        "title": "Team Captain & Lab Researcher",
+        "subtitle": "Team AeroMavericks & CSN Lab SEECS",
+        "description": "Founder & Team Captain of Team AeroMavericks (National Aerothon Swift Wing title) and researcher in UAV autonomy & multi-UAV swarm formations at CSN Lab.",
+        "icon": "Zap",
+        "order": 3
+      },
+      {
+        "id": "card-4",
+        "title": "International Specializations",
+        "subtitle": "UCI & University of Naples Federico II",
+        "description": "Completed non-credit specialized coursework in Internet of Things (UCI) and Autonomous Vehicle Engineering (University of Naples Federico II).",
+        "icon": "Cpu",
+        "order": 4
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "sk-1",
+      "name": "Autonomous UAV Navigation",
+      "category": "Robotics & Navigation",
+      "icon": "Compass",
+      "featured": true,
+      "order": 1,
+      "enabled": true
+    },
+    {
+      "id": "sk-2",
+      "name": "Mission Planning",
+      "category": "Robotics & Navigation",
+      "icon": "Map",
+      "featured": true,
+      "order": 2,
+      "enabled": true
+    },
+    {
+      "id": "sk-3",
+      "name": "Swarm Robotics",
+      "category": "Robotics & Navigation",
+      "icon": "Share2",
+      "featured": true,
+      "order": 3,
+      "enabled": true
+    },
+    {
+      "id": "sk-4",
+      "name": "Precision Dynamic/Static Landing",
+      "category": "Robotics & Navigation",
+      "icon": "Target",
+      "featured": true,
+      "order": 4,
+      "enabled": true
+    },
+    {
+      "id": "sk-5",
+      "name": "GPS-Denied Navigation",
+      "category": "Robotics & Navigation",
+      "icon": "Radio",
+      "featured": true,
+      "order": 5,
+      "enabled": true
+    },
+    {
+      "id": "sk-6",
+      "name": "Motion Planning",
+      "category": "Robotics & Navigation",
+      "icon": "GitBranch",
+      "featured": false,
+      "order": 6,
+      "enabled": true
+    },
+    {
+      "id": "sk-7",
+      "name": "ROS (Robot Operating System)",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 7,
+      "enabled": true
+    },
+    {
+      "id": "sk-8",
+      "name": "MAVROS",
+      "category": "Software & Frameworks",
+      "icon": "Terminal",
+      "featured": true,
+      "order": 8,
+      "enabled": true
+    },
+    {
+      "id": "sk-9",
+      "name": "PyMAVLink",
+      "category": "Software & Frameworks",
+      "icon": "Code",
+      "featured": true,
+      "order": 9,
+      "enabled": true
+    },
+    {
+      "id": "sk-10",
+      "name": "Gazebo Simulation",
+      "category": "Software & Frameworks",
+      "icon": "Box",
+      "featured": true,
+      "order": 10,
+      "enabled": true
+    },
+    {
+      "id": "sk-11",
+      "name": "ArduPilot",
+      "category": "Software & Frameworks",
+      "icon": "Sliders",
+      "featured": true,
+      "order": 11,
+      "enabled": true
+    },
+    {
+      "id": "sk-12",
+      "name": "PX4 Autopilot",
+      "category": "Software & Frameworks",
+      "icon": "Activity",
+      "featured": true,
+      "order": 12,
+      "enabled": true
+    },
+    {
+      "id": "sk-13",
+      "name": "Mission Planner",
+      "category": "Software & Frameworks",
+      "icon": "Monitor",
+      "featured": false,
+      "order": 13,
+      "enabled": true
+    },
+    {
+      "id": "sk-14",
+      "name": "QGroundControl",
+      "category": "Software & Frameworks",
+      "icon": "Crosshair",
+      "featured": false,
+      "order": 14,
+      "enabled": true
+    },
+    {
+      "id": "sk-15",
+      "name": "MAVProxy",
+      "category": "Software & Frameworks",
+      "icon": "Terminal",
+      "featured": false,
+      "order": 15,
+      "enabled": true
+    },
+    {
+      "id": "sk-16",
+      "name": "Python",
+      "category": "Programming",
+      "icon": "Terminal",
+      "featured": true,
+      "order": 16,
+      "enabled": true
+    },
+    {
+      "id": "sk-17",
+      "name": "C++",
+      "category": "Programming",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 17,
+      "enabled": true
+    },
+    {
+      "id": "sk-18",
+      "name": "OpenCV",
+      "category": "Programming",
+      "icon": "Eye",
+      "featured": true,
+      "order": 18,
+      "enabled": true
+    },
+    {
+      "id": "sk-19",
+      "name": "YOLO / YOLOv8",
+      "category": "Programming",
+      "icon": "Crosshair",
+      "featured": true,
+      "order": 19,
+      "enabled": true
+    },
+    {
+      "id": "sk-20",
+      "name": "HTML & CSS",
+      "category": "Programming",
+      "icon": "Layout",
+      "featured": false,
+      "order": 20,
+      "enabled": true
+    },
+    {
+      "id": "sk-21",
+      "name": "JavaScript",
+      "category": "Programming",
+      "icon": "FileCode",
+      "featured": false,
+      "order": 21,
+      "enabled": true
+    },
+    {
+      "id": "sk-22",
+      "name": "Pixhawk Flight Controllers",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 22,
+      "enabled": true
+    },
+    {
+      "id": "sk-23",
+      "name": "Flight-Stack Integration",
+      "category": "Embedded & Hardware",
+      "icon": "Layers",
+      "featured": true,
+      "order": 23,
+      "enabled": true
+    },
+    {
+      "id": "sk-24",
+      "name": "Raspberry Pi Onboard Systems",
+      "category": "Embedded & Hardware",
+      "icon": "Server",
+      "featured": true,
+      "order": 24,
+      "enabled": true
+    },
+    {
+      "id": "sk-25",
+      "name": "ESP32 & Arduino",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 25,
+      "enabled": true
+    },
+    {
+      "id": "sk-26",
+      "name": "UAV Electronics & Power Distribution",
+      "category": "Embedded & Hardware",
+      "icon": "Zap",
+      "featured": true,
+      "order": 26,
+      "enabled": true
+    },
+    {
+      "id": "sk-27",
+      "name": "Ubuntu / Linux",
+      "category": "Systems",
+      "icon": "Terminal",
+      "featured": true,
+      "order": 27,
+      "enabled": true
+    },
+    {
+      "id": "sk-28",
+      "name": "Kali Linux",
+      "category": "Systems",
+      "icon": "Shield",
+      "featured": false,
+      "order": 28,
+      "enabled": true
+    },
+    {
+      "id": "sk-29",
+      "name": "Raspbian OS",
+      "category": "Systems",
+      "icon": "HardDrive",
+      "featured": false,
+      "order": 29,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-1",
+      "name": "Cross-Cultural Communication & Global Operations",
+      "category": "Leadership & Social Skills",
+      "description": "Directed international internship operations onboarding 51 international interns from 15+ countries at NUST Placement Office.",
+      "icon": "Globe",
+      "featured": true,
+      "order": 30,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-2",
+      "name": "Team Captaincy & Engineering Leadership",
+      "category": "Leadership & Social Skills",
+      "description": "Founder and Captain of Team AeroMavericks and co-founder of maverick_.tech, directing multi-disciplinary engineers in hardware and AI software development.",
+      "icon": "Users",
+      "featured": true,
+      "order": 31,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-3",
+      "name": "Corporate Relations & Large-Scale Coordination",
+      "category": "Leadership & Social Skills",
+      "description": "Coordinated security, finances, registration and logistics for NUST Career Connect 2026, managing corporate relations with 150+ companies.",
+      "icon": "Briefcase",
+      "featured": true,
+      "order": 32,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-4",
+      "name": "Public Speaking & Workshop Instruction",
+      "category": "Leadership & Social Skills",
+      "description": "Delivered hands-on robotics workshops at National School & College System and directed orientation liaison onboarding 3,000+ incoming university students.",
+      "icon": "MessageSquare",
+      "featured": false,
+      "order": 33,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-5",
+      "name": "Crisis Management & Mission-Critical Operations",
+      "category": "Leadership & Social Skills",
+      "description": "Commanded live telemetry pipelines, flight-line safety protocols, and emergency recovery loops under high pressure at Teknofest Turkey and National Aerothon.",
+      "icon": "Shield",
+      "featured": true,
+      "order": 34,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-6",
+      "name": "Sponsorship Acquisition & Negotiation",
+      "category": "Leadership & Social Skills",
+      "description": "Headed Sponsorship & Operations at NUST Digital Club, successfully securing corporate sponsorships and institutional partnerships for campus technical conventions.",
+      "icon": "Award",
+      "featured": false,
+      "order": 35,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-7",
+      "name": "Agile Product Strategy & Startup Prototyping",
+      "category": "Leadership & Social Skills",
+      "description": "Rapid product development sprints, user empathy, and swift deployment of real-world beta solutions (LawerAI & Sasta Dawa Finder) under maverick_.tech.",
+      "icon": "Zap",
+      "featured": true,
+      "order": 36,
+      "enabled": true
+    },
+    {
+      "id": "sk-soc-8",
+      "name": "Multilingual Fluency & Global Collaboration",
+      "category": "Leadership & Social Skills",
+      "description": "Fluent in English (Professional Working Proficiency), Urdu (Native / Bilingual), and Sindhi (Native / Bilingual).",
+      "icon": "Languages",
+      "featured": false,
+      "order": 37,
+      "enabled": true
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-lawerai",
+      "title": "LawerAI \u2014 Intelligent Legal AI Assistant & Statute Reasoning Platform",
+      "shortDescription": "Production AI legal intelligence platform developed under maverick_.tech, providing automated statute lookup, case analysis, and document reasoning.",
+      "fullDescription": "Engineered and deployed LawerAI as an agile production beta system under maverick_.tech (sub-startup of AeroMavericks Technologies). Features conversational legal intelligence, structured statute retrieval, document analysis, and natural language query interpretation built to democratize legal accessibility.\n\nLive Deployment: https://lawerai-alpha.vercel.app/",
+      "technologies": [
+        "AI / LLMs",
+        "Next.js",
+        "TypeScript",
+        "Vector Search",
+        "Tailwind CSS",
+        "Vercel"
+      ],
+      "category": "AI Systems & Web Apps",
+      "projectImage": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/UnknownEng",
+      "liveDemoUrl": "https://lawerai-alpha.vercel.app/",
+      "documentationUrl": "https://lawerai-alpha.vercel.app/",
+      "myRole": "Founder & Full-Stack AI Engineer (maverick_.tech)",
+      "projectDate": "2026",
+      "featured": true,
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "proj-sasta-dawa",
+      "title": "Sasta Dawa Finder \u2014 Pharmaceutical Price Intelligence & Affordable Medicine Engine",
+      "shortDescription": "Pharmaceutical price transparency and generic medicine discovery engine helping patients locate affordable alternatives.",
+      "fullDescription": "Developed and launched Sasta Dawa Finder under maverick_.tech (AeroMavericks Technologies) to solve acute medicine pricing disparities. Implemented smart indexing of generic formulations, comparative dosage matching, and real-time pharmacy search routines to maximize public healthcare accessibility.\n\nLive Deployment: https://sasta-dawa-finder.vercel.app/",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Healthcare Analytics",
+        "Search Indexing",
+        "Tailwind CSS",
+        "Vercel"
+      ],
+      "category": "Healthcare & Web Systems",
+      "projectImage": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/UnknownEng",
+      "liveDemoUrl": "https://sasta-dawa-finder.vercel.app/",
+      "documentationUrl": "https://sasta-dawa-finder.vercel.app/",
+      "myRole": "Founder & Lead Developer (maverick_.tech)",
+      "projectDate": "2026",
+      "featured": true,
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "proj-1",
+      "title": "Custom Build Ground Control Station for UAV Swarms",
+      "shortDescription": "MAVLink-integrated ground control interface for real-time telemetry monitoring, simultaneous mission planning, and decentralized multi-drone formation commands.",
+      "fullDescription": "Designed a centralized, MAVLink-integrated ground control interface for real-time telemetry monitoring, simultaneous mission planning, and decentralized command of multi-drone formations. Features asynchronous telemetry ingestion, packet inspection, multi-vehicle waypoint dispatching, and dynamic formation geometry reconfiguration.",
+      "technologies": [
+        "MAVLink",
+        "Python",
+        "PyMAVLink",
+        "Telemetry Radios",
+        "UI/UX",
+        "ROS"
+      ],
+      "category": "Swarm Systems",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "System Architecture & Telemetry Integration",
+      "projectDate": "2025 \u2013 2026",
+      "featured": true,
+      "status": "published",
+      "order": 5
+    },
+    {
+      "id": "proj-2",
+      "title": "Autonomous Vision-Guided Loitering & Target Guidance UAV Prototype",
+      "shortDescription": "Vision-guided autonomous flight research platform exploring onboard optical target tracking, state estimation, and terminal guidance algorithms.",
+      "fullDescription": "Engineered a vision-guided autonomous flight research prototype utilizing onboard object detection, optical target tracking, and terminal guidance algorithms for dynamic target tracking and interception in simulated and controlled test environments. Integrated visual servoing, Kalman filter state estimation, and fail-safe trajectory recovery procedures.",
+      "technologies": [
+        "Computer Vision",
+        "YOLOv8",
+        "OpenCV",
+        "Pixhawk",
+        "PX4/ArduPilot",
+        "Embedded Linux"
+      ],
+      "category": "Autonomous Guidance",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Lead Autonomy & Guidance Engineer",
+      "projectDate": "2025",
+      "featured": true,
+      "status": "published",
+      "order": 6
+    },
+    {
+      "id": "proj-3",
+      "title": "Autonomous Interceptor UAV Platform",
+      "shortDescription": "Autonomous UAV platform designed for high-speed dynamic aerial tracking, trajectory prediction, and fast-response navigation.",
+      "fullDescription": "Developed an autonomous UAV platform for dynamic aerial tracking and response applications. Implemented real-time object classification, predictive trajectory extrapolation, and low-latency motor command modulation for rapid pursuit maneuvers.",
+      "technologies": [
+        "ROS",
+        "MAVROS",
+        "OpenCV",
+        "Pixhawk",
+        "ArduPilot",
+        "C++"
+      ],
+      "category": "Autonomous Guidance",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Lead Systems Developer",
+      "projectDate": "2024 \u2013 2025",
+      "featured": true,
+      "status": "published",
+      "order": 7
+    },
+    {
+      "id": "proj-4",
+      "title": "UAV Orthomosaic Mapping Pipeline",
+      "shortDescription": "ROS-based aerial orthomosaic mapping workflow for automated high-resolution survey and photogrammetry reconstruction.",
+      "fullDescription": "Developed a ROS-based orthomosaic mapping workflow for aerial mapping applications. Features automated grid flight pattern generation, camera trigger synchronization, geo-referenced image stitching, and elevation model generation.",
+      "technologies": [
+        "ROS",
+        "Python",
+        "Photogrammetry",
+        "GIS",
+        "QGroundControl",
+        "OpenCV"
+      ],
+      "category": "Aerial Mapping",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Workflow & Processing Engineer",
+      "projectDate": "2025",
+      "featured": false,
+      "status": "published",
+      "order": 8
+    },
+    {
+      "id": "proj-5",
+      "title": "GPS-Denied Autonomous Navigation System",
+      "shortDescription": "Vision-based optical flow and velocity-control workflows enabling reliable autonomous UAV navigation without satellite GNSS signals.",
+      "fullDescription": "Developed vision-based velocity-control workflows for autonomous UAV operation without GNSS. Employed optical flow vector analysis, feature tracking, and sensor fusion between IMU and camera sensors to maintain precise position hold and localized trajectory tracking.",
+      "technologies": [
+        "Optical Flow",
+        "ROS",
+        "MAVROS",
+        "OpenCV",
+        "PX4",
+        "EKF"
+      ],
+      "category": "Autonomous Navigation",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Autonomy Researcher",
+      "projectDate": "2025",
+      "featured": true,
+      "status": "published",
+      "order": 9
+    },
+    {
+      "id": "proj-6",
+      "title": "Multi-UAV Swarm Formation & Coordination",
+      "shortDescription": "Decentralized inter-UAV coordination and leader-follower swarm formation workflows running via peer-to-peer radio telemetry.",
+      "fullDescription": "Developed decentralized inter-UAV coordination and swarm formation workflows. Designed peer-to-peer heartbeat messaging, consensus collision avoidance, dynamic leader election, and distributed consensus algorithms verified in high-fidelity simulation.",
+      "technologies": [
+        "Swarm Robotics",
+        "Gazebo",
+        "ROS",
+        "Radio Telemetry",
+        "PyMAVLink",
+        "Python"
+      ],
+      "category": "Swarm Systems",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Swarm Autonomy Developer",
+      "projectDate": "2025 \u2013 2026",
+      "featured": true,
+      "status": "published",
+      "order": 10
+    },
+    {
+      "id": "proj-7",
+      "title": "YOLOv8 Road Crack & Defect Detection Pipeline",
+      "shortDescription": "Onboard computer-vision pipeline for intelligent road-conditioning and infrastructure defect inspection from low-altitude aerial feeds.",
+      "fullDescription": "Developed a computer-vision pipeline for intelligent road-conditioning inspection. Trained lightweight YOLOv8 models optimized for edge execution on Raspberry Pi and Jetson platforms, delivering real-time anomaly bounding boxes and severity classifications.",
+      "technologies": [
+        "YOLOv8",
+        "OpenCV",
+        "Python",
+        "Edge AI",
+        "Raspberry Pi",
+        "Embedded Linux"
+      ],
+      "category": "Computer Vision",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Computer Vision Engineer",
+      "projectDate": "2024",
+      "featured": false,
+      "status": "published",
+      "order": 11
+    },
+    {
+      "id": "proj-8",
+      "title": "Autonomous VTOL UAV Prototype",
+      "shortDescription": "System integration and transition control development for a hybrid Vertical Take-Off and Landing unmanned aerial platform.",
+      "fullDescription": "Worked on autonomous VTOL system development and integration. Engineered transition dynamics, dual-power distribution architecture, tilt-mechanism control, and mission profile automation combining hover efficiency with fixed-wing cruising range.",
+      "technologies": [
+        "VTOL",
+        "ArduPilot",
+        "Pixhawk",
+        "Aerodynamics",
+        "PWM Actuation",
+        "Mission Planner"
+      ],
+      "category": "UAV & Flight Stack",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Electronics & Autonomy Developer",
+      "projectDate": "2024 \u2013 2025",
+      "featured": false,
+      "status": "published",
+      "order": 12
+    },
+    {
+      "id": "proj-9",
+      "title": "ROS / Gazebo High-Fidelity Autonomous Flight Simulation",
+      "shortDescription": "Hardware-in-the-loop and software-in-the-loop simulation environment for ArduCopter autonomous missions.",
+      "fullDescription": "Simulated ArduCopter autonomous missions using ROS and Gazebo. Built virtual sensor plugins, wind turbulence models, and automated test benches to benchmark state-machine robustness prior to physical field trials.",
+      "technologies": [
+        "ROS",
+        "Gazebo",
+        "ArduCopter",
+        "SITL",
+        "MAVROS",
+        "Python",
+        "C++"
+      ],
+      "category": "Simulation & ROS",
+      "projectImage": "",
+      "githubUrl": "",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Simulation Engineer",
+      "projectDate": "2024",
+      "featured": false,
+      "status": "published",
+      "order": 13
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gal-1",
+      "title": "Dynamic UAV Landing on Moving USV",
+      "caption": "Teknofest 2025 Finalist \u2014 Autonomous dynamic touchdown architecture on maritime surface vessel",
+      "category": "UAV & Drones",
+      "imageUrl": "",
+      "altText": "Teknofest dynamic landing UAV flight test",
+      "relatedProjectId": "proj-1",
+      "featured": true,
+      "status": "published",
+      "order": 1,
+      "date": "2025"
+    },
+    {
+      "id": "gal-2",
+      "title": "Anti-Drone Autonomous Interceptor",
+      "caption": "Teknofest 2024 Finalist \u2014 Optical detection and pursuit testbed",
+      "category": "UAV & Drones",
+      "imageUrl": "",
+      "altText": "Autonomous interceptor drone schematic and tracking rig",
+      "relatedProjectId": "proj-2",
+      "featured": true,
+      "status": "published",
+      "order": 2,
+      "date": "2024"
+    },
+    {
+      "id": "gal-3",
+      "title": "Multi-UAV Swarm Telemetry & SITL Simulation",
+      "caption": "Gazebo simulation of decentralized swarm coordination algorithms and collision avoidance",
+      "category": "Robotics & Hardware",
+      "imageUrl": "",
+      "altText": "Swarm drone simulation Gazebo view",
+      "relatedProjectId": "proj-3",
+      "featured": true,
+      "status": "published",
+      "order": 3,
+      "date": "2025"
+    },
+    {
+      "id": "gal-4",
+      "title": "Team AeroMavericks Swift Wing Winner",
+      "caption": "National Aerothon 2025 \u2014 Medical sample transport UAV with precision delivery payload",
+      "category": "Competitions & Awards",
+      "imageUrl": "",
+      "altText": "Team AeroMavericks winning airframe and payload delivery mechanism",
+      "relatedProjectId": "proj-5",
+      "featured": true,
+      "status": "published",
+      "order": 4,
+      "date": "2025"
+    },
+    {
+      "id": "gal-5",
+      "title": "Autonomous Road Defect Inspection UAV",
+      "caption": "Aerial Robotics Lab, SINES NUST \u2014 Onboard edge machine learning camera stream integration",
+      "category": "Lab & Research",
+      "imageUrl": "",
+      "altText": "SINES Lab defect detection drone with edge computing module",
+      "relatedProjectId": "proj-6",
+      "featured": true,
+      "status": "published",
+      "order": 5,
+      "date": "2024"
+    },
+    {
+      "id": "gal-6",
+      "title": "DBFC-24 Fixed-Wing Aircraft",
+      "caption": "Design, Build and Fly Competition \u2014 Airframe structural integrity and aerodynamic test trial",
+      "category": "CAD & Engineering",
+      "imageUrl": "",
+      "altText": "DBFC-24 composite fixed wing airframe testing",
+      "relatedProjectId": "proj-7",
+      "featured": false,
+      "status": "published",
+      "order": 6,
+      "date": "2024"
+    },
+    {
+      "id": "gal-7",
+      "title": "PCAA RPAS Remote Pilot Licensure",
+      "caption": "Pakistan Civil Aviation Authority official commercial drone flight operations certification",
+      "category": "Certificates",
+      "imageUrl": "",
+      "altText": "PCAA drone operator credential",
+      "relatedCertificationId": "cert-1",
+      "featured": false,
+      "status": "published",
+      "order": 7,
+      "date": "2024"
+    },
+    {
+      "id": "gal-8",
+      "title": "Pixhawk / STM32 Avionics Testbench",
+      "caption": "Bare-metal embedded flight controller bench with telemetry radios and ESC power distribution",
+      "category": "Robotics & Hardware",
+      "imageUrl": "",
+      "altText": "Embedded autopilot flight test bench with Pixhawk and telemetry links",
+      "relatedProjectId": "proj-8",
+      "featured": false,
+      "status": "published",
+      "order": 8,
+      "date": "2024"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-maverick",
+      "company": "maverick_.tech (AeroMavericks Technologies)",
+      "position": "Founder & Lead Systems Architect",
+      "location": "Islamabad, Pakistan / Remote",
+      "startDate": "Nov 2025",
+      "endDate": "Present",
+      "current": true,
+      "description": "Founded maverick_.tech as a high-velocity venture and software engineering arm under AeroMavericks Technologies, building rapid beta systems and production AI solutions for modern legal and healthcare challenges.",
+      "responsibilities": [
+        "Founded maverick_.tech as a sub-startup under AeroMavericks Technologies, architecting rapid beta systems and AI-powered production applications for today\u2019s critical problems.",
+        "Built and launched LawerAI (https://lawerai-alpha.vercel.app/), an intelligent legal AI assistant for statute reasoning, legal document summarization, and query interpretation.",
+        "Designed and launched Sasta Dawa Finder (https://sasta-dawa-finder.vercel.app/), an open pharmaceutical price intelligence and generic medicine discovery engine solving medicine affordability.",
+        "Directed full-stack engineering, prompt pipelines, edge deployment, and cloud infrastructure on Vercel."
+      ],
+      "achievements": [
+        "Launched two operational production web systems (LawerAI & Sasta Dawa Finder) within the maverick_.tech startup ecosystem.",
+        "Established continuous deployment workflows and AI reasoning pipelines on Vercel."
+      ],
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "AI / LLM Integration",
+        "Vercel",
+        "Vector Search",
+        "Tailwind CSS",
+        "Full-Stack Architecture"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 1,
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "exp-1",
+      "company": "Team AeroMavericks",
+      "position": "Founder & Team Captain",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Nov 2025",
+      "endDate": "Present",
+      "current": true,
+      "description": "Founded and lead a premier student engineering team developing cutting-edge autonomous UAV systems.",
+      "responsibilities": [
+        "Founded and lead a student engineering team developing autonomous UAV systems, overseeing electronics design, embedded programming, system integration and flight-ready prototypes.",
+        "Led an autonomous disaster-relief UAV for National Aerothon \u201925, integrating electronics, computer vision, GPS navigation and precision-landing algorithms for medical sample collection.",
+        "Achieved 3rd Overall and the \u201cSwift Wing\u201d title after completing autonomous missions simulating hazardous medical environments."
+      ],
+      "achievements": [
+        "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon \u201925.",
+        "Engineered complete medical sample collection payload mechanism and autonomous recovery loop."
+      ],
+      "technologies": [
+        "Autonomous Navigation",
+        "Computer Vision",
+        "Precision Landing",
+        "Pixhawk",
+        "ArduPilot",
+        "UAV Electronics"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 2,
+      "image": ""
+    },
+    {
+      "id": "exp-2",
+      "company": "INTELGENCY IT Solutions",
+      "position": "Drone Swarm Engineer",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Feb 2026",
+      "endDate": "Jun 2026",
+      "current": false,
+      "description": "Engineered drone swarm architectures and multi-UAV autonomy workflows for industrial aerial robotics.",
+      "responsibilities": [
+        "Worked on drone swarm engineering and multi-UAV autonomy workflows, contributing to distributed coordination and scalable aerial robotics systems.",
+        "Formulated decentralized task allocation protocols and telemetry broadcasting structures."
+      ],
+      "achievements": [
+        "Optimized distributed multi-agent communication latency across radio mesh links."
+      ],
+      "technologies": [
+        "Drone Swarm",
+        "PyMAVLink",
+        "Distributed Systems",
+        "ROS",
+        "MAVLink",
+        "Telemetry"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 3,
+      "image": ""
+    },
+    {
+      "id": "exp-3",
+      "company": "CSN Lab, SEECS \u2014 NUST",
+      "position": "Research Student \u2014 UAV Autonomy & Swarm Systems",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Jun 2025",
+      "endDate": "Jan 2026",
+      "current": false,
+      "description": "Core research on autonomous UAV missions, decentralized communication, and GPS-denied navigation.",
+      "responsibilities": [
+        "Engineered precision dynamic and static landing workflows for autonomous UAV missions.",
+        "Implemented decentralized drone-to-drone communication using radio telemetry, enabling swarm coordination independent of a Ground Control Station.",
+        "Developed and tested multi-UAV swarm coordination algorithms in Gazebo and validated autonomy workflows in real-time flight scenarios.",
+        "Integrated onboard computer vision and autonomy pipelines for GPS-denied navigation, distributed control and intelligent aerial systems."
+      ],
+      "achievements": [
+        "Successfully proved GCS-independent swarm coordination over decentralized radio telemetry.",
+        "Validated Gazebo swarm simulations with real-time flight hardware."
+      ],
+      "technologies": [
+        "ROS",
+        "Gazebo",
+        "Radio Telemetry",
+        "Computer Vision",
+        "GPS-Denied Navigation",
+        "Swarm Coordination"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 4,
+      "image": ""
+    },
+    {
+      "id": "exp-4",
+      "company": "Team Vitesse \u2014 Teknofest Turkey",
+      "position": "Vice-Captain & Lead Electronics and Automation",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Feb 2025",
+      "endDate": "Sep 2025",
+      "current": false,
+      "description": "Directed UAV electronics and autonomous dynamic landing on moving Unmanned Surface Vehicles (USVs).",
+      "responsibilities": [
+        "Directed UAV electronics and automation for a dynamic landing system on moving Unmanned Surface Vehicles (USVs).",
+        "Coordinated cross-functional engineering efforts and mission-critical system integration, helping the team become a finalist among 160+ international teams."
+      ],
+      "achievements": [
+        "Teknofest Turkey Finalist among 160+ international university teams.",
+        "Achieved repeatable dynamic target recognition and precision touchdown on moving maritime targets."
+      ],
+      "technologies": [
+        "Dynamic Landing",
+        "USV Integration",
+        "UAV Electronics",
+        "PX4/ArduPilot",
+        "Vision Servoing"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 5,
+      "image": ""
+    },
+    {
+      "id": "exp-5",
+      "company": "Fiverr",
+      "position": "Freelance Robotics & Automation Consultant",
+      "location": "Remote",
+      "startDate": "Nov 2025",
+      "endDate": "Present",
+      "current": true,
+      "description": "Providing technical consulting on UAV autonomy, embedded hardware, and flight stack automation.",
+      "responsibilities": [
+        "Deliver UAV autonomy, embedded systems and intelligent automation solutions for international clients, covering system design, implementation, debugging and technical documentation."
+      ],
+      "achievements": [
+        "Delivered custom flight controller configurations, MAVLink scripting, and computer vision pipelines to global clients."
+      ],
+      "technologies": [
+        "UAV Autonomy",
+        "Embedded Systems",
+        "ArduPilot",
+        "MAVLink",
+        "Python",
+        "Technical Documentation"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 6,
+      "image": ""
+    },
+    {
+      "id": "exp-6",
+      "company": "Aerial Robotics Lab, SINES NUST",
+      "position": "Robotics Engineer Intern",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Jul 2024",
+      "endDate": "Sep 2024",
+      "current": false,
+      "description": "Developed UAV autonomy workflows and machine-learning aerial inspection systems.",
+      "responsibilities": [
+        "Developed and tested UAV autonomy workflows using ROS and MAVROS for GPS-based missions and ArduPilot operations.",
+        "Built an ML-enabled pothole-detection UAV system with onboard processing and server-side data transfer."
+      ],
+      "achievements": [
+        "Integrated onboard camera stream with edge inference model for automated road defect geocoding."
+      ],
+      "technologies": [
+        "ROS",
+        "MAVROS",
+        "ArduPilot",
+        "Machine Learning",
+        "Edge Computing",
+        "Telemetry"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 7,
+      "image": ""
+    },
+    {
+      "id": "exp-7",
+      "company": "Precision Newsletters by One International Services (Pvt.) Ltd",
+      "position": "Web Developer",
+      "location": "Remote",
+      "startDate": "Sep 2024",
+      "endDate": "Dec 2024",
+      "current": false,
+      "description": "Full-stack web engineering and brand digital presence development.",
+      "responsibilities": [
+        "Designed and developed a dynamic, user-centric website to enhance brand presence."
+      ],
+      "achievements": [
+        "Delivered high-performance responsive web interface with robust content delivery."
+      ],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Responsive Web Design"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 8,
+      "image": ""
+    },
+    {
+      "id": "exp-8",
+      "company": "KoreaEHT.Co",
+      "position": "Summer Intern",
+      "location": "Remote",
+      "startDate": "Jun 2024",
+      "endDate": "Aug 2024",
+      "current": false,
+      "description": "Engineering research on thermal and industrial electrical power systems.",
+      "responsibilities": [
+        "Conducted detailed research on Electric Heating Systems and EHT cables."
+      ],
+      "achievements": [
+        "Compiled comprehensive engineering reference documents on heat-tracing topologies and thermal dissipation."
+      ],
+      "technologies": [
+        "Electric Heating Systems",
+        "EHT Cables",
+        "Power Systems"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 9,
+      "image": ""
+    },
+    {
+      "id": "exp-9",
+      "company": "National School & College System",
+      "position": "Robotics Workshop Instructor",
+      "location": "Islamabad, Pakistan",
+      "startDate": "2024",
+      "endDate": "2024",
+      "current": false,
+      "description": "Technical instruction on robotics fundamentals and future applications.",
+      "responsibilities": [
+        "Delivered engaging sessions on the fundamentals of robotics and future applications."
+      ],
+      "achievements": [
+        "Mentored aspiring students in basic kinematics, microcontroller programming, and sensor integration."
+      ],
+      "technologies": [
+        "Robotics Education",
+        "Microcontrollers",
+        "Sensors & Actuators"
+      ],
+      "companyLogo": "",
+      "status": "published",
+      "order": 10,
+      "image": ""
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "degree": "Bachelor of Engineering \u2014 Electrical & Electronics Engineering",
+      "institution": "National University of Sciences and Technology (NUST)",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Sep 2023",
+      "endDate": "Aug 2027",
+      "current": true,
+      "type": "degree",
+      "description": "Undergraduate engineering program focusing on UAV electronics, autonomous control systems, embedded architectures, signals & systems, and power electronics.",
+      "gpa": "Gold Medalist",
+      "relevantCoursework": [
+        "Linear Control Systems",
+        "Embedded Systems & Microprocessors",
+        "Robotics & Autonomous Systems",
+        "Signals & Systems",
+        "Digital Logic Design",
+        "Power Electronics & Circuit Analysis"
+      ],
+      "achievements": [
+        "Honors: Gold Medalist for stellar academic excellence.",
+        "Active leadership in research laboratories and competitive engineering teams."
+      ],
+      "status": "published",
+      "order": 1,
+      "image": ""
+    },
+    {
+      "id": "edu-2",
+      "degree": "Non-Credit Specialization \u2014 Internet of Things",
+      "institution": "University of California (UCI) via Coursera",
+      "location": "Irvine, California (Online)",
+      "startDate": "2024",
+      "endDate": "2024",
+      "current": false,
+      "type": "specialization",
+      "description": "Specialization coursework: Programming of Internet of Things, sensor networks, microcontroller interfacing, and cloud telemetry.",
+      "relevantCoursework": [
+        "Programming of Internet of Things",
+        "Microcontroller Interfacing",
+        "Embedded Networking & Protocols"
+      ],
+      "achievements": [
+        "Specialization: Programming of Internet of Things."
+      ],
+      "status": "published",
+      "order": 2,
+      "image": ""
+    },
+    {
+      "id": "edu-3",
+      "degree": "Non-Credit Specialization \u2014 Autonomous Vehicle Engineering",
+      "institution": "University of Naples Federico II",
+      "location": "Naples, Italy (Online)",
+      "startDate": "2024",
+      "endDate": "2024",
+      "current": false,
+      "type": "specialization",
+      "description": "Specialization coursework: Autonomous Vehicle Engineering, kinematic dynamics, state estimation, and sensor fusion.",
+      "relevantCoursework": [
+        "Autonomous Vehicle Dynamics & Control",
+        "State Estimation & Sensor Fusion",
+        "Perception & Navigation Systems"
+      ],
+      "achievements": [
+        "Specialization: Autonomous Vehicle Engineering."
+      ],
+      "status": "published",
+      "order": 3,
+      "image": ""
+    },
+    {
+      "id": "edu-4",
+      "degree": "Non-Credit Specialization \u2014 Mastering ROS 2 for Robotics Programming",
+      "institution": "Packt",
+      "location": "Online Specialization",
+      "startDate": "2024",
+      "endDate": "2025",
+      "current": false,
+      "type": "specialization",
+      "description": "Advanced robotics programming: ROS 2 nodes, micro-ROS, DDS middleware, action servers, and real-time execution graphs.",
+      "relevantCoursework": [
+        "ROS 2 Architecture & Nodes",
+        "DDS Middleware & QoS Policies",
+        "Nav2 & Micro-ROS for Microcontrollers"
+      ],
+      "achievements": [
+        "Specialization: Mastering ROS 2 for Robotics Programming."
+      ],
+      "status": "published",
+      "order": 4,
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "name": "UAS Remote Pilot Open Category \u2014 A1+A3",
+      "issuingOrganization": "Civil Aviation Authority / European Aviation Safety Agency (EASA Standard)",
+      "date": "2024",
+      "credentialId": "UAS-A1-A3",
+      "credentialUrl": "",
+      "description": "Certified unmanned aircraft systems remote pilot for Open Category operations (A1+A3), verifying safe flight operations, airspace regulations, and risk mitigation.",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "cert-2",
+      "name": "Introduction to Nephio LFS179",
+      "issuingOrganization": "The Linux Foundation",
+      "date": "2024",
+      "credentialId": "LFS179",
+      "credentialUrl": "",
+      "description": "Cloud-native network automation and distributed edge orchestration architectures.",
+      "status": "published",
+      "order": 2
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach-1",
+      "title": "3rd Overall \u2014 National Aerothon \u201925 | Swift Wing title",
+      "organization": "National Aerothon 2025",
+      "date": "2025",
+      "description": "Achieved 3rd Overall and the \"Swift Wing\" title after completing autonomous missions simulating hazardous medical sample collection in GPS-constrained environments with an autonomous disaster-relief UAV.",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "ach-2",
+      "title": "Finalist \u2014 Teknofest Turkey 2025 | Dynamic UAV Landing on Moving USV",
+      "organization": "Teknofest Aviation, Space and Technology Festival",
+      "date": "2025",
+      "description": "Selected as international finalist among 160+ global teams for engineering an autonomous UAV landing system on a dynamically moving Unmanned Surface Vehicle.",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "ach-3",
+      "title": "Finalist \u2014 Teknofest Turkey 2024 | Anti Drone UAV",
+      "organization": "Teknofest Aviation, Space and Technology Festival",
+      "date": "2024",
+      "description": "Finalist among 160+ international teams for developing an autonomous Anti-Drone counter-UAS interceptor system.",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "ach-4",
+      "title": "Participant \u2014 IMeChE UAS Challenge 2025",
+      "organization": "Institution of Mechanical Engineers (IMechE)",
+      "date": "2025",
+      "description": "Designed and competed with an autonomous Disaster Relief UAV capable of precision payload delivery and reconnaissance.",
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "ach-5",
+      "title": "Ranked 112/200 \u2014 International Design, Build & Fly Competition 2025",
+      "organization": "DBFC International",
+      "date": "2025",
+      "description": "Competed among 200 top global aerospace universities in aircraft design, telemetry, and flight testing.",
+      "status": "published",
+      "order": 5
+    },
+    {
+      "id": "ach-6",
+      "title": "Finalist \u2014 National Design, Build & Fly Competition 2024",
+      "organization": "National DBFC",
+      "date": "2024",
+      "description": "Recognized as national finalist for electric UAV flight performance, structural reliability, and aerodynamic payload delivery.",
+      "status": "published",
+      "order": 6
+    },
+    {
+      "id": "ach-7",
+      "title": "Participant \u2014 National Engineering Robotics Competition 2024 & 2025",
+      "organization": "NERC Pakistan",
+      "date": "2024 \u2013 2025",
+      "description": "Competed in autonomous navigation, obstacle clearance, and embedded precision actuation challenges.",
+      "status": "published",
+      "order": 7
+    }
+  ],
+  "leadership": [
+    {
+      "id": "lead-1",
+      "role": "President NUST Young Student Exchange Program / Office Representative NUST Internship Program for International Students\u201926",
+      "organization": "NUST Placement Office",
+      "date": "Jun 2026 \u2013 August 2026",
+      "description": "Supported NUST international internship operations for 51 international interns from 15+ countries; led registration, onboarding and operational workflows.",
+      "bullets": [
+        "Supported NUST international internship operations for 51 international interns from 15+ countries.",
+        "Led registration, onboarding and operational workflows across international delegations."
+      ],
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "lead-2",
+      "role": "Coordinator",
+      "organization": "NUST Career Connect 2026",
+      "date": "Dec 2025 \u2013 Feb 2026",
+      "description": "Coordinated Pakistan\u2019s premier university career fair.",
+      "bullets": [
+        "Coordinated security, finances, registration and logistics for a career fair involving 150+ companies.",
+        "Managed registration workflows for 130+ companies."
+      ],
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "lead-3",
+      "role": "General Secretary / VP Operations",
+      "organization": "NUST Digital Club",
+      "date": "Sep 2025 \u2013 Jun 2026",
+      "description": "Headed operations for university-wide digital and technical society.",
+      "bullets": [
+        "Led Administration, Events, Sponsorship, Marketing and Security/Protocols teams.",
+        "Coordinated cross-functional operations across campus-wide technical conventions."
+      ],
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "lead-4",
+      "role": "Director, Liaison & Registration",
+      "organization": "NUST Orientation",
+      "date": "Jul 2025 \u2013 Sep 2025",
+      "description": "Directed registration and onboarding workflows for 3,000+ incoming students.",
+      "bullets": [
+        "Directed registration and onboarding workflows for 3,000+ incoming students.",
+        "Coordinating participants, faculty and organizing committees across campus facilities."
+      ],
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "lead-5",
+      "role": "Student Volunteer Lead & Diplomatic Conference Volunteer",
+      "organization": "International Conferences",
+      "date": "2024 \u2013 2025",
+      "description": "Volunteered across major high-level international forums.",
+      "bullets": [
+        "CONNEX\u201924 National HR Conference by PSTD \u2014 Student Volunteer Lead",
+        "CAREC by Asian Development Bank \u2014 Student Volunteer",
+        "Conference of Parties (COP 24) by UNICEF x Youth4Pak \u2014 Student Volunteer",
+        "Gender Equity and Climate Change Conference by German Cooperation x NUST \u2014 Student Volunteer"
+      ],
+      "status": "published",
+      "order": 5
+    }
+  ],
+  "socialLinks": [
+    {
+      "id": "soc-1",
+      "platform": "linkedin",
+      "label": "LinkedIn Profile",
+      "url": "https://www.linkedin.com/in/mansoorahmedrind",
+      "icon": "Linkedin",
+      "order": 1,
+      "enabled": true
+    },
+    {
+      "id": "soc-2",
+      "platform": "email",
+      "label": "Direct Email",
+      "url": "mailto:ahmedmansoorrind1210@gmail.com",
+      "icon": "Mail",
+      "order": 2,
+      "enabled": true
+    },
+    {
+      "id": "soc-3",
+      "platform": "fiverr",
+      "label": "Robotics Consulting on Fiverr",
+      "url": "https://www.fiverr.com",
+      "icon": "Briefcase",
+      "order": 3,
+      "enabled": true
+    },
+    {
+      "id": "soc-github",
+      "platform": "github",
+      "label": "GitHub Profile",
+      "url": "https://github.com/UnknownEng",
+      "icon": "Github",
+      "order": 4,
+      "enabled": true
+    }
+  ],
+  "contact": {
+    "heading": "Initiate Technical Collaboration",
+    "description": "Looking to deploy autonomous UAV systems, multi-drone swarm coordination, or embedded robotics hardware? Reach out directly or dispatch an engineering inquiry below.",
+    "email": "ahmedmansoorrind1210@gmail.com",
+    "phone": "+92 327 3202419",
+    "showPhone": true,
+    "location": "Islamabad, Pakistan",
+    "linkedIn": "https://www.linkedin.com/in/mansoorahmedrind",
+    "availabilityStatus": "Available for UAV Engineering & Autonomous Systems roles",
+    "formEnabled": true
+  },
+  "contactMessages": [
+    {
+      "id": "msg-1789073520371",
+      "name": "Integration Test Recruiter",
+      "email": "recruiter@aerospace.test",
+      "subject": "Research Engineer Interview",
+      "message": "We reviewed your portfolio and NUST Gold Medalist robotics research.",
+      "createdAt": "2026-09-10T20:52:00.371Z",
+      "read": false
+    }
+  ],
+  "media": [
+    {
+      "id": "media-1789073575177",
+      "filename": "1789073575174-677234-test_schematic.png",
+      "originalName": "test_schematic.png",
+      "mimeType": "image/png",
+      "size": 33,
+      "url": "/uploads/1789073575174-677234-test_schematic.png",
+      "uploadedAt": "2026-09-10T20:52:55.177Z"
+    },
+    {
+      "id": "media-1789073551849",
+      "filename": "1789073551796-370609-test_schematic.png",
+      "originalName": "test_schematic.png",
+      "mimeType": "image/png",
+      "size": 33,
+      "url": "/uploads/1789073551796-370609-test_schematic.png",
+      "uploadedAt": "2026-09-10T20:52:31.849Z"
+    },
+    {
+      "id": "media-1789070588559",
+      "filename": "1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+      "originalName": "WhatsApp Image 2026-09-07 at 6.11.37 PM.jpeg",
+      "mimeType": "image/jpeg",
+      "size": 2537315,
+      "url": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
+      "uploadedAt": "2026-09-10T20:03:08.559Z"
+    }
+  ],
+  "showcase": [
+    {
+      "id": "showcase-vslam",
+      "title": "A Review of Visual & Visual-Inertial SLAM in Dynamic UAV Environments",
+      "subtitle": "SEECS NUST Technical Review Paper & FYP Research",
+      "date": "2026",
+      "category": "Research & Autonomy",
+      "organization": "SEECS \u2014 NUST (Advised by Dr. Moazzam Ali & Muhammad Saad Zia)",
+      "summary": "Synthesized 27 recent papers on GPS-denied VI-SLAM, categorizing detection-based, geometry-based, and semantic-geometric frameworks running on sub-2 kg UAV compute budgets.",
+      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Synthesized 27 state-of-the-art papers classifying dynamic-handling pipelines.",
+        "Prioritized techniques running under strict sub-2 kg UAV embedded compute constraints.",
+        "Highlighted essential sensor fusion realities and need for dynamic-object filtering.",
+        "Exposed the evaluation gap between ground datasets and real aerial dynamic flight."
+      ],
+      "technologies": [
+        "Visual SLAM",
+        "VI-SLAM",
+        "IMU Fusion",
+        "Dynamic Filtering",
+        "GPS-Denied",
+        "SEECS NUST"
+      ]
+    },
+    {
+      "id": "showcase-maverick",
+      "title": "maverick_.tech \u2014 High-Velocity Beta Systems Lab",
+      "subtitle": "Sub-Startup of AeroMavericks Technologies",
+      "date": "2026",
+      "category": "Startup & AI Products",
+      "organization": "maverick_.tech / AeroMavericks Technologies",
+      "summary": "Founded maverick_.tech to architect rapid beta systems for modern challenges. Built and deployed LawerAI (legal intelligence) and Sasta Dawa Finder (medicine price transparency).",
+      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "LawerAI: AI-powered legal assistant for automated statute reasoning and case analysis (lawerai-alpha.vercel.app).",
+        "Sasta Dawa Finder: Pharmaceutical price transparency and generic medicine engine (sasta-dawa-finder.vercel.app).",
+        "Continuous deployment and AI vector search workflows deployed on Vercel.",
+        "Incubated within AeroMavericks Technologies ecosystem."
+      ],
+      "technologies": [
+        "Next.js",
+        "AI / LLMs",
+        "TypeScript",
+        "Vector Search",
+        "Healthcare Tech",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "showcase-1",
+      "title": "Decentralized Multi-UAV Swarm Formation Control",
+      "subtitle": "Research & Field Deployment",
+      "date": "2025 \u2013 2026",
+      "category": "Swarm Systems",
+      "organization": "CSN Lab, NUST & INTELGENCY IT Solutions",
+      "summary": "Engineered decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms.",
+      "mediaUrl": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Implemented Reynolds flocking models and virtual leader-follower formation geometry.",
+        "Eliminated centralized single points of failure through peer-to-peer telemetry mesh.",
+        "Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests.",
+        "Achieved sub-meter formation spacing with collision-avoidance potential fields."
+      ],
+      "technologies": [
+        "MAVLink",
+        "ROS",
+        "Python",
+        "ArduPilot",
+        "Gazebo",
+        "Swarm Robotics"
+      ]
+    },
+    {
+      "id": "showcase-2",
+      "title": "Custom Ground Control Station for Multi-UAV Swarms",
+      "subtitle": "Avionics & Telemetry Command Interface",
+      "date": "2025 \u2013 2026",
+      "category": "GCS",
+      "organization": "Team AeroMavericks",
+      "summary": "Developed a centralized, MAVLink-integrated ground control application capable of simultaneous telemetry ingestion, packet inspection, and real-time waypoint mission dispatching for multi-drone fleets.",
+      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Real-time visualization of GPS coordinates, battery voltage, airspeed, and flight modes for up to 10 vehicles.",
+        "Asynchronous telemetry parser built with PyMAVLink and multi-threaded socket pipelines.",
+        "Emergency failsafe trigger broadcasting return-to-launch (RTL) or loiter commands across all aircraft."
+      ],
+      "technologies": [
+        "PyMAVLink",
+        "Python",
+        "Telemetry Radios",
+        "UI/UX",
+        "ROS"
+      ]
+    },
+    {
+      "id": "showcase-3",
+      "title": "Dynamic Precision UAV Landing on Moving Autonomous USV",
+      "subtitle": "Teknofest Turkey 2025 Finalist Project",
+      "date": "2025",
+      "category": "Teknofest",
+      "organization": "Team Vitesse \u2014 Teknofest Turkey",
+      "summary": "Engineered an autonomous visual servoing and precision landing pipeline enabling a hexacopter UAV to detect, track, and land on an autonomous moving unmanned surface vessel (USV).",
+      "mediaUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Trained visual detection algorithms for dynamic fiducial AprilTags and platform motion estimation.",
+        "Constructed Kalman filter velocity estimator to compensate for wave-induced pitch, roll, and heave.",
+        "Selected as International Finalist at Teknofest Turkey 2025."
+      ],
+      "technologies": [
+        "OpenCV",
+        "Pixhawk",
+        "ArduPilot",
+        "Visual Servoing",
+        "Precision Landing"
+      ]
+    },
+    {
+      "id": "showcase-4",
+      "title": "Autonomous Anti-Drone Interceptor UAV Platform",
+      "subtitle": "Teknofest Turkey 2024 Finalist Project",
+      "date": "2024",
+      "category": "Aerospace",
+      "organization": "Team Vitesse \u2014 Teknofest Turkey",
+      "summary": "Designed high-speed avionics, power distribution, and computer vision guidance loops for an aerial interceptor quadcopter designed to autonomously pursue rogue drones.",
+      "mediaUrl": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Integrated onboard companion computer running YOLO object detection at 30+ FPS.",
+        "Developed proportional navigation guidance algorithms to close line-of-sight velocity vectors.",
+        "Recognized as International Finalist at Teknofest Turkey 2024."
+      ],
+      "technologies": [
+        "YOLO",
+        "OpenCV",
+        "Raspberry Pi",
+        "Pixhawk",
+        "Guidance Algorithms"
+      ]
+    },
+    {
+      "id": "showcase-5",
+      "title": "Medical Sample Autonomous Delivery & Recovery UAV",
+      "subtitle": "National Aerothon \u201925 \u2014 3rd Overall & Swift Wing Award",
+      "date": "2025",
+      "category": "Aerothon",
+      "organization": "Team AeroMavericks",
+      "summary": "Architected an autonomous disaster-relief UAV system with custom payload winch mechanism, GPS precision navigation, and autonomous sample collection routines.",
+      "mediaUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon \u201925.",
+        "Designed fail-safe payload mechanism with optical confirmation and telemetry feedback.",
+        "Completed simulated hazardous medical extraction mission fully autonomously."
+      ],
+      "technologies": [
+        "Autonomous Navigation",
+        "Precision Landing",
+        "Pixhawk",
+        "ArduPilot",
+        "UAV Electronics"
+      ]
+    },
+    {
+      "id": "showcase-6",
+      "title": "Software-in-the-Loop (SITL) Gazebo & ArduPilot Simulation",
+      "subtitle": "Digital Twin Robotics Framework",
+      "date": "2025 \u2013 2026",
+      "category": "Research",
+      "organization": "CSN Lab, SEECS \u2014 NUST",
+      "summary": "Built full digital twin testing environments in Gazebo and ROS for simulating complex aerodynamic disturbances, sensor noise, GPS-denied environments, and multi-rotor dynamics.",
+      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "highlights": [
+        "Integrated multi-vehicle ArduPilot SITL instances communicating via simulated MAVLink network.",
+        "Modeled wind gusts, rotor ground effect, and camera gimbal dynamics.",
+        "Decreased physical flight testing crashes by over 80% through exhaustive SITL regression testing."
+      ],
+      "technologies": [
+        "Gazebo",
+        "ROS",
+        "SITL",
+        "ArduPilot",
+        "Linux",
+        "Python"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "res-vslam",
+      "title": "A Review of Visual and Visual-Inertial SLAM Techniques for Dynamic-Environment Localization and Mapping in Autonomous UAVs",
+      "shortDescription": "Technical review paper synthesizing 27 recent papers on GPS-denied VSLAM/VI-SLAM under dynamic environments for sub-2 kg UAV companion computers.",
+      "fullDescription": "What started as exploratory research for my Final Year Project three days ago has rapidly evolved into a complete technical review paper (short article). Titled \"A Review of Visual and Visual-Inertial SLAM Techniques for Dynamic-Environment Localization and Mapping in Autonomous UAVs,\" the paper dives deep into the challenge of GPS-denied navigation in the real, moving world.\n\nMost classical VSLAM pipelines operate on a flawed assumption: that the environment remains perfectly static. In reality, UAVs encounter pedestrians, moving vehicles, and wind-blown objects that severely degrade map consistency and pose estimation.\n\nTo understand the current frontier of this problem, I synthesized 27 recent papers and broke down the landscape:\n1. Categorization: Existing dynamic-handling strategies were classified into detection-based, geometry-based, and hybrid semantic-geometric frameworks.\n2. Hardware Constraints: The analysis deliberately prioritizes techniques capable of running on the strict compute and power budgets of sub-2 kg UAV platforms, rather than relying on heavy desktop-class GPUs.\n3. Sensor Fusion Realities: The review highlights that while IMU fusion in VI-SLAM is critical for handling rapid aerial maneuvers and bridging brief occlusions, it still requires explicit dynamic-object filtering to maintain long-term accuracy.\n4. The Evaluation Gap: The paper identifies a significant lack of real-world aerial benchmarking, as most dynamic-SLAM systems are still validated on ground-robot or handheld datasets like TUM RGB-D instead of actual flight data.\n\nThis literature review establishes the exact trajectory for my Final Year Project at the School of Electrical Engineering and Computer Science (SEECS) at NUST (Advisor: Dr. Muhammad Moazzam Ali, Co-Advisor: Muhammad Saad Zia).",
+      "technologies": [
+        "Visual SLAM",
+        "VI-SLAM",
+        "IMU Sensor Fusion",
+        "Dynamic Filtering",
+        "Semantic Segmentation",
+        "GPS-Denied Navigation",
+        "SEECS NUST"
+      ],
+      "category": "Technical Review (FYP)",
+      "projectImage": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/UnknownEng",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Lead Author & FYP Researcher (SEECS NUST)",
+      "projectDate": "2026",
+      "featured": true,
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "res-nav2",
+      "title": "A Layered ROS 2/Nav2 Architecture for Fail-Safe Indoor UAV Navigation with Deterministic Dynamic-Obstacle Braking",
+      "shortDescription": "Peer-reviewed research architecture utilizing ROS 2 and Nav2 for deterministic obstacle braking and collision avoidance in indoor UAV flights.",
+      "fullDescription": "Developed a layered ROS 2 and Nav2 autonomy architecture engineered specifically for fail-safe indoor UAV navigation. Integrates deterministic dynamic-obstacle braking layers into local costmaps, ensuring provable collision avoidance bounds during GPS-denied indoor trajectories.",
+      "technologies": [
+        "ROS 2",
+        "Nav2",
+        "Costmap Layers",
+        "Dynamic Braking",
+        "Indoor Autonomy",
+        "Deterministic Systems"
+      ],
+      "category": "Peer-Reviewed Paper",
+      "projectImage": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/UnknownEng",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Author & Autonomy Architect",
+      "projectDate": "2025 \u2013 2026",
+      "featured": true,
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "res-swarm",
+      "title": "Decentralized Multi-UAV Swarm Formation Control & Peer-to-Peer Consensus",
+      "shortDescription": "Field-deployed decentralized flocking protocols and multi-agent coordination for autonomous quadcopter swarms via MAVLink mesh.",
+      "fullDescription": "Researched and implemented decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms. Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests, achieving sub-meter formation spacing with collision-avoidance potential fields.",
+      "technologies": [
+        "MAVLink",
+        "ROS",
+        "Swarm Robotics",
+        "Gazebo",
+        "Distributed Consensus",
+        "ArduPilot"
+      ],
+      "category": "Swarm Research",
+      "projectImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "githubUrl": "https://github.com/UnknownEng",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Lead Research Engineer (CSN Lab)",
+      "projectDate": "2025 \u2013 2026",
+      "featured": true,
+      "status": "published",
+      "order": 3
+    }
+  ]
+};
