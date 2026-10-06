@@ -1,10 +1,7 @@
 {
   "functions": {
     "api/index.ts": {
-      "includeFiles": [
-        "data/portfolio.json",
-        "uploads/**"
-      ]
+      "includeFiles": "data/portfolio.json"
     }
   },
   "rewrites": [
