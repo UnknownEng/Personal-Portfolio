@@ -73,13 +73,18 @@ export const DetailModal: React.FC<DetailModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="modalContainer" role="dialog" aria-modal="true">
+      <div className="modalContainer" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         {/* Topbar */}
         <div className="modal-topbar">
           <div className="modal-org">
             <div className="modal-org-logo">
               {item.organizationLogo ? (
-                <img src={item.organizationLogo} alt="" />
+                <img
+                  src={item.organizationLogo}
+                  alt={item.organization || 'Organization logo'}
+                  loading="lazy"
+                  decoding="async"
+                />
               ) : item.category === 'Swarm Systems' || item.category === 'Aerospace' ? (
                 <Layers className="w-5 h-5 text-sky-500" />
               ) : item.date?.includes('Degree') || item.category === 'Education' ? (
@@ -118,7 +123,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
 
         {/* Heading & Summary */}
         <div className="modal-heading">
-          <h1>{item.title}</h1>
+          <h1 id="modal-title">{item.title}</h1>
           {(item.subtitle || item.date) && (
             <div className="modal-date">
               {item.subtitle}
@@ -139,6 +144,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 alt={item.title}
                 className="modal-media"
                 loading="lazy"
+                decoding="async"
               />
               {item.externalUrl && isSafeUrl(item.externalUrl) && (
                 <a

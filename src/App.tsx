@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { PublicPortfolio } from './pages/PublicPortfolio';
-import { AdminLogin } from './components/admin/AdminLogin';
-import { AdminLayout } from './components/admin/AdminLayout';
-import { Terminal, Shield, ArrowLeft } from 'lucide-react';
+import { Terminal, Shield, ArrowLeft, Loader2 } from 'lucide-react';
+
+// Code-split admin modules to drastically reduce initial visitor bundle size
+const AdminLogin = React.lazy(() =>
+  import('./components/admin/AdminLogin').then((module) => ({ default: module.AdminLogin }))
+);
+const AdminLayout = React.lazy(() =>
+  import('./components/admin/AdminLayout').then((module) => ({ default: module.AdminLayout }))
+);
 
 const AppRouter: React.FC = () => {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
@@ -58,15 +64,27 @@ const AppRouter: React.FC = () => {
 
   // Admin View
   if (view === 'admin') {
-    if (!isAuthenticated) {
-      return (
-        <AdminLogin
-          onLoginSuccess={() => setView('admin')}
-          onBackToSite={navigateToPublic}
-        />
-      );
-    }
-    return <AdminLayout onViewLiveSite={navigateToPublic} />;
+    return (
+      <React.Suspense
+        fallback={
+          <div className="min-h-screen bg-[#080B12] text-white flex flex-col items-center justify-center font-mono">
+            <Loader2 className="w-8 h-8 text-cyan-400 animate-spin mb-3" />
+            <div className="text-xs text-cyan-400 font-semibold tracking-wider">
+              LOADING SECURE WORKSPACE...
+            </div>
+          </div>
+        }
+      >
+        {!isAuthenticated ? (
+          <AdminLogin
+            onLoginSuccess={() => setView('admin')}
+            onBackToSite={navigateToPublic}
+          />
+        ) : (
+          <AdminLayout onViewLiveSite={navigateToPublic} />
+        )}
+      </React.Suspense>
+    );
   }
 
   // Public View

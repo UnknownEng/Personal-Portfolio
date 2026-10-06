@@ -79,6 +79,8 @@ export const Projects: React.FC<ProjectsProps> = ({
               src={getProjectImage(activeCarouselProject, carouselIndex)}
               alt={activeCarouselProject?.title}
               className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 

@@ -115,18 +115,18 @@ export const Contact: React.FC<ContactProps> = ({
           </div>
 
           {/* Quick Inquiry Form */}
-          <div className="w-full max-w-lg mt-10 p-6 sm:p-8 rounded-2xl bg-slate-900/85 backdrop-blur-xl border border-slate-800 shadow-2xl text-left">
-            <h3 className="text-base font-bold text-white mb-1 text-center">
+          <div className="contact-inquiry-box w-full max-w-lg mt-10 p-6 sm:p-8 rounded-2xl shadow-2xl text-left">
+            <h3 className="contact-inquiry-title text-base font-bold mb-1 text-center">
               {currentLang === 'zh' ? '发送在线消息' : 'Send a Direct Message'}
             </h3>
-            <p className="text-xs text-slate-400 mb-4 text-center">
+            <p className="contact-inquiry-sub text-xs mb-4 text-center">
               {currentLang === 'zh' ? '消息将直接送达我的工作信箱' : 'Inquiries will be delivered directly to my inbox'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  <label className="contact-label block text-xs font-semibold mb-1">
                     {currentLang === 'zh' ? '您的姓名' : 'Your Name'}
                   </label>
                   <input
@@ -135,11 +135,11 @@ export const Contact: React.FC<ContactProps> = ({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Alex Smith"
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-slate-500"
+                    className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  <label className="contact-label block text-xs font-semibold mb-1">
                     {currentLang === 'zh' ? '电子邮箱' : 'Email Address'}
                   </label>
                   <input
@@ -148,13 +148,13 @@ export const Contact: React.FC<ContactProps> = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="alex@domain.com"
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-slate-500"
+                    className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="contact-label block text-xs font-semibold mb-1">
                   {currentLang === 'zh' ? '主题' : 'Subject'}
                 </label>
                 <input
@@ -162,12 +162,12 @@ export const Contact: React.FC<ContactProps> = ({
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="e.g. UAV Swarm Collaboration or Research"
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-slate-500"
+                  className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="contact-label block text-xs font-semibold mb-1">
                   {currentLang === 'zh' ? '留言内容' : 'Message'}
                 </label>
                 <textarea
@@ -176,7 +176,7 @@ export const Contact: React.FC<ContactProps> = ({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Write your message here..."
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none placeholder-slate-500"
+                  className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none"
                 />
               </div>
 

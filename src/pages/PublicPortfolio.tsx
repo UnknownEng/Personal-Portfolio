@@ -55,18 +55,12 @@ export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmi
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-3 max-w-md">
           {siteSettings.websiteName} is currently updating telemetry and system software. Normal operations will resume shortly.
         </p>
-        <button
-          onClick={onNavigateAdmin}
-          className="mt-8 px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold shadow-md transition"
-        >
-          Administrator Access
-        </button>
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-screen bg-[#080b12] text-[#f8fafc] overflow-x-hidden transition-colors duration-300">
+    <div className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] overflow-x-hidden transition-colors duration-300">
       {/* Hallmark Animated Rotating Wallpaper Icons */}
       <BackgroundWallpaper />
 

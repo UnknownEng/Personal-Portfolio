@@ -24,8 +24,7 @@ const PORT = process.env.PORT || 5001;
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
   crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false, // Allows frontend assets, icons & map tiles
-  xContentTypeOptions: true, // Prevents MIME-sniffing
+  contentSecurityPolicy: false,
 }));
 
 // --- 2. CORS ACCESS CONTROL (STRICT ORIGIN ALLOWLIST) ---

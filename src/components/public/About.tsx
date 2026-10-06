@@ -48,6 +48,8 @@ export const About: React.FC<AboutProps> = ({ about }) => {
                     src={about.profileImage}
                     alt="Mansoor Ahmed Rind"
                     className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div>

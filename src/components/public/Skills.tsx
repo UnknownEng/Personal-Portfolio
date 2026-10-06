@@ -399,13 +399,15 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all ${
                   isActive
                     ? 'bg-sky-500 text-slate-950 font-bold shadow-lg shadow-sky-500/20 scale-105'
-                    : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                    : 'bg-slate-900/80 dark:bg-slate-900/80 text-slate-400 dark:text-slate-400 hover:text-white dark:hover:text-white hover:bg-slate-800 dark:hover:bg-slate-800 border border-slate-800 dark:border-slate-800'
                 }`}
               >
                 <span>{cat.label}</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                    isActive ? 'bg-slate-950 text-sky-300' : 'bg-slate-800 text-slate-300'
+                    isActive
+                      ? 'bg-slate-950 text-sky-300'
+                      : 'bg-slate-800 dark:bg-slate-800 text-slate-300 dark:text-slate-300'
                   }`}
                 >
                   {cat.count}
@@ -421,9 +423,9 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
             {filteredSkills.map((skill) => (
               <div
                 key={skill.id}
-                className="skill-item flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-sky-500/40 hover:bg-slate-900/90 transition-all duration-300 hover:scale-[1.01] group shadow-sm"
+                className="skill-item flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80 dark:border-slate-800/80 hover:border-sky-500/40 hover:bg-slate-900/90 transition-all duration-300 hover:scale-[1.01] group shadow-sm"
               >
-                <div className="skill-icon-wrap p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 group-hover:border-sky-500/40 transition shrink-0">
+                <div className="skill-icon-wrap p-2.5 rounded-xl bg-slate-950/80 dark:bg-slate-950/80 border border-slate-800 dark:border-slate-800 group-hover:border-sky-500/40 transition shrink-0">
                   {skill.icon}
                 </div>
 
@@ -433,17 +435,17 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
                       {skill.categoryLabel}
                     </span>
                     {skill.highlight && (
-                      <span className="text-[10px] font-mono text-sky-400 font-medium truncate">
+                      <span className="text-[10px] font-mono text-sky-500 dark:text-sky-400 font-medium truncate">
                         {skill.highlight}
                       </span>
                     )}
                   </div>
 
-                  <p className="font-bold text-slate-100 text-sm leading-snug group-hover:text-sky-300 transition">
+                  <p className="font-bold text-slate-100 dark:text-slate-100 text-sm leading-snug group-hover:text-sky-500 dark:group-hover:text-sky-300 transition">
                     {skill.name}
                   </p>
 
-                  <p className="text-xs text-slate-400 font-normal mt-1 leading-relaxed">
+                  <p className="text-xs text-slate-400 dark:text-slate-400 font-normal mt-1 leading-relaxed">
                     {skill.desc}
                   </p>
                 </div>

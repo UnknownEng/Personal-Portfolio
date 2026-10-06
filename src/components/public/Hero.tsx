@@ -77,7 +77,10 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="container text-center">
         {/* Subtitle / Greeting */}
         <h2 className="text-xl md:text-2xl font-semibold text-slate-400 mb-2">
-          {currentLang === 'zh' ? '你好，我是' : 'Hi, I am'} <span className="text-white font-bold">{hero.name || 'Mansoor Ahmed Rind'}</span>
+          {currentLang === 'zh' ? '你好，我是' : 'Hi, I am'}{' '}
+          <span className="text-white font-bold">
+            {hero.name || 'Mansoor Ahmed Rind'}
+          </span>
         </h2>
 
         {/* Dynamic Typewriter Title */}

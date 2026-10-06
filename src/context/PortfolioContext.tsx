@@ -46,11 +46,14 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const root = document.documentElement;
     const body = document.body;
 
+    const savedPreference = typeof window !== 'undefined' ? localStorage.getItem('mansoor_theme_preference') : null;
+    const activeMode = savedPreference || theme.mode || 'dark';
+
     // Determine effective mode: 'dark' or 'light'
     let isDark = true;
-    if (theme.mode === 'light') {
+    if (activeMode === 'light') {
       isDark = false;
-    } else if (theme.mode === 'system') {
+    } else if (activeMode === 'system') {
       isDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     } else {
       isDark = true;
@@ -64,6 +67,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!isDark) {
       root.classList.add('light');
       root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
       root.style.colorScheme = 'light';
 
       // Light mode tokens with high legibility
@@ -91,6 +95,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     } else {
       root.classList.add('dark');
       root.classList.remove('light');
+      root.setAttribute('data-theme', 'dark');
       root.style.colorScheme = 'dark';
 
       // Dark mode tokens
@@ -167,6 +172,21 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (data.theme) {
       applyThemeTokens(data.theme);
     }
+  }, [data.theme, applyThemeTokens]);
+
+  // Listen to OS system color scheme updates when mode is 'system'
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemChange = () => {
+      const savedPref = localStorage.getItem('mansoor_theme_preference');
+      const activeMode = savedPref || data.theme?.mode;
+      if (activeMode === 'system') {
+        applyThemeTokens({ ...data.theme, mode: 'system' });
+      }
+    };
+    mediaQuery.addEventListener('change', handleSystemChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemChange);
   }, [data.theme, applyThemeTokens]);
 
   // Save single section to backend
@@ -254,6 +274,9 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const applyTheme = (theme: ThemeSettings) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mansoor_theme_preference', theme.mode);
+    }
     applyThemeTokens(theme);
     setData((prev) => ({ ...prev, theme }));
   };

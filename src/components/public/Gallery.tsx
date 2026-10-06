@@ -194,6 +194,7 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                         alt={item.altText || item.title}
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                         loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       /* High-Tech Blueprint CAD Vector Placeholder */
@@ -318,6 +319,8 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                   src={activeItem.imageUrl}
                   alt={activeItem.altText || activeItem.title}
                   className="max-h-full max-w-full object-contain mx-auto"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="w-full h-80 flex flex-col items-center justify-center p-8 text-center bg-gradient-to-b from-[#090E1A] to-[#0D1528]">

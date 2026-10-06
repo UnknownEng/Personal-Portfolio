@@ -118,16 +118,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-
-            {/* Admin CMS Access */}
-            <button
-              type="button"
-              onClick={onNavigateAdmin}
-              className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-slate-500 hover:text-sky-500 transition"
-              title="CMS Admin Panel"
-            >
-              <Shield className="w-4 h-4" />
-            </button>
           </div>
         </div>
 
@@ -155,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-4 top-20 z-50 p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col gap-2">
+        <div className="md:hidden fixed inset-x-4 top-20 z-50 p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col gap-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -176,12 +166,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               {isDark ? 'Light Mode' : 'Dark Mode'}
-            </button>
-            <button
-              onClick={onNavigateAdmin}
-              className="flex items-center gap-1.5 text-xs font-semibold text-sky-600 dark:text-sky-400"
-            >
-              <Shield className="w-3.5 h-3.5" /> CMS Admin
             </button>
           </div>
         </div>
