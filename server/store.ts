@@ -12,14 +12,20 @@ const __dirname = path.dirname(__filename);
 // Vercel serverless functions cannot use the deployment directory as
 // persistent writable storage. Use /tmp at runtime on Vercel.
 // Local development continues to use the project's data/ and uploads/ directories.
+const PROJECT_DATA_DIR = path.resolve(__dirname, '../data');
+
 const STORAGE_ROOT = process.env.VERCEL === '1'
   ? '/tmp/portfolio-data'
-  : path.resolve(__dirname, '../data');
+  : PROJECT_DATA_DIR;
 
 const DATA_DIR = STORAGE_ROOT;
 const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
 const PORTFOLIO_FILE = path.join(DATA_DIR, 'portfolio.json');
 const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
+
+// On Vercel, data/portfolio.json is bundled with the deployment and is the
+// initial source of truth. Runtime writes still go to /tmp.
+const BUNDLED_PORTFOLIO_FILE = path.join(PROJECT_DATA_DIR, 'portfolio.json');
 
 const UPLOADS_DIR = process.env.VERCEL === '1'
   ? '/tmp/portfolio-uploads'
@@ -70,7 +76,34 @@ export class DataStore {
       console.error('Error loading portfolio.json, seeding initial data:', e);
     }
 
-    // Seed initial data directly from CV
+    // On Vercel, seed writable /tmp storage from the portfolio.json bundled
+    // with the deployment before falling back to initialPortfolioData.
+    if (
+      process.env.VERCEL === '1' &&
+      fs.existsSync(BUNDLED_PORTFOLIO_FILE)
+    ) {
+      try {
+        const bundledRaw = fs.readFileSync(BUNDLED_PORTFOLIO_FILE, 'utf-8');
+        const bundledData = JSON.parse(bundledRaw) as PortfolioData;
+
+        const seededData: PortfolioData = {
+          ...initialPortfolioData,
+          ...bundledData,
+          contactMessages: bundledData.contactMessages || [],
+          media: bundledData.media || [],
+          research: bundledData.research || initialPortfolioData.research || [],
+          projects: bundledData.projects || initialPortfolioData.projects || [],
+          skills: bundledData.skills || initialPortfolioData.skills || [],
+        };
+
+        atomicWriteJson(PORTFOLIO_FILE, seededData);
+        return seededData;
+      } catch (e) {
+        console.error('Error loading bundled portfolio.json:', e);
+      }
+    }
+
+    // Final fallback for a genuinely missing/corrupt portfolio file.
     atomicWriteJson(PORTFOLIO_FILE, initialPortfolioData);
     return JSON.parse(JSON.stringify(initialPortfolioData));
   }
