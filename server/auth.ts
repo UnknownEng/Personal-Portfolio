@@ -15,17 +15,28 @@ function getJwtSecret(): string {
     return process.env.JWT_SECRET.trim();
   }
 
-  const secretFile = path.resolve(__dirname, '../data/.jwt_secret');
+  const secretFile = process.env.VERCEL === '1'
+    ? '/tmp/portfolio-data/.jwt_secret'
+    : path.resolve(__dirname, '../data/.jwt_secret');
+
   try {
     if (fs.existsSync(secretFile)) {
       const stored = fs.readFileSync(secretFile, 'utf-8').trim();
       if (stored.length >= 32) return stored;
     }
     const generated = crypto.randomBytes(32).toString('hex');
+    const secretDir = path.dirname(secretFile);
+    if (!fs.existsSync(secretDir)) {
+      fs.mkdirSync(secretDir, { recursive: true });
+    }
     fs.writeFileSync(secretFile, generated, { mode: 0o600 });
     return generated;
   } catch {
-    return 'mansoor-aerospace-robotics-jwt-secret-key-2026-high-entropy';
+    // If persistent storage is unwriteable, generate and retain a high-entropy secret in process memory
+    if (!(globalThis as any).__runtimeJwtSecret) {
+      (globalThis as any).__runtimeJwtSecret = crypto.randomBytes(32).toString('hex');
+    }
+    return (globalThis as any).__runtimeJwtSecret;
   }
 }
 
@@ -56,7 +67,10 @@ export function comparePassword(plainText: string, hash: string): boolean {
 }
 
 export function generateToken(payload: { id: string; username: string; email: string; tokenVersion?: number }): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN } as jwt.SignOptions);
+  return jwt.sign(payload, JWT_SECRET, {
+    algorithm: 'HS256',
+    expiresIn: JWT_EXPIRES_IN,
+  } as jwt.SignOptions);
 }
 
 export function requireAuth(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
@@ -66,9 +80,16 @@ export function requireAuth(req: AuthenticatedRequest, res: Response, next: Next
     return;
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1]?.trim();
+  if (!token) {
+    res.status(401).json({ error: 'Unauthorized: Authorization token is required.' });
+    return;
+  }
+
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: string; username: string; email: string; tokenVersion?: number };
+    const decoded = jwt.verify(token, JWT_SECRET, {
+      algorithms: ['HS256'],
+    }) as { id: string; username: string; email: string; tokenVersion?: number };
 
     if (adminVerifier) {
       const admin = adminVerifier();
@@ -91,7 +112,7 @@ export function requireAuth(req: AuthenticatedRequest, res: Response, next: Next
       res.status(401).json({ error: 'Session expired. Please log in again.' });
       return;
     }
-    res.status(401).json({ error: 'Unauthorized: Invalid token signature.' });
+    res.status(401).json({ error: 'Unauthorized: Invalid token signature or format.' });
     return;
   }
 }

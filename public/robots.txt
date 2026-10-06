@@ -1,9 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /api/auth/
-Disallow: /api/portfolio/admin
-Disallow: /api/contact-messages
+Disallow: /api/
+Disallow: /uploads/
 
 # Sitemaps
 Sitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml

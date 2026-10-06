@@ -7,7 +7,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
-import { dataStore } from './store.ts';
+import { dataStore, UPLOADS_DIR } from './store.ts';
 import { requireAuth, comparePassword, hashPassword, generateToken, AuthenticatedRequest, setAdminVerifier } from './auth.ts';
 import { MediaFile, PortfolioData } from '../src/types/portfolio.ts';
 
@@ -20,15 +20,64 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// --- 1. ENTERPRISE HTTP SECURITY HEADERS (OWASP) ---
+// Trust reverse proxy (e.g. Vercel edge / load balancers) for accurate client IP resolution in rate limiting
+app.set('trust proxy', 1);
+
+// --- 1. ENTERPRISE HTTP SECURITY HEADERS (OWASP & SCANNERS) ---
 app.use(helmet({
-  crossOriginResourcePolicy: { policy: 'cross-origin' },
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https://images.unsplash.com",
+        "https://drive.google.com",
+        "https://*.googleusercontent.com",
+      ],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      connectSrc: ["'self'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  crossOriginEmbedderPolicy: { policy: 'credentialless' },
+  crossOriginOpenerPolicy: { policy: 'same-origin' },
+  crossOriginResourcePolicy: { policy: 'same-origin' },
+  dnsPrefetchControl: { allow: false },
+  frameguard: { action: 'deny' },
+  hsts: {
+    maxAge: 63072000,
+    includeSubDomains: true,
+    preload: true,
+  },
+  noSniff: true,
+  originAgentCluster: true,
+  permittedCrossDomainPolicies: { permittedPolicies: 'none' },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  xssFilter: true,
 }));
+
+// Restrictive Permissions-Policy header disabling unused browser capabilities
+app.use((_req: Request, res: Response, next: NextFunction) => {
+  res.setHeader(
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), serial=(), gyroscope=(), accelerometer=(), magnetometer=(), display-capture=(), midi=(), sync-xhr=()'
+  );
+  next();
+});
 
 // --- 2. CORS ACCESS CONTROL (STRICT ORIGIN ALLOWLIST) ---
 const DEFAULT_ALLOWED_ORIGINS = [
+  'https://personal-portfolio-swart-sigma-44.vercel.app',
   'http://localhost:5173',
   'http://localhost:5001',
   'http://127.0.0.1:5173',
@@ -48,78 +97,172 @@ app.use(cors({
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    return callback(new Error(`CORS blocked: Origin ${origin} is not allowed.`));
+    const corsErr = new Error(`CORS blocked: Origin ${origin} is not allowed.`);
+    (corsErr as any).status = 403;
+    return callback(corsErr);
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
+  maxAge: 86400,
 }));
 
-// Body parser with strict limits
+// Body parser with strict payload limits
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Prototype Pollution Defense: Recursively strip dangerous keys from request bodies
+function sanitizePrototypes(obj: any): any {
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) {
+    return obj.map(sanitizePrototypes);
+  }
+  const clean: Record<string, any> = {};
+  for (const key of Object.keys(obj)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      continue;
+    }
+    clean[key] = sanitizePrototypes(obj[key]);
+  }
+  return clean;
+}
+
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  if (req.body && typeof req.body === 'object') {
+    req.body = sanitizePrototypes(req.body);
+  }
+  next();
+});
 
 // --- 3. RATE LIMITING (BRUTE-FORCE & DOS SAFEGUARDS) ---
 const generalApiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 600, // 600 requests per 15 min
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
+  message: { error: 'Too many requests. Please slow down.' },
 });
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 30, // 30 login attempts
   skipSuccessfulRequests: true, // Do not penalize successful logins
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
   message: { error: 'Too many authentication attempts. Please wait 15 minutes before retrying.' },
+});
+
+const setupAdminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
+  message: { error: 'Too many administrative setup attempts. Please wait 15 minutes before retrying.' },
 });
 
 const changePasswordLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10, // 10 password change attempts
   skipSuccessfulRequests: true, // Do not penalize successful password updates
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
   message: { error: 'Too many password update attempts. Please wait 15 minutes before retrying.' },
 });
 
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 6, // 6 submissions per 15 min per IP
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
   message: { error: 'Inquiry rate limit exceeded. Please wait a few minutes before submitting another message.' },
 });
 
 const uploadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 50, // 50 uploads per 15 min
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
   message: { error: 'Asset upload rate limit exceeded. Please wait a few minutes.' },
+});
+
+const adminApiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
+  message: { error: 'Administrative API rate limit reached. Please wait.' },
 });
 
 // Apply general limiter to all API endpoints
 app.use('/api/', generalApiLimiter);
 
-// --- 4. SECURE STATIC FILE SERVING ---
-const UPLOADS_DIR = path.resolve(__dirname, '../uploads');
+// --- 4. RFC 9116 SECURITY.TXT & CRAWLER POLICIES ---
+const SECURITY_TXT_CONTENT = `Contact: mailto:ahmedmansoorrind1210@gmail.com
+Expires: 2027-10-06T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://personal-portfolio-swart-sigma-44.vercel.app/.well-known/security.txt
+Policy: https://github.com/UnknownEng/Personal-Portfolio
+`;
+
+app.get(['/.well-known/security.txt', '/security.txt'], (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.send(SECURITY_TXT_CONTENT);
+});
+
+app.get('/robots.txt', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  const robotsPath = path.resolve(__dirname, '../public/robots.txt');
+  if (fs.existsSync(robotsPath)) {
+    res.sendFile(robotsPath);
+  } else {
+    res.send("User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /uploads/\n\nSitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml\n");
+  }
+});
+
+app.get('/sitemap.xml', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  const sitemapPath = path.resolve(__dirname, '../public/sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    res.sendFile(sitemapPath);
+  } else {
+    res.status(404).send('Sitemap not found');
+  }
+});
+
+// --- 5. SECURE STATIC FILE SERVING & UPLOADS ---
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
-// Serve uploads with security headers preventing script execution
-app.use('/uploads', (req: Request, res: Response, next: NextFunction) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
-  next();
-}, express.static(UPLOADS_DIR));
+// Serve bundled uploads in production environment if present
+const BUNDLED_UPLOADS = path.resolve(__dirname, '../uploads');
+if (process.env.VERCEL === '1' && fs.existsSync(BUNDLED_UPLOADS)) {
+  app.use('/uploads', (req: Request, res: Response, next: NextFunction) => {
+    if (req.path.includes('..') || req.path.includes('\0')) {
+      res.status(400).json({ error: 'Path traversal disallowed' });
+      return;
+    }
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+    res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox; base-uri 'none'");
+    next();
+  }, express.static(BUNDLED_UPLOADS, { dotfiles: 'ignore', index: false }));
+}
 
-// --- 5. HIGH-SECURITY FILE UPLOAD VALIDATION ---
-// SVG uploads are explicitly disabled to permanently prevent Stored SVG XSS (SMIL/active script execution).
+// Serve runtime uploads with strict sandbox and execution prevention headers
+app.use('/uploads', (req: Request, res: Response, next: NextFunction) => {
+  if (req.path.includes('..') || req.path.includes('\0')) {
+    res.status(400).json({ error: 'Path traversal disallowed' });
+    return;
+  }
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+  res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox; base-uri 'none'");
+  next();
+}, express.static(UPLOADS_DIR, { dotfiles: 'ignore', index: false }));
+
+// --- 6. HIGH-SECURITY FILE UPLOAD VALIDATION & MAGIC BYTE SIGNATURES ---
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg',
   'image/png',
@@ -137,15 +280,98 @@ const ALLOWED_EXTENSIONS = new Set([
   '.pdf',
 ]);
 
+const MIME_EXTENSION_MAP: Record<string, string[]> = {
+  'image/jpeg': ['.jpg', '.jpeg'],
+  'image/png': ['.png'],
+  'image/webp': ['.webp'],
+  'image/gif': ['.gif'],
+  'application/pdf': ['.pdf'],
+};
+
+const DANGEROUS_EXTENSIONS = new Set([
+  '.exe', '.sh', '.bash', '.php', '.phtml', '.php3', '.php4', '.php5',
+  '.js', '.mjs', '.cjs', '.ts', '.html', '.htm', '.xhtml', '.svg',
+  '.xml', '.py', '.pl', '.cgi', '.bat', '.cmd', '.ps1', '.vbs',
+  '.jar', '.war', '.bin', '.dll', '.so', '.com', '.scr', '.msi',
+  '.jsp', '.asp', '.aspx', '.htaccess', '.env',
+]);
+
+function validateMagicBytes(filePath: string, ext: string): boolean {
+  try {
+    const fd = fs.openSync(filePath, 'r');
+    const buffer = Buffer.alloc(16);
+    const bytesRead = fs.readSync(fd, buffer, 0, 16, 0);
+    fs.closeSync(fd);
+
+    if (bytesRead < 4) return false;
+
+    switch (ext) {
+      case '.jpg':
+      case '.jpeg':
+        // JPEG starts with FF D8 FF
+        return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+      case '.png':
+        // PNG starts with 89 50 4E 47 0D 0A 1A 0A
+        return (
+          buffer[0] === 0x89 &&
+          buffer[1] === 0x50 &&
+          buffer[2] === 0x4e &&
+          buffer[3] === 0x47 &&
+          buffer[4] === 0x0d &&
+          buffer[5] === 0x0a &&
+          buffer[6] === 0x1a &&
+          buffer[7] === 0x0a
+        );
+      case '.gif':
+        // GIF starts with GIF87a or GIF89a
+        return (
+          buffer[0] === 0x47 &&
+          buffer[1] === 0x49 &&
+          buffer[2] === 0x46 &&
+          buffer[3] === 0x38 &&
+          (buffer[4] === 0x37 || buffer[4] === 0x39) &&
+          buffer[5] === 0x61
+        );
+      case '.webp':
+        // WebP starts with RIFF (bytes 0-3) and WEBP (bytes 8-11)
+        return (
+          buffer[0] === 0x52 &&
+          buffer[1] === 0x49 &&
+          buffer[2] === 0x46 &&
+          buffer[3] === 0x46 &&
+          bytesRead >= 12 &&
+          buffer[8] === 0x57 &&
+          buffer[9] === 0x45 &&
+          buffer[10] === 0x42 &&
+          buffer[11] === 0x50
+        );
+      case '.pdf':
+        // PDF starts with %PDF- (0x25, 0x50, 0x44, 0x46, 0x2D)
+        return (
+          buffer[0] === 0x25 &&
+          buffer[1] === 0x50 &&
+          buffer[2] === 0x44 &&
+          buffer[3] === 0x46 &&
+          buffer[4] === 0x2d
+        );
+      default:
+        return false;
+    }
+  } catch {
+    return false;
+  }
+}
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, UPLOADS_DIR);
   },
   filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
+    const rawExt = path.extname(file.originalname).toLowerCase();
+    const ext = ALLOWED_EXTENSIONS.has(rawExt) ? rawExt : '.bin';
     // Sanitize base name removing non-alphanumeric chars
     const baseName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40);
-    const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(6).toString('hex')}`;
+    const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
     cb(null, `${uniqueSuffix}-${baseName}${ext}`);
   },
 });
@@ -154,24 +380,42 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // Strict 10MB limit
   fileFilter: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
+    if (file.originalname.includes('\0')) {
+      return cb(new Error('Disallowed file: Null bytes in filename are prohibited.'));
+    }
+
+    const lowerName = file.originalname.toLowerCase();
+    // Check for double extension or embedded executable extension
+    const parts = lowerName.split('.');
+    for (let i = 1; i < parts.length; i++) {
+      if (DANGEROUS_EXTENSIONS.has('.' + parts[i])) {
+        return cb(new Error(`Disallowed file: Prohibited extension ".${parts[i]}" detected in filename.`));
+      }
+    }
+
+    const ext = path.extname(lowerName);
     if (ext === '.svg' || file.mimetype === 'image/svg+xml') {
-      return cb(new Error('Disallowed file format: SVG uploads are disabled for security reasons. Please upload PNG, JPG, WebP, or GIF.'));
+      return cb(new Error('Disallowed file format: SVG uploads are disabled for security reasons. Please upload PNG, JPG, WebP, GIF, or PDF.'));
     }
     if (!ALLOWED_EXTENSIONS.has(ext)) {
-      return cb(new Error(`Disallowed file extension "${ext}". Allowed: .jpg, .png, .webp, .gif, .pdf.`));
+      return cb(new Error(`Disallowed file extension "${ext}". Allowed: .jpg, .jpeg, .png, .webp, .gif, .pdf.`));
     }
     if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
       return cb(new Error(`Disallowed MIME type "${file.mimetype}". Allowed: image/jpeg, image/png, image/webp, image/gif, application/pdf.`));
+    }
+    const expectedExts = MIME_EXTENSION_MAP[file.mimetype];
+    if (!expectedExts || !expectedExts.includes(ext)) {
+      return cb(new Error(`MIME type "${file.mimetype}" does not match file extension "${ext}".`));
     }
     cb(null, true);
   },
 });
 
-// Input sanitization helper for contact form
+// Input sanitization helper for contact form & text inputs
 function sanitizeInput(str: any): string {
   if (typeof str !== 'string') return '';
   return str
+    .replace(/\0/g, '') // Strip null bytes
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<[^>]+>/g, '') // Strip HTML tags
     .trim();
@@ -198,16 +442,18 @@ const OBJECT_SECTIONS = new Set([
 
 function isDangerousUrl(urlStr: any): boolean {
   if (typeof urlStr !== 'string') return false;
-  const stripped = urlStr.replace(/[\u0000-\u001F\u007F-\u009F\s]/g, '').toLowerCase();
-  return (
-    stripped.startsWith('javascript:') ||
-    stripped.startsWith('data:') ||
-    stripped.startsWith('vbscript:') ||
-    stripped.startsWith('file:')
-  );
+  let decoded = urlStr;
+  try {
+    decoded = decodeURIComponent(urlStr);
+  } catch {
+    // Treat malformed URI encoding with strict suspicion
+  }
+  const stripped = decoded.replace(/[\u0000-\u001F\u007F-\u009F\s]/g, '').toLowerCase();
+  const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:', 'about:', 'blob:'];
+  return dangerousProtocols.some((proto) => stripped.startsWith(proto));
 }
 
-// --- 6. AUTHENTICATION ROUTES ---
+// --- 7. AUTHENTICATION ROUTES ---
 
 // GET /api/auth/status
 app.get('/api/auth/status', (_req: Request, res: Response): void => {
@@ -219,7 +465,7 @@ app.get('/api/auth/status', (_req: Request, res: Response): void => {
 });
 
 // POST /api/auth/setup-admin
-app.post('/api/auth/setup-admin', (req: Request, res: Response): void => {
+app.post('/api/auth/setup-admin', setupAdminLimiter, (req: Request, res: Response): void => {
   if (dataStore.hasAdmin()) {
     res.status(400).json({ error: 'Administrator account is already initialized.' });
     return;
@@ -395,7 +641,7 @@ app.post('/api/auth/change-password', requireAuth, changePasswordLimiter, (req: 
   });
 });
 
-// --- 7. PORTFOLIO DATA ROUTES ---
+// --- 8. PORTFOLIO DATA ROUTES ---
 
 // Helper to filter public view (strictly hides drafts, internal messages, and internal media registry)
 function filterPublicPortfolio(data: PortfolioData): any {
@@ -422,19 +668,19 @@ app.get('/api/portfolio', (_req: Request, res: Response): void => {
 });
 
 // GET /api/portfolio/admin (Full view with drafts)
-app.get('/api/portfolio/admin', requireAuth, (_req: Request, res: Response): void => {
+app.get('/api/portfolio/admin', requireAuth, adminApiLimiter, (_req: Request, res: Response): void => {
   const data = dataStore.getPortfolio();
   res.json(data);
 });
 
 // PUT /api/portfolio (Full update)
-app.put('/api/portfolio', requireAuth, (req: Request, res: Response): void => {
+app.put('/api/portfolio', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
   const updated = dataStore.savePortfolio(req.body);
   res.json(updated);
 });
 
 // PUT /api/portfolio/:section (Single section update with strict type and schema enforcement)
-app.put('/api/portfolio/:section', requireAuth, (req: Request, res: Response): void => {
+app.put('/api/portfolio/:section', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
   const { section } = req.params;
 
   if (!VALID_SECTIONS.has(section)) {
@@ -479,12 +725,12 @@ app.put('/api/portfolio/:section', requireAuth, (req: Request, res: Response): v
 });
 
 // POST /api/portfolio/reset
-app.post('/api/portfolio/reset', requireAuth, (_req: Request, res: Response): void => {
+app.post('/api/portfolio/reset', requireAuth, adminApiLimiter, (_req: Request, res: Response): void => {
   const resetData = dataStore.resetToDefaults();
   res.json({ success: true, portfolio: resetData });
 });
 
-// --- 8. CONTACT INQUIRY ROUTES ---
+// --- 9. CONTACT INQUIRY ROUTES ---
 
 // POST /api/contact (Public inquiry form with rate limit & HTML sanitization)
 app.post('/api/contact', contactLimiter, (req: Request, res: Response): void => {
@@ -534,13 +780,13 @@ app.post('/api/contact', contactLimiter, (req: Request, res: Response): void => 
 });
 
 // GET /api/contact-messages
-app.get('/api/contact-messages', requireAuth, (_req: Request, res: Response): void => {
+app.get('/api/contact-messages', requireAuth, adminApiLimiter, (_req: Request, res: Response): void => {
   const data = dataStore.getPortfolio();
   res.json(data.contactMessages || []);
 });
 
 // PATCH /api/contact-messages/:id/read
-app.patch('/api/contact-messages/:id/read', requireAuth, (req: Request, res: Response): void => {
+app.patch('/api/contact-messages/:id/read', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
   const { id } = req.params;
   const { read } = req.body;
   const success = dataStore.markContactMessageRead(id, read !== undefined ? Boolean(read) : true);
@@ -548,28 +794,38 @@ app.patch('/api/contact-messages/:id/read', requireAuth, (req: Request, res: Res
 });
 
 // DELETE /api/contact-messages/:id
-app.delete('/api/contact-messages/:id', requireAuth, (req: Request, res: Response): void => {
+app.delete('/api/contact-messages/:id', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
   const { id } = req.params;
   const success = dataStore.deleteContactMessage(id);
   res.json({ success });
 });
 
-// --- 9. SECURE MEDIA UPLOAD ROUTES ---
+// --- 10. SECURE MEDIA UPLOAD ROUTES ---
 
-// POST /api/upload (Authenticated + Rate-limited + MIME & Ext verified + SVG malware scan)
+// POST /api/upload (Authenticated + Rate-limited + MIME & Ext verified + Magic Byte signature checked)
 app.post('/api/upload', requireAuth, uploadLimiter, upload.single('file'), (req: Request, res: Response): void => {
   if (!req.file) {
     res.status(400).json({ error: 'No file uploaded or invalid file format.' });
     return;
   }
 
-  // SVG uploads are permanently disabled
   const ext = path.extname(req.file.filename).toLowerCase();
+  const fullPath = path.join(UPLOADS_DIR, req.file.filename);
+
+  // SVG uploads are permanently disabled to prevent stored SVG scripting
   if (req.file.mimetype === 'image/svg+xml' || ext === '.svg') {
-    const fullPath = path.join(UPLOADS_DIR, req.file.filename);
     if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
     res.status(400).json({
-      error: 'Security alert: SVG uploads are disabled for security reasons. Please upload PNG, JPG, WebP, or GIF.',
+      error: 'Security alert: SVG uploads are disabled for security reasons. Please upload PNG, JPG, WebP, GIF, or PDF.',
+    });
+    return;
+  }
+
+  // Deep Magic Bytes Inspection
+  if (!validateMagicBytes(fullPath, ext)) {
+    if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+    res.status(400).json({
+      error: `Security violation: File header magic bytes do not match declared extension "${ext}".`,
     });
     return;
   }
@@ -589,7 +845,7 @@ app.post('/api/upload', requireAuth, uploadLimiter, upload.single('file'), (req:
 });
 
 // DELETE /api/media/:id
-app.delete('/api/media/:id', requireAuth, (req: Request, res: Response): void => {
+app.delete('/api/media/:id', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
   const { id } = req.params;
   const success = dataStore.deleteMedia(id);
   res.json({ success });
@@ -601,14 +857,16 @@ app.get('/CV.pdf', (_req: Request, res: Response) => {
   if (fs.existsSync(cvPath)) {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="Mansoor_Ahmed_Rind_CV.pdf"');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
     res.sendFile(cvPath);
   } else {
     res.status(404).send('CV.pdf not found');
   }
 });
 
-// --- 10. CENTRALIZED ERROR-HANDLING MIDDLEWARE ---
+// --- 11. CENTRALIZED ERROR-HANDLING MIDDLEWARE ---
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  // Multer errors
   if (err instanceof multer.MulterError) {
     if (err.code === 'LIMIT_FILE_SIZE') {
       res.status(400).json({ error: 'File size exceeds maximum allowed 10MB limit.' });
@@ -617,11 +875,27 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     res.status(400).json({ error: `Upload error: ${err.message}` });
     return;
   }
-  if (err) {
-    console.error('[Backend Security / Server Error]:', err.message);
-    res.status(400).json({ error: err.message || 'Bad Request' });
+
+  // CORS errors
+  if (err.message && err.message.startsWith('CORS blocked:')) {
+    res.status(403).json({ error: err.message });
     return;
   }
+
+  // Handled operational / validation errors
+  if (err.message && (
+    err.message.startsWith('Disallowed file') ||
+    err.message.startsWith('Security alert') ||
+    err.message.startsWith('Security violation') ||
+    err.message.startsWith('MIME type')
+  )) {
+    res.status(400).json({ error: err.message });
+    return;
+  }
+
+  // Production safety: Never expose stack traces, internal paths, or unhandled exceptions
+  console.error('[Internal Server Error]:', err?.message || err);
+  res.status(500).json({ error: 'An unexpected internal server error occurred.' });
 });
 
 // Serve frontend dist in production
