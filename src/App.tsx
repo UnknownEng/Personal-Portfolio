@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { PublicPortfolio } from './pages/PublicPortfolio';
 import { Terminal, Shield, ArrowLeft, Loader2 } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Code-split admin modules to drastically reduce initial visitor bundle size
 const AdminLogin = React.lazy(() =>
@@ -116,6 +117,7 @@ export const App: React.FC = () => {
       <AuthProvider>
         <PortfolioProvider>
           <AppRouter />
+          <SpeedInsights />
         </PortfolioProvider>
       </AuthProvider>
     </ErrorBoundary>
