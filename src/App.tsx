@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { PublicPortfolio } from './pages/PublicPortfolio';
@@ -118,6 +119,7 @@ export const App: React.FC = () => {
           <AppRouter />
         </PortfolioProvider>
       </AuthProvider>
+      <Analytics />
     </ErrorBoundary>
   );
 };
