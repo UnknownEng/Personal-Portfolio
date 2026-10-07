@@ -5,6 +5,7 @@ import { Modal } from '../ui/Modal';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { SocialPlatformIcon } from '../ui/Icons';
 import { sanitizeUrl, isSafeUrl } from '../../utils/url';
+import { WebsiteLinkPreview } from '../ui/WebsiteLinkPreview';
 
 interface SocialLinksEditorProps {
   socialLinks: SocialLinkItem[];
@@ -314,8 +315,9 @@ export const SocialLinksEditor: React.FC<SocialLinksEditorProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
-                DESTINATION URL *
+              <label className="block text-xs font-mono font-medium text-slate-300 mb-1 flex items-center justify-between">
+                <span>DESTINATION URL *</span>
+                <span className="text-[10px] text-slate-400 font-mono">Live Website Preview Active</span>
               </label>
               <input
                 type="text"
@@ -325,6 +327,11 @@ export const SocialLinksEditor: React.FC<SocialLinksEditorProps> = ({
                 placeholder={
                   PLATFORM_PRESETS.find((p) => p.id === formData.platform)?.placeholder || 'https://...'
                 }
+              />
+              <WebsiteLinkPreview
+                url={formData.url}
+                label="PROFILE / DESTINATION PREVIEW"
+                compact={false}
               />
             </div>
 

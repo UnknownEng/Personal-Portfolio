@@ -22,6 +22,7 @@ import { ProjectItem } from '../../types/portfolio';
 import { Modal } from '../ui/Modal';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { useAuth } from '../../context/AuthContext';
+import { WebsiteLinkPreview, LiveWebsiteModal } from '../ui/WebsiteLinkPreview';
 
 interface ProjectsManagerProps {
   projects: ProjectItem[];
@@ -46,6 +47,7 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
   const [isNew, setIsNew] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [previewModalUrl, setPreviewModalUrl] = useState<{ url: string; title: string } | null>(null);
 
   React.useEffect(() => {
     setItems(projects || []);
@@ -414,6 +416,17 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
               >
                 {project.status === 'published' ? 'Unpublish' : 'Publish'}
               </button>
+
+              {project.liveDemoUrl && (
+                <button
+                  type="button"
+                  onClick={() => setPreviewModalUrl({ url: project.liveDemoUrl!, title: project.title })}
+                  className="p-2 rounded-lg bg-[#090E1A] hover:bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 hover:text-cyan-300 transition"
+                  title="Preview Live Website"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+              )}
 
               <button
                 onClick={() => handleOpenEdit(project)}
@@ -848,44 +861,80 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
                 </div>
 
                 {/* 4. Repositories & Demos */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="space-y-4 pt-1">
                   <div>
-                    <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
-                      GITHUB REPO URL
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.githubUrl || ''}
-                      onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                      className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
-                      placeholder="https://github.com/..."
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
-                      LIVE DEMO URL
+                    <label className="block text-xs font-mono font-medium text-slate-300 mb-1 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-cyan-400 font-semibold">
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>LIVE DEMO / PLATFORM URL</span>
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        Instant Live Website Preview Enabled
+                      </span>
                     </label>
                     <input
                       type="url"
                       value={formData.liveDemoUrl || ''}
                       onChange={(e) => setFormData({ ...formData, liveDemoUrl: e.target.value })}
-                      className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
-                      placeholder="https://..."
+                      className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500 placeholder-slate-600"
+                      placeholder="https://example.com (write link to see live website preview)"
+                    />
+                    {/* Live Website Preview Card */}
+                    <WebsiteLinkPreview
+                      url={formData.liveDemoUrl}
+                      label="LIVE APPLICATION PREVIEW"
+                      onSelectImage={(imageUrl) => {
+                        setFormData((prev) => ({ ...prev, projectImage: imageUrl }));
+                        onShowToast('success', 'Website snapshot set as project cover image!');
+                      }}
+                      onAutofill={(meta) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          title: prev.title || meta.title,
+                          shortDescription: prev.shortDescription || meta.description,
+                          fullDescription: prev.fullDescription || meta.description,
+                        }));
+                        onShowToast('info', 'Autofilled project title & description from website!');
+                      }}
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
-                      DOCUMENTATION / REPORT
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.documentationUrl || ''}
-                      onChange={(e) => setFormData({ ...formData, documentationUrl: e.target.value })}
-                      className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
-                      placeholder="https://... PDF or docs"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
+                        GITHUB REPO URL
+                      </label>
+                      <input
+                        type="url"
+                        value={formData.githubUrl || ''}
+                        onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                        className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500 placeholder-slate-600"
+                        placeholder="https://github.com/..."
+                      />
+                      <WebsiteLinkPreview
+                        url={formData.githubUrl}
+                        label="GITHUB REPOSITORY"
+                        compact={true}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono font-medium text-slate-300 mb-1">
+                        DOCUMENTATION / REPORT
+                      </label>
+                      <input
+                        type="url"
+                        value={formData.documentationUrl || ''}
+                        onChange={(e) => setFormData({ ...formData, documentationUrl: e.target.value })}
+                        className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500 placeholder-slate-600"
+                        placeholder="https://... PDF or docs"
+                      />
+                      <WebsiteLinkPreview
+                        url={formData.documentationUrl}
+                        label="DOCUMENTATION SITE"
+                        compact={true}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -962,6 +1011,15 @@ export const ProjectsManager: React.FC<ProjectsManagerProps> = ({
         confirmText="Delete Project"
         isDestructive={true}
       />
+
+      {/* Live Interactive Website Preview Modal */}
+      {previewModalUrl && (
+        <LiveWebsiteModal
+          url={previewModalUrl.url}
+          title={previewModalUrl.title}
+          onClose={() => setPreviewModalUrl(null)}
+        />
+      )}
 
     </div>
   );

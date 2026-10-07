@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
-import { ExternalLink, X, ChevronLeft, ChevronRight, Award, Building, BookOpen, Layers } from 'lucide-react';
+import React, { useEffect, useCallback, useState } from 'react';
+import { ExternalLink, X, ChevronLeft, ChevronRight, Award, Building, BookOpen, Layers, Monitor } from 'lucide-react';
 import { sanitizeUrl, isSafeUrl } from '../../utils/url';
+import { LiveWebsiteModal } from '../ui/WebsiteLinkPreview';
 
 export interface ModalItem {
   id: string;
@@ -33,6 +34,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
   onNavigate,
 }) => {
   const item = items[currentIndex];
+  const [showLivePreview, setShowLivePreview] = useState(false);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -147,14 +149,25 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 decoding="async"
               />
               {item.externalUrl && isSafeUrl(item.externalUrl) && (
-                <a
-                  href={sanitizeUrl(item.externalUrl)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="modal-external-link"
-                >
-                  View Live Project / Repository <ExternalLink className="w-3.5 h-3.5 inline ml-1" />
-                </a>
+                <div className="flex items-center gap-2 mt-2 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => setShowLivePreview(true)}
+                    className="modal-external-link bg-sky-500/20 text-sky-300 hover:bg-sky-500/30 border border-sky-500/40 inline-flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Monitor className="w-3.5 h-3.5" />
+                    <span>Live Website Preview</span>
+                  </button>
+                  <a
+                    href={sanitizeUrl(item.externalUrl)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal-external-link inline-flex items-center gap-1.5"
+                  >
+                    <span>Open in New Tab</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               )}
             </div>
           )}
@@ -210,6 +223,15 @@ export const DetailModal: React.FC<DetailModalProps> = ({
           </button>
         </div>
       </div>
+
+      {showLivePreview && item.externalUrl && (
+        <LiveWebsiteModal
+          url={item.externalUrl}
+          title={item.title}
+          screenshot={item.mediaUrl}
+          onClose={() => setShowLivePreview(false)}
+        />
+      )}
     </div>
   );
 };

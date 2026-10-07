@@ -19,6 +19,7 @@ import {
 import { ProjectItem, StatusState } from '../../types/portfolio';
 import { Modal } from '../ui/Modal';
 import { ConfirmDialog } from '../ui/ConfirmDialog';
+import { WebsiteLinkPreview } from '../ui/WebsiteLinkPreview';
 
 interface ResearchManagerProps {
   research: ProjectItem[];
@@ -591,6 +592,11 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
                     className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
                     placeholder="https://github.com/UnknownEng"
                   />
+                  <WebsiteLinkPreview
+                    url={formData.githubUrl}
+                    label="CODE REPO PREVIEW"
+                    compact={true}
+                  />
                 </div>
 
                 <div>
@@ -603,6 +609,11 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
                     onChange={(e) => setFormData({ ...formData, documentationUrl: e.target.value })}
                     className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
                     placeholder="https://doi.org/... or /CV.pdf"
+                  />
+                  <WebsiteLinkPreview
+                    url={formData.documentationUrl}
+                    label="PUBLICATION PREVIEW"
+                    compact={true}
                   />
                 </div>
 

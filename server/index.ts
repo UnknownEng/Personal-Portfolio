@@ -37,11 +37,16 @@ app.use(helmet({
         "https://images.unsplash.com",
         "https://drive.google.com",
         "https://*.googleusercontent.com",
+        "https://*.microlink.io",
+        "https://image.thum.io",
+        "https://*.gstatic.com",
+        "https://www.google.com",
+        "https:",
       ],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       connectSrc: ["'self'"],
       mediaSrc: ["'self'"],
-      frameSrc: ["'self'"],
+      frameSrc: ["'self'", "https:"],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
       formAction: ["'self'"],
@@ -191,6 +196,14 @@ const adminApiLimiter = rateLimit({
   standardHeaders: 'draft-7',
   legacyHeaders: true,
   message: { error: 'Administrative API rate limit reached. Please wait.' },
+});
+
+const linkPreviewLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 120, // 120 link preview requests per 15 min per IP
+  standardHeaders: 'draft-7',
+  legacyHeaders: true,
+  message: { error: 'Link preview rate limit exceeded. Please wait a moment.' },
 });
 
 // Apply general limiter to all API endpoints
@@ -800,7 +813,200 @@ app.delete('/api/contact-messages/:id', requireAuth, adminApiLimiter, (req: Requ
   res.json({ success });
 });
 
-// --- 10. SECURE MEDIA UPLOAD ROUTES ---
+// --- 10. REAL-TIME WEBSITE LINK PREVIEW (SSRF PROTECTED & CACHED) ---
+
+interface LinkPreviewResult {
+  url: string;
+  domain: string;
+  title: string;
+  description: string;
+  image: string;
+  screenshot: string;
+  favicon: string;
+}
+
+// In-memory cache with 15-minute TTL to reduce latency and redundant external network calls
+const linkPreviewCache = new Map<string, { data: LinkPreviewResult; expiresAt: number }>();
+
+function isPrivateOrLocalHost(hostname: string): boolean {
+  const lower = hostname.toLowerCase().trim();
+
+  // Block localhost, link-local, loopback, special internal suffixes
+  if (
+    lower === 'localhost' ||
+    lower.endsWith('.localhost') ||
+    lower.endsWith('.local') ||
+    lower.endsWith('.internal') ||
+    lower === '0.0.0.0' ||
+    lower === '127.0.0.1' ||
+    lower === '::1' ||
+    lower === '[::1]' ||
+    lower === '169.254.169.254'
+  ) {
+    return true;
+  }
+
+  // Check IPv4 patterns: 10.x.x.x, 172.16-31.x.x, 192.168.x.x, 127.x.x.x, 169.254.x.x
+  const ipv4Regex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+  const match = lower.match(ipv4Regex);
+  if (match) {
+    const a = parseInt(match[1], 10);
+    const b = parseInt(match[2], 10);
+    if (a === 127 || a === 10 || a === 0) return true;
+    if (a === 172 && b >= 16 && b <= 31) return true;
+    if (a === 192 && b === 168) return true;
+    if (a === 169 && b === 254) return true;
+  }
+
+  return false;
+}
+
+// GET /api/link-preview?url=<targetUrl>
+app.get('/api/link-preview', linkPreviewLimiter, async (req: Request, res: Response): Promise<void> => {
+  const targetUrl = req.query.url;
+
+  if (!targetUrl || typeof targetUrl !== 'string') {
+    res.status(400).json({ error: 'Query parameter "url" is required.' });
+    return;
+  }
+
+  const trimmed = targetUrl.trim();
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    res.status(400).json({ error: 'Invalid URL format.' });
+    return;
+  }
+
+  // Enforce HTTP / HTTPS protocol only
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    res.status(400).json({ error: 'Only HTTP and HTTPS protocols are supported for website previews.' });
+    return;
+  }
+
+  // Enforce SSRF protection
+  if (isPrivateOrLocalHost(parsed.hostname)) {
+    res.status(403).json({ error: 'Access to private or local network addresses is prohibited.' });
+    return;
+  }
+
+  const cleanUrl = parsed.href;
+  const now = Date.now();
+
+  // Check cache
+  const cached = linkPreviewCache.get(cleanUrl);
+  if (cached && cached.expiresAt > now) {
+    res.json({ success: true, ...cached.data });
+    return;
+  }
+
+  const domain = parsed.hostname;
+  const defaultScreenshot = `https://image.thum.io/get/width/800/crop/600/${encodeURIComponent(cleanUrl)}`;
+  const defaultFavicon = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+
+  let title = domain;
+  let description = '';
+  let image = defaultScreenshot;
+  let screenshot = defaultScreenshot;
+  let favicon = defaultFavicon;
+
+  // 1. Attempt: Microlink API for high-resolution screenshot and verified metadata
+  try {
+    const microRes = await fetch(
+      `https://api.microlink.io/?url=${encodeURIComponent(cleanUrl)}&screenshot=true`,
+      {
+        signal: AbortSignal.timeout(3500),
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (compatible; PortfolioBot/1.0)',
+        },
+      }
+    );
+
+    if (microRes.ok) {
+      const json: any = await microRes.json();
+      if (json.status === 'success' && json.data) {
+        if (json.data.title) title = json.data.title.trim();
+        if (json.data.description) description = json.data.description.trim();
+        if (json.data.screenshot?.url) screenshot = json.data.screenshot.url;
+        if (json.data.image?.url) image = json.data.image.url;
+        else if (screenshot) image = screenshot;
+        if (json.data.logo?.url) favicon = json.data.logo.url;
+      }
+    }
+  } catch {
+    // Microlink timed out or network error; proceed to fallback
+  }
+
+  // 2. Fallback: If title or description missing, attempt direct fetch with HTML parse
+  if (title === domain || !description) {
+    try {
+      const pageRes = await fetch(cleanUrl, {
+        signal: AbortSignal.timeout(3500),
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml',
+        },
+      });
+
+      if (pageRes.ok) {
+        const text = await pageRes.text();
+
+        // Title
+        const ogTitle = text.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)?.[1]
+          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i)?.[1]
+          || text.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1];
+        if (ogTitle && title === domain) title = ogTitle.trim();
+
+        // Description
+        const ogDesc = text.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i)?.[1]
+          || text.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)?.[1]
+          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:description["']/i)?.[1];
+        if (ogDesc && !description) description = ogDesc.trim();
+
+        // Image
+        const ogImg = text.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)?.[1]
+          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i)?.[1];
+        if (ogImg && image === defaultScreenshot) {
+          try {
+            image = new URL(ogImg, cleanUrl).href;
+          } catch {
+            // Keep default
+          }
+        }
+      }
+    } catch {
+      // Direct fetch timed out or blocked
+    }
+  }
+
+  const resultData: LinkPreviewResult = {
+    url: cleanUrl,
+    domain,
+    title,
+    description: description || `Live website and interactive platform at ${domain}`,
+    image,
+    screenshot,
+    favicon,
+  };
+
+  // Cache for 15 minutes
+  linkPreviewCache.set(cleanUrl, {
+    data: resultData,
+    expiresAt: now + 15 * 60 * 1000,
+  });
+
+  // Limit cache size to 250 entries
+  if (linkPreviewCache.size > 250) {
+    const firstKey = linkPreviewCache.keys().next().value;
+    if (firstKey) linkPreviewCache.delete(firstKey);
+  }
+
+  res.json({ success: true, ...resultData });
+});
+
+// --- 11. SECURE MEDIA UPLOAD ROUTES ---
 
 // POST /api/upload (Authenticated + Rate-limited + MIME & Ext verified + Magic Byte signature checked)
 app.post('/api/upload', requireAuth, uploadLimiter, upload.single('file'), (req: Request, res: Response): void => {

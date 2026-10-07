@@ -305,3 +305,14 @@ export interface PortfolioData {
   showcase?: ShowcaseItem[];
   research?: ProjectItem[];
 }
+
+export interface LinkPreviewData {
+  url: string;
+  domain: string;
+  title: string;
+  description: string;
+  image: string;
+  screenshot: string;
+  favicon: string;
+}
+
