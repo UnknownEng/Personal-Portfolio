@@ -7,7 +7,7 @@
     "dev:server": "tsx watch --exclude \"data/**\" --exclude \"uploads/**\" server/index.ts",
     "dev:client": "vite",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && mkdir -p dist/uploads && cp -rn uploads/* dist/uploads/ 2>/dev/null || true",
     "preview": "vite preview",
     "start": "NODE_ENV=production tsx server/index.ts"
   },

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ContactData } from '../../types/portfolio';
-import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, Send, CheckCircle2, AlertCircle, MessageSquare } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from '../ui/Icons';
 import { sanitizeUrl, isSafeUrl } from '../../utils/url';
 
@@ -13,7 +13,7 @@ interface ContactProps {
 
 export const Contact: React.FC<ContactProps> = ({
   contact,
-  githubUrl,
+  githubUrl = 'https://github.com/MansoorAhmedRind',
   onSubmitMessage,
   currentLang = 'en',
 }) => {
@@ -22,20 +22,34 @@ export const Contact: React.FC<ContactProps> = ({
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const directEmail = contact.email || 'mansoorahmedrind@gmail.com';
+  const directPhone = contact.phone || '+92 327 3202419';
+  const cleanPhone = directPhone.replace(/[^0-9+]/g, '');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) return;
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus('error');
+      setErrorMessage(
+        currentLang === 'zh'
+          ? '请填写所有必填字段（姓名、电子邮箱及留言内容）。'
+          : 'Please complete all required fields (Name, Email, and Message).'
+      );
+      return;
+    }
 
     setStatus('sending');
+    setErrorMessage('');
+
     try {
       const res = await onSubmitMessage({
-        name,
-        email,
-        subject: subject || 'General Portfolio Inquiry',
-        message,
+        name: name.trim(),
+        email: email.trim(),
+        subject: subject.trim() || 'General Engineering Inquiry',
+        message: message.trim(),
       });
-      // Check if res is object with success or boolean
       const ok = typeof res === 'boolean' ? res : res?.success;
       if (ok) {
         setStatus('success');
@@ -43,12 +57,22 @@ export const Contact: React.FC<ContactProps> = ({
         setEmail('');
         setSubject('');
         setMessage('');
-        setTimeout(() => setStatus('idle'), 6000);
+        setTimeout(() => setStatus('idle'), 8000);
       } else {
         setStatus('error');
+        setErrorMessage(
+          currentLang === 'zh'
+            ? '发送失败，请直接通过电子邮件联系。'
+            : 'Message delivery failed. Please reach out directly via email.'
+        );
       }
     } catch {
       setStatus('error');
+      setErrorMessage(
+        currentLang === 'zh'
+          ? '网络连接异常，请直接通过电子邮件联系。'
+          : 'Network connectivity fault. Please reach out via direct email.'
+      );
     }
   };
 
@@ -61,35 +85,67 @@ export const Contact: React.FC<ContactProps> = ({
   return (
     <section className="section" id="contact">
       <div className="container">
-        <div className="footer-container">
-          {/* Main heading */}
-          <h1>{currentLang === 'zh' ? '联系方式' : 'Contact'}</h1>
+        <div className="footer-container flex flex-col items-center text-center max-w-2xl mx-auto px-4">
+          {/* Semantic Section Heading (H2 for single H1 per page compliance) */}
+          <h2 className="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2">
+            {currentLang === 'zh' ? '联系方式' : 'Contact Coordinates'}
+          </h2>
 
-          {/* Subtitle matching Steven Feng */}
-          <h2>{currentLang === 'zh' ? '一起来聊聊机器人与无人机吧！' : "Let's chat about robots!"}</h2>
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-sky-400 font-semibold mb-4">
+            {currentLang === 'zh' ? '一起来聊聊机器人与无人机吧！' : "Let's collaborate on autonomous systems & robotics!"}
+          </p>
 
           {/* Personal note paragraph */}
-          <p className="personal-note">
+          <p className="personal-note text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
             {currentLang === 'zh' ? personalNoteZh : personalNoteEn}
           </p>
 
-          {/* Prominent Clickable Email */}
-          <a
-            href={sanitizeUrl(`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`)}
-            className="email-link"
-          >
-            {contact.email || 'mansoorahmedrind@gmail.com'}
-          </a>
+          {/* Direct Comms Cards: Clickable Email & Clickable Phone */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-8 w-full max-w-lg">
+            {/* Clickable Email Anchor (Fix 19) */}
+            <a
+              href={sanitizeUrl(`mailto:${directEmail}?subject=${encodeURIComponent('Antigracity Engineering Inquiry')}`)}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-sky-500/60 text-slate-200 hover:text-sky-400 transition shadow-lg group focus:outline-none min-h-[48px]"
+              aria-label={`Send direct email to ${directEmail}`}
+              title="Click to send direct email"
+            >
+              <div className="w-8 h-8 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition">
+                <Mail className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Direct Email</div>
+                <div className="text-xs sm:text-sm font-semibold">{directEmail}</div>
+              </div>
+            </a>
+
+            {/* Clickable Phone Anchor (Fix 18) */}
+            <a
+              href={`tel:${cleanPhone}`}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-sky-500/60 text-slate-200 hover:text-sky-400 transition shadow-lg group focus:outline-none min-h-[48px]"
+              aria-label={`Call direct telephone ${directPhone}`}
+              title="Click to dial phone"
+            >
+              <div className="w-8 h-8 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition">
+                <Phone className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Direct Comms</div>
+                <div className="text-xs sm:text-sm font-semibold">{directPhone}</div>
+              </div>
+            </a>
+          </div>
 
           {/* Social Icons row */}
-          <div className="social-icons">
+          <div className="flex items-center justify-center gap-3 mb-8">
             {contact.linkedIn && isSafeUrl(contact.linkedIn) && (
               <a
                 href={sanitizeUrl(contact.linkedIn)}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                title="LinkedIn"
+                title="LinkedIn Profile"
+                className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition hover:scale-105"
               >
                 <LinkedinIcon className="w-5 h-5" />
               </a>
@@ -100,111 +156,145 @@ export const Contact: React.FC<ContactProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                title="GitHub"
+                title="GitHub Profile"
+                className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition hover:scale-105"
               >
                 <GithubIcon className="w-5 h-5" />
               </a>
             )}
             <a
-              href={sanitizeUrl(`mailto:${contact.email || 'mansoorahmedrind@gmail.com'}`)}
+              href={sanitizeUrl(`mailto:${directEmail}`)}
               aria-label="Email"
               title="Direct Email"
+              className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition hover:scale-105"
             >
               <Mail className="w-5 h-5" />
             </a>
           </div>
 
           {/* Quick Inquiry Form */}
-          <div className="contact-inquiry-box w-full max-w-lg mt-10 p-6 sm:p-8 rounded-2xl shadow-2xl text-left">
-            <h3 className="contact-inquiry-title text-base font-bold mb-1 text-center">
-              {currentLang === 'zh' ? '发送在线消息' : 'Send a Direct Message'}
+          <div className="contact-inquiry-box w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-2xl text-left">
+            <h3 className="text-base font-bold mb-1 text-center text-white flex items-center justify-center gap-2">
+              <MessageSquare className="w-4 h-4 text-sky-400" />
+              <span>{currentLang === 'zh' ? '发送在线消息' : 'Send Direct Message'}</span>
             </h3>
-            <p className="contact-inquiry-sub text-xs mb-4 text-center">
-              {currentLang === 'zh' ? '消息将直接送达我的工作信箱' : 'Inquiries will be delivered directly to my inbox'}
+            <p className="text-xs text-slate-400 mb-6 text-center">
+              {currentLang === 'zh' ? '消息将直接送达我的工作信箱' : 'Inquiries dispatch directly to primary inbox'}
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="contact-label block text-xs font-semibold mb-1">
-                    {currentLang === 'zh' ? '您的姓名' : 'Your Name'}
+                  <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                    {currentLang === 'zh' ? '您的姓名 *' : 'Your Name *'}
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Alex Smith"
-                    className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
                   />
                 </div>
                 <div>
-                  <label className="contact-label block text-xs font-semibold mb-1">
-                    {currentLang === 'zh' ? '电子邮箱' : 'Email Address'}
+                  <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                    {currentLang === 'zh' ? '电子邮箱 *' : 'Email Address *'}
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="alex@domain.com"
-                    className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="contact-label block text-xs font-semibold mb-1">
+                <label htmlFor="contact-subject" className="block text-xs font-semibold text-slate-300 mb-1.5">
                   {currentLang === 'zh' ? '主题' : 'Subject'}
                 </label>
                 <input
+                  id="contact-subject"
                   type="text"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="e.g. UAV Swarm Collaboration or Research"
-                  className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
                 />
               </div>
 
               <div>
-                <label className="contact-label block text-xs font-semibold mb-1">
-                  {currentLang === 'zh' ? '留言内容' : 'Message'}
+                <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {currentLang === 'zh' ? '留言内容 *' : 'Message *'}
                 </label>
                 <textarea
+                  id="contact-message"
                   required
-                  rows={3}
+                  rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write your message here..."
-                  className="contact-input w-full px-3 py-2 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 resize-none"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition resize-none"
                 />
               </div>
 
+              {/* Success Message Banner (Fix 12) */}
               {status === 'success' && (
-                <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800">
-                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                  <span>{currentLang === 'zh' ? '消息发送成功！我会尽快回复。' : 'Message dispatched successfully! I will get back to you shortly.'}</span>
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-center gap-2.5 text-xs text-emerald-400 bg-emerald-950/50 p-3.5 rounded-xl border border-emerald-500/40 animate-fadeIn"
+                >
+                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-400" />
+                  <div>
+                    <div className="font-bold">
+                      {currentLang === 'zh' ? '消息发送成功！' : 'Message dispatched successfully!'}
+                    </div>
+                    <div className="text-[11px] text-emerald-300/80 mt-0.5">
+                      {currentLang === 'zh'
+                        ? '我会尽快阅读并回复您的留言。'
+                        : 'Your inquiry has been received and I will follow up promptly.'}
+                    </div>
+                  </div>
                 </div>
               )}
 
+              {/* Error Message Banner (Fix 13) */}
               {status === 'error' && (
-                <div className="flex items-center gap-2 text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 p-2.5 rounded-xl border border-rose-200 dark:border-rose-800">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>{currentLang === 'zh' ? '发送失败，请直接通过电子邮件联系。' : 'Failed to send message. Please reach out via direct email.'}</span>
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="flex items-center gap-2.5 text-xs text-rose-400 bg-rose-950/50 p-3.5 rounded-xl border border-rose-500/40 animate-shake"
+                >
+                  <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-400" />
+                  <div>
+                    <div className="font-bold">
+                      {currentLang === 'zh' ? '发送遇到问题' : 'Dispatch Exception'}
+                    </div>
+                    <div className="text-[11px] text-rose-300/80 mt-0.5">
+                      {errorMessage ||
+                        (currentLang === 'zh'
+                          ? '发送失败，请直接发送电子邮件至 mansoorahmedrind@gmail.com'
+                          : 'Delivery failed. Please email mansoorahmedrind@gmail.com directly.')}
+                    </div>
+                  </div>
                 </div>
               )}
 
+              {/* Submit Button (Fix 11: Active event handler & visual state) */}
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full py-2.5 px-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-md hover:scale-[1.02] disabled:opacity-50"
+                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-sky-500/20 hover:scale-[1.01] active:scale-95 disabled:opacity-50 min-h-[48px]"
+                aria-label="Send Message"
               >
                 {status === 'sending' ? (
-                  <span>{currentLang === 'zh' ? '正在发送...' : 'Sending...'}</span>
+                  <span>{currentLang === 'zh' ? '正在发送...' : 'DISPATCHING TELEMETRY...'}</span>
                 ) : (
                   <>
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{currentLang === 'zh' ? '发送消息' : 'Send Message'}</span>
+                    <Send className="w-4 h-4" />
+                    <span>{currentLang === 'zh' ? '发送留言' : 'SEND MESSAGE'}</span>
                   </>
                 )}
               </button>

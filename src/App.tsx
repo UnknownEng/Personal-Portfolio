@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { PublicPortfolio } from './pages/PublicPortfolio';
-import { Terminal, Shield, ArrowLeft, Loader2 } from 'lucide-react';
+import { NotFound } from './pages/NotFound';
+import { Terminal, Shield, Loader2 } from 'lucide-react';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 // Code-split admin modules to drastically reduce initial visitor bundle size
 const AdminLogin = React.lazy(() =>
@@ -12,26 +14,35 @@ const AdminLayout = React.lazy(() =>
   import('./components/admin/AdminLayout').then((module) => ({ default: module.AdminLayout }))
 );
 
+const resolveInitialView = (): 'public' | 'admin' | '404' => {
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  if (path.startsWith('/admin') || hash === '#admin') return 'admin';
+  if (path === '/' || path === '' || path === '/index.html' || path === '/CV.pdf') return 'public';
+  return '404';
+};
+
 const AppRouter: React.FC = () => {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const { isLoading: portfolioLoading } = usePortfolio();
 
-  // Navigation state: 'public' | 'admin'
-  const [view, setView] = useState<'public' | 'admin'>(() => {
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    return path.startsWith('/admin') || hash === '#admin' ? 'admin' : 'public';
-  });
+  // Navigation state: 'public' | 'admin' | '404'
+  const [view, setView] = useState<'public' | 'admin' | '404'>(resolveInitialView);
 
-  // Sync with browser URL
+  // Sync with browser URL and update page title
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname;
       const hash = window.location.hash;
       if (path.startsWith('/admin') || hash === '#admin') {
         setView('admin');
-      } else {
+        document.title = 'Antigracity Admin CMS | Secure Control Panel';
+      } else if (path === '/' || path === '' || path === '/index.html' || path === '/CV.pdf') {
         setView('public');
+        document.title = 'Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
+      } else {
+        setView('404');
+        document.title = '404 Flight Path Error — Coordinate Deviation | Antigracity';
       }
     };
 
@@ -42,11 +53,13 @@ const AppRouter: React.FC = () => {
   const navigateToAdmin = () => {
     setView('admin');
     window.history.pushState({}, '', '/admin');
+    document.title = 'Antigracity Admin CMS | Secure Control Panel';
   };
 
   const navigateToPublic = () => {
     setView('public');
     window.history.pushState({}, '', '/');
+    document.title = 'Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
   };
 
   if (authLoading || portfolioLoading) {
@@ -60,6 +73,11 @@ const AppRouter: React.FC = () => {
         </div>
       </div>
     );
+  }
+
+  // 404 View
+  if (view === '404') {
+    return <NotFound onBackToHome={navigateToPublic} />;
   }
 
   // Admin View
@@ -108,11 +126,9 @@ const AppRouter: React.FC = () => {
   );
 };
 
-import { ErrorBoundary } from './components/ui/ErrorBoundary';
-
 export const App: React.FC = () => {
   return (
-    <ErrorBoundary fallbackTitle="Portfolio Application Safe Mode">
+    <ErrorBoundary fallbackTitle="Antigracity Application Safe Mode">
       <AuthProvider>
         <PortfolioProvider>
           <AppRouter />

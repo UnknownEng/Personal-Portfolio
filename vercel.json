@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/index.ts": {
-      "includeFiles": "data/portfolio.json"
+      "includeFiles": "{data/portfolio.json,uploads/**}"
     }
   },
   "headers": [

@@ -84,6 +84,8 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 <img
                   src={item.organizationLogo}
                   alt={item.organization || 'Organization logo'}
+                  width="48"
+                  height="48"
                   loading="lazy"
                   decoding="async"
                 />
@@ -125,7 +127,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
 
         {/* Heading & Summary */}
         <div className="modal-heading">
-          <h1 id="modal-title">{item.title}</h1>
+          <h2 id="modal-title">{item.title}</h2>
           {(item.subtitle || item.date) && (
             <div className="modal-date">
               {item.subtitle}
@@ -143,7 +145,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
             <div className="modal-media-panel">
               <img
                 src={item.mediaUrl}
-                alt={item.title}
+                alt={item.title ? `${item.title} Technical Showcase` : 'Engineering System Detail'}
+                width="800"
+                height="450"
                 className="modal-media"
                 loading="lazy"
                 decoding="async"

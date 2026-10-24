@@ -46,7 +46,9 @@ export const About: React.FC<AboutProps> = ({ about }) => {
                 <div className="w-16 h-16 rounded-xl overflow-hidden border border-theme-primary shrink-0 shadow-md">
                   <img
                     src={about.profileImage}
-                    alt="Mansoor Ahmed Rind"
+                    alt="Mansoor Ahmed Rind — UAV & Robotics Systems Engineer"
+                    width="64"
+                    height="64"
                     className="w-full h-full object-cover object-top"
                     loading="lazy"
                     decoding="async"

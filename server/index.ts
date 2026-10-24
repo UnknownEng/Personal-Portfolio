@@ -8,6 +8,7 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
 import { dataStore, UPLOADS_DIR } from './store.ts';
+import { renderServerSide } from './ssr.ts';
 import { requireAuth, comparePassword, hashPassword, generateToken, AuthenticatedRequest, setAdminVerifier } from './auth.ts';
 import { MediaFile, PortfolioData } from '../src/types/portfolio.ts';
 
@@ -229,7 +230,7 @@ app.get('/robots.txt', (_req: Request, res: Response) => {
   if (fs.existsSync(robotsPath)) {
     res.sendFile(robotsPath);
   } else {
-    res.send("User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /uploads/\n\nSitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml\n");
+    res.send("User-agent: Googlebot\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nUser-agent: Googlebot-Image\nAllow: /\nAllow: /uploads/\n\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml\n");
   }
 });
 
@@ -1104,12 +1105,43 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: 'An unexpected internal server error occurred.' });
 });
 
-// Serve frontend dist in production
+// Serve frontend dist in production with Server-Side Rendering (SSR) & true 404s
 const DIST_DIR = path.resolve(__dirname, '../dist');
 if (fs.existsSync(DIST_DIR)) {
-  app.use(express.static(DIST_DIR));
-  app.use((_req: Request, res: Response) => {
-    res.sendFile(path.join(DIST_DIR, 'index.html'));
+  app.use(express.static(DIST_DIR, { index: false }));
+  app.use((req: Request, res: Response) => {
+    const p = req.path;
+    const isPublicValid = p === '/' || p === '/index.html' || p === '/CV.pdf';
+    const isAdmin = p.startsWith('/admin');
+    const indexPath = path.join(DIST_DIR, 'index.html');
+
+    if (!fs.existsSync(indexPath)) {
+      res.status(404).send('Not Found');
+      return;
+    }
+
+    let html = fs.readFileSync(indexPath, 'utf-8');
+
+    if (!isPublicValid && !isAdmin) {
+      // Emit true HTTP 404 status code for search engines and crawlers (Fix 8 & SEO 12)
+      res.status(404);
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.send(html);
+      return;
+    }
+
+    if (isPublicValid) {
+      // Server-Side Render (SSR) the full semantic component tree into <div id="root">
+      try {
+        const ssrContent = renderServerSide(dataStore.getPortfolio());
+        html = html.replace('<div id="root"></div>', `<div id="root">${ssrContent}</div>`);
+      } catch (err) {
+        console.error('[SSR Error]:', err);
+      }
+    }
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
   });
 }
 

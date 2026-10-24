@@ -42,7 +42,7 @@ export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmi
     setCurrentLang((prev) => (prev === 'en' ? 'zh' : 'en'));
   };
 
-  const githubUrl = data.socialLinks?.find((s) => s.platform === 'github')?.url || 'https://github.com/UnknownEng';
+  const githubUrl = data.socialLinks?.find((s) => s.platform === 'github')?.url || 'https://github.com/MansoorAhmedRind';
 
   // Maintenance mode screen
   if (siteSettings.maintenanceMode) {

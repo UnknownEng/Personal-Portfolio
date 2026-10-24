@@ -15,7 +15,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({
   hero,
   linkedInUrl = 'https://www.linkedin.com/in/mansoorahmedrind',
-  githubUrl = 'https://github.com/UnknownEng',
+  githubUrl = 'https://github.com/MansoorAhmedRind',
   onOpenResume,
   currentLang = 'en',
 }) => {
@@ -84,9 +84,9 @@ export const Hero: React.FC<HeroProps> = ({
         </h2>
 
         {/* Dynamic Typewriter Title */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mt-1 mb-6 flex items-center justify-center flex-wrap gap-2">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mt-1 mb-6 flex items-center justify-center flex-wrap gap-1.5 sm:gap-2">
           <span>{currentLang === 'zh' ? '我是一名 ' : 'I am a '}</span>
-          <span className="text-sky-400 inline-block min-w-[200px] text-left">
+          <span className="text-sky-400 inline-block min-w-[120px] sm:min-w-[220px] text-left max-w-full">
             {displayedText}
             <span className="blinkingCursor">_</span>
           </span>

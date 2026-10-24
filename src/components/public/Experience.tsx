@@ -48,7 +48,7 @@ export const Experience: React.FC<ExperienceProps> = ({
   return (
     <section className="section" id="work">
       <div className="container">
-        <h1>{currentLang === 'zh' ? '实习与工作经历' : 'Internships & Experience'}</h1>
+        <h2 className="section-heading">{currentLang === 'zh' ? '实习与工作经历' : 'Internships & Experience'}</h2>
 
         <div className="work-wrapper w-full">
           <div className="grid">
@@ -68,9 +68,9 @@ export const Experience: React.FC<ExperienceProps> = ({
 
                 {/* Content Overlay */}
                 <div className="content">
-                  <h1 className="header text-white font-bold text-center">
+                  <h3 className="header text-white font-bold text-center">
                     {exp.company}
-                  </h1>
+                  </h3>
                   <p className="text text-slate-100 text-center text-xs">
                     {exp.position} • {exp.startDate} – {exp.endDate || 'Present'}
                   </p>

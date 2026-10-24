@@ -1,0 +1,16 @@
+{
+  "name": "Antigracity — UAV & Robotics Systems",
+  "short_name": "Antigracity",
+  "description": "Autonomous UAV Systems, Swarm Robotics, and Aerospace Flight Stacks by Mansoor Ahmed Rind",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#080b12",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    }
+  ]
+}

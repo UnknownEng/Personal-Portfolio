@@ -376,9 +376,9 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
             <span>CORE COMPETENCIES & LEADERSHIP</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             {currentLang === 'zh' ? '专业与社交技能' : 'Technical & Social Skills'}
-          </h1>
+          </h2>
 
           <p className="max-w-2xl text-slate-400 text-sm sm:text-base mt-2 font-normal leading-relaxed">
             {currentLang === 'zh'

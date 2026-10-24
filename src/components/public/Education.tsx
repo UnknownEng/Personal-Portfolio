@@ -68,7 +68,7 @@ export const Education: React.FC<EducationProps> = ({
   return (
     <section className="section" id="education">
       <div className="container">
-        <h1>{currentLang === 'zh' ? '教育背景' : 'Education'}</h1>
+        <h2 className="section-heading">{currentLang === 'zh' ? '教育背景' : 'Education'}</h2>
 
         <div className="education-wrapper w-full">
           <div className="grid">
@@ -88,9 +88,9 @@ export const Education: React.FC<EducationProps> = ({
 
                 {/* Card Content Overlay */}
                 <div className="content">
-                  <h1 className="header text-white font-bold text-center">
+                  <h3 className="header text-white font-bold text-center">
                     {edu.institution}
-                  </h1>
+                  </h3>
                   <p className="text text-slate-100 text-center text-xs">
                     {edu.degree} {edu.gpa ? `(${edu.gpa})` : ''}
                   </p>

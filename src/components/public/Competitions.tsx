@@ -41,7 +41,7 @@ export const Competitions: React.FC<CompetitionsProps> = ({
   return (
     <section className="section" id="competitions">
       <div className="container">
-        <h1>{currentLang === 'zh' ? '荣誉与竞赛' : 'Honors & Competitions'}</h1>
+        <h2 className="section-heading">{currentLang === 'zh' ? '荣誉与竞赛' : 'Honors & Competitions'}</h2>
 
         <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
           {achievements.map((ach, idx) => (

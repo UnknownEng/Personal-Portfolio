@@ -59,7 +59,7 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
       technologies: ['Visual SLAM', 'VI-SLAM', 'Sensor Fusion', 'SEECS NUST'],
       category: 'Technical Review (FYP)',
       projectImage: 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80',
-      githubUrl: 'https://github.com/UnknownEng',
+      githubUrl: 'https://github.com/MansoorAhmedRind',
       liveDemoUrl: '',
       documentationUrl: '',
       myRole: 'Lead Author & FYP Researcher (SEECS NUST)',
@@ -194,7 +194,7 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
   author={Rind, Mansoor Ahmed and Ali, Muhammad Moazzam and Zia, Muhammad Saad},
   journal={School of Electrical Engineering and Computer Science (SEECS), NUST},
   year={${paper.projectDate.split('–')[0].trim()}},
-  url={${paper.githubUrl || 'https://github.com/UnknownEng'}}
+  url={${paper.githubUrl || 'https://github.com/MansoorAhmedRind'}}
 }`;
     navigator.clipboard.writeText(citation);
     setCopiedId(paper.id);
@@ -590,7 +590,7 @@ export const ResearchManager: React.FC<ResearchManagerProps> = ({
                     value={formData.githubUrl || ''}
                     onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
                     className="w-full px-3 py-2 bg-[#090E1A] border border-[#1E293B] rounded-lg text-xs font-mono text-slate-100 focus:outline-none focus:border-cyan-500"
-                    placeholder="https://github.com/UnknownEng"
+                    placeholder="https://github.com/MansoorAhmedRind"
                   />
                   <WebsiteLinkPreview
                     url={formData.githubUrl}

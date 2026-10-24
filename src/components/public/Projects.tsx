@@ -70,14 +70,16 @@ export const Projects: React.FC<ProjectsProps> = ({
   return (
     <section className="section" id="projects">
       <div className="container">
-        <h1>{currentLang === 'zh' ? '工程系统与产品' : 'Engineering Projects & Products'}</h1>
+        <h2 className="section-heading">{currentLang === 'zh' ? '工程系统与产品' : 'Engineering Projects & Products'}</h2>
 
         {/* Master Project Carousel matching Steven Feng's site */}
         <div className="project-wrapper w-full mb-12">
           <div className="masterCarousel relative rounded-2xl overflow-hidden shadow-2xl w-full min-h-[460px] md:min-h-[500px]">
             <img
               src={getProjectImage(activeCarouselProject, carouselIndex)}
-              alt={activeCarouselProject?.title}
+              alt={activeCarouselProject?.title ? `${activeCarouselProject.title} - Antigracity Engineering System` : 'Antigracity Engineering System and Robotic Platform'}
+              width="1200"
+              height="675"
               className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700"
               loading="lazy"
               decoding="async"

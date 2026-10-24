@@ -44,7 +44,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
       ],
       category: 'Technical Review (FYP)',
       projectImage: 'https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80',
-      githubUrl: 'https://github.com/UnknownEng',
+      githubUrl: 'https://github.com/MansoorAhmedRind',
       liveDemoUrl: '',
       documentationUrl: '',
       myRole: 'Lead Author & FYP Researcher (SEECS NUST)',
@@ -68,7 +68,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
       ],
       category: 'Peer-Reviewed Paper',
       projectImage: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80',
-      githubUrl: 'https://github.com/UnknownEng',
+      githubUrl: 'https://github.com/MansoorAhmedRind',
       liveDemoUrl: '',
       documentationUrl: '',
       myRole: 'Author & Autonomy Architect',
@@ -92,7 +92,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
       ],
       category: 'Swarm Research',
       projectImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-      githubUrl: 'https://github.com/UnknownEng',
+      githubUrl: 'https://github.com/MansoorAhmedRind',
       liveDemoUrl: '',
       documentationUrl: '',
       myRole: 'Lead Research Engineer (CSN Lab)',
@@ -151,9 +151,9 @@ This literature review establishes the exact trajectory for my Final Year Projec
             <span>NUST SEECS AUTONOMY LABS</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="section-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             {currentLang === 'zh' ? '学术研究与论文' : 'Research & Publications'}
-          </h1>
+          </h2>
 
           <p className="max-w-2xl text-slate-400 text-sm sm:text-base mt-2 font-normal leading-relaxed">
             {currentLang === 'zh'

@@ -1,8 +1,21 @@
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /uploads/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api/
-Disallow: /uploads/
 
 # Sitemaps
 Sitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml

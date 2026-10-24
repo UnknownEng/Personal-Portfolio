@@ -191,7 +191,9 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                     {item.imageUrl ? (
                       <img
                         src={item.imageUrl}
-                        alt={item.altText || item.title}
+                        alt={item.altText || item.title || 'Robotics Engineering Gallery Artifact'}
+                        width="600"
+                        height="400"
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                         loading="lazy"
                         decoding="async"
@@ -317,7 +319,9 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
               {activeItem.imageUrl ? (
                 <img
                   src={activeItem.imageUrl}
-                  alt={activeItem.altText || activeItem.title}
+                  alt={activeItem.altText || activeItem.title || 'Robotics Engineering Gallery Artifact High Resolution'}
+                  width="1200"
+                  height="800"
                   className="max-h-full max-w-full object-contain mx-auto"
                   loading="lazy"
                   decoding="async"

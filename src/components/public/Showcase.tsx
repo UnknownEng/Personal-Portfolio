@@ -176,7 +176,7 @@ export const Showcase: React.FC<ShowcaseProps> = ({ showcase, currentLang = 'en'
   return (
     <section className="section" id="showcase">
       <div className="container">
-        <h1>{currentLang === 'zh' ? '自主无人机与蜂群亮点' : 'Autonomous UAV & Swarm Highlights'}</h1>
+        <h2 className="section-heading">{currentLang === 'zh' ? '自主无人机与蜂群亮点' : 'Autonomous UAV & Swarm Highlights'}</h2>
         <h3 className="text-sm md:text-base font-semibold text-sky-600 dark:text-sky-400 -mt-5 mb-8 tracking-wider uppercase">
           {currentLang === 'zh' ? '2024 至今' : '2024 to Present'}
         </h3>
@@ -187,7 +187,9 @@ export const Showcase: React.FC<ShowcaseProps> = ({ showcase, currentLang = 'en'
             {/* Background Media */}
             <img
               src={activeItem.mediaUrl}
-              alt={activeItem.title}
+              alt={activeItem.title ? `${activeItem.title} - Antigracity Autonomous UAV Showcase` : 'Antigracity Autonomous UAV and Swarm Robotics Showcase'}
+              width="1200"
+              height="675"
               className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700"
               loading="lazy"
               decoding="async"
