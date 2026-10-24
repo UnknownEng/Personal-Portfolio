@@ -109,8 +109,9 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                 href={sanitizeUrl(item.externalUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-sky-500 p-1.5 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="text-slate-300 hover:text-sky-400 p-1.5 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
                 title="Open Link"
+                aria-label={`Open external link for ${item.title}`}
               >
                 <ExternalLink className="w-4 h-4" />
               </a>

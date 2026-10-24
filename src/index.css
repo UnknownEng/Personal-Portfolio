@@ -27,7 +27,7 @@
     --color-card: #0f172a;
     --color-card-hover: #1e293b;
     --color-text: #f8fafc;
-    --color-text-muted: #94a3b8;
+    --color-text-muted: #cbd5e1;
     --color-border: #1e293b;
     --color-heading: #f8fafc;
   }
@@ -211,6 +211,8 @@
   flex: 1 1;
   justify-content: flex-start;
   align-items: center;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .navbar-wrapper .center-nav {
@@ -275,6 +277,8 @@
   padding: 7px 16px;
   transition: all 0.25s ease-in-out;
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .navbar-wrapper .resume-btn:hover {
@@ -937,7 +941,7 @@
 }
 
 .footer-container h2 {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
   font-size: 1.6rem !important;
   font-weight: 600 !important;
   margin-bottom: 1rem;
@@ -1053,12 +1057,12 @@
 }
 
 .contact-inquiry-sub {
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 [data-theme='light'] .contact-inquiry-sub,
 .light .contact-inquiry-sub {
-  color: #64748b;
+  color: #475569;
 }
 
 .contact-label {
@@ -1077,7 +1081,7 @@
 }
 
 .contact-input::placeholder {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 [data-theme='light'] .contact-input,

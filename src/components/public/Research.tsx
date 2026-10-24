@@ -155,7 +155,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
             {currentLang === 'zh' ? '学术研究与论文' : 'Research & Publications'}
           </h2>
 
-          <p className="max-w-2xl text-slate-400 text-sm sm:text-base mt-2 font-normal leading-relaxed">
+          <p className="max-w-2xl text-slate-300 text-sm sm:text-base mt-2 font-normal leading-relaxed">
             {currentLang === 'zh'
               ? '专注于动态环境下的视觉惯性 SLAM (V-SLAM)、ROS 2 确定性避障算法与多智能体无人机蜂群自主协同控制。'
               : 'Peer-reviewed technical reviews, conference architectures, and Final Year Project (FYP) visual SLAM autonomy research at the School of Electrical Engineering & Computer Science (SEECS), NUST.'}
@@ -193,7 +193,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
                       >
                         {paper.category}
                       </span>
-                      <span className="text-[11px] font-mono text-slate-400">{paper.projectDate}</span>
+                      <span className="text-[11px] font-mono text-slate-300">{paper.projectDate}</span>
                     </div>
 
                     <h3 className="header line-clamp-2 text-white font-bold text-base sm:text-lg mb-1 group-hover:text-cyan-400 transition">
@@ -234,6 +234,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
                       <button
                         type="button"
                         className="btn flex-1"
+                        aria-label={`Read research paper ${paper.title}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleOpenModal(idx);
@@ -248,6 +249,7 @@ This literature review establishes the exact trajectory for my Final Year Projec
                         onClick={(e) => handleCopyCitation(paper, e)}
                         className="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-300 border border-slate-700 text-xs font-mono transition shrink-0"
                         title="Copy BibTeX Citation"
+                        aria-label={`Copy BibTeX citation for ${paper.title}`}
                       >
                         {copiedId === paper.id ? (
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />

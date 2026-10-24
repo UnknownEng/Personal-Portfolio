@@ -56,27 +56,27 @@ export const Competitions: React.FC<CompetitionsProps> = ({
                     <Trophy className="w-3.5 h-3.5" />
                     Honors
                   </span>
-                  <span className="text-xs font-semibold text-slate-400">{ach.date}</span>
+                  <span className="text-xs font-semibold text-slate-300">{ach.date}</span>
                 </div>
 
                 <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5">
                   {ach.title}
                 </h3>
                 {ach.organization && (
-                  <p className="text-xs font-semibold text-sky-600 dark:text-sky-400 mb-2">
+                  <p className="text-xs font-semibold text-sky-400 mb-2">
                     {ach.organization}
                   </p>
                 )}
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                   {ach.description}
                 </p>
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
-                <span className="text-xs font-semibold text-sky-600 dark:text-sky-400 group-hover:underline">
+                <span className="text-xs font-semibold text-sky-400 group-hover:underline">
                   {currentLang === 'zh' ? '查看详情 →' : 'Explore Details →'}
                 </span>
-                <span className="text-[11px] text-slate-400">Verified Achievement</span>
+                <span className="text-[11px] text-slate-300 font-medium">Verified Achievement</span>
               </div>
             </div>
           ))}

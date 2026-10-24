@@ -139,6 +139,7 @@ export const Projects: React.FC<ProjectsProps> = ({
                     href={sanitizeUrl(activeCarouselProject.liveDemoUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`View live demo for ${activeCarouselProject.title}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold transition shadow-lg hover:scale-105"
                   >
                     <span>{currentLang === 'zh' ? '访问在线系统' : 'Live Platform'}</span>
@@ -148,17 +149,21 @@ export const Projects: React.FC<ProjectsProps> = ({
               </div>
             </div>
 
-            {/* Indicators */}
+            {/* Indicators with enlarged accessible touch targets (p-3 -m-3) */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
               {featuredProjects.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCarouselIndex(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    carouselIndex === idx ? 'w-6 bg-sky-400' : 'w-2 bg-white/40 hover:bg-white/70'
-                  }`}
+                  className="p-3 -m-3 focus:outline-none flex items-center justify-center cursor-pointer"
                   aria-label={`Slide ${idx + 1}`}
-                />
+                >
+                  <span
+                    className={`h-2 rounded-full transition-all block ${
+                      carouselIndex === idx ? 'w-6 bg-sky-400' : 'w-2 bg-white/40 hover:bg-white/70'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           </div>
@@ -207,6 +212,7 @@ export const Projects: React.FC<ProjectsProps> = ({
                     <button
                       type="button"
                       className="btn flex-1"
+                      aria-label={`Read more details about ${proj.title}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleOpenModal(idx);
@@ -220,8 +226,9 @@ export const Projects: React.FC<ProjectsProps> = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
+                        aria-label={`View live demo for ${proj.title}`}
                         className="px-3 py-2 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 text-xs font-mono font-bold transition shrink-0 flex items-center gap-1"
-                        title="Visit Live Application"
+                        title={`View live demo for ${proj.title}`}
                       >
                         <span>Demo</span>
                         <ArrowUpRight className="w-3 h-3" />

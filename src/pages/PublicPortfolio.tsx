@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useDeviceDetect } from '../hooks/useDeviceDetect';
 import { BackgroundWallpaper } from '../components/public/BackgroundWallpaper';
 import { Header } from '../components/public/Header';
 import { Hero } from '../components/public/Hero';
@@ -20,6 +21,7 @@ interface PublicPortfolioProps {
 }
 
 export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmin }) => {
+  const { isMobile } = useDeviceDetect();
   const { data, submitContactForm } = usePortfolio();
   const {
     siteSettings,
@@ -61,8 +63,16 @@ export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmi
 
   return (
     <div className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] overflow-x-hidden transition-colors duration-300">
-      {/* Hallmark Animated Rotating Wallpaper Icons */}
-      <BackgroundWallpaper />
+      {/* Skip to Main Content Link for A11y Landmark Navigation */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2.5 focus:rounded-xl focus:bg-sky-500 focus:text-slate-950 focus:font-bold focus:shadow-xl focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
+      {/* Hallmark Animated Rotating Wallpaper Icons (Conditionally rendered on desktop/tablet only) */}
+      {!isMobile && <BackgroundWallpaper />}
 
       {/* Floating Frosted Glass Navbar */}
       <Header
@@ -72,88 +82,91 @@ export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmi
         onToggleLang={toggleLanguage}
       />
 
-      {/* Hero Section */}
-      {sectionVisibility.hero && (
-        <Hero
-          hero={hero}
-          linkedInUrl={contact.linkedIn}
-          githubUrl={githubUrl}
-          onOpenResume={() => setResumeOpen(true)}
-          currentLang={currentLang}
-        />
-      )}
+      {/* Core Landmark: Main Content */}
+      <main id="main-content">
+        {/* Hero Section */}
+        {sectionVisibility.hero && (
+          <Hero
+            hero={hero}
+            linkedInUrl={contact.linkedIn}
+            githubUrl={githubUrl}
+            onOpenResume={() => setResumeOpen(true)}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Education Section */}
-      {sectionVisibility.education && (
-        <Education
-          education={education}
-          certifications={certifications}
-          leadership={leadership}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Education Section */}
+        {sectionVisibility.education && (
+          <Education
+            education={education}
+            certifications={certifications}
+            leadership={leadership}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Autonomous Systems & Swarm Highlights Showcase (matches Steven Feng's NVIDIA section) */}
-      <Showcase showcase={data.showcase} currentLang={currentLang} />
+        {/* Autonomous Systems & Swarm Highlights Showcase (matches Steven Feng's NVIDIA section) */}
+        <Showcase showcase={data.showcase} currentLang={currentLang} />
 
-      {/* Internships & Experience Section */}
-      {sectionVisibility.experience && (
-        <Experience
-          experience={experience}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Internships & Experience Section */}
+        {sectionVisibility.experience && (
+          <Experience
+            experience={experience}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Academic Research & Publications Section (SEPARATE) */}
-      {(sectionVisibility.research ?? true) && (
-        <Research
-          research={
-            (data.research && data.research.length > 0)
-              ? data.research
-              : projects.filter(
-                  (p) =>
-                    p.category.includes('Research') ||
-                    p.category.includes('Review') ||
-                    p.category.includes('Paper')
-                )
-          }
-          currentLang={currentLang}
-        />
-      )}
+        {/* Academic Research & Publications Section (SEPARATE) */}
+        {(sectionVisibility.research ?? true) && (
+          <Research
+            research={
+              (data.research && data.research.length > 0)
+                ? data.research
+                : projects.filter(
+                    (p) =>
+                      p.category.includes('Research') ||
+                      p.category.includes('Review') ||
+                      p.category.includes('Paper')
+                  )
+            }
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Engineering Projects & Products Section (SEPARATE) */}
-      {sectionVisibility.projects && (
-        <Projects
-          projects={projects}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Engineering Projects & Products Section (SEPARATE) */}
+        {sectionVisibility.projects && (
+          <Projects
+            projects={projects}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Skills Section */}
-      {sectionVisibility.skills && (
-        <Skills
-          skills={skills}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Skills Section */}
+        {sectionVisibility.skills && (
+          <Skills
+            skills={skills}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Competitions & Honors */}
-      {sectionVisibility.competitions && (
-        <Competitions
-          achievements={achievements}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Competitions & Honors */}
+        {sectionVisibility.competitions && (
+          <Competitions
+            achievements={achievements}
+            currentLang={currentLang}
+          />
+        )}
 
-      {/* Contact Section */}
-      {sectionVisibility.contact && (
-        <Contact
-          contact={contact}
-          githubUrl={githubUrl}
-          onSubmitMessage={submitContactForm}
-          currentLang={currentLang}
-        />
-      )}
+        {/* Contact Section */}
+        {sectionVisibility.contact && (
+          <Contact
+            contact={contact}
+            githubUrl={githubUrl}
+            onSubmitMessage={submitContactForm}
+            currentLang={currentLang}
+          />
+        )}
+      </main>
 
       {/* Minimal Footer */}
       <Footer

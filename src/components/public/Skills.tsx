@@ -380,7 +380,7 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
             {currentLang === 'zh' ? '专业与社交技能' : 'Technical & Social Skills'}
           </h2>
 
-          <p className="max-w-2xl text-slate-400 text-sm sm:text-base mt-2 font-normal leading-relaxed">
+          <p className="max-w-2xl text-slate-300 text-sm sm:text-base mt-2 font-normal leading-relaxed">
             {currentLang === 'zh'
               ? '结合扎实的电气工程无人机研发硬实力，与卓越的团队领导、国际文化交流、大型活动协调与初创项目孵化能力。'
               : 'Synthesizing verified UAV robotics engineering expertise with proven team captaincy, international diplomacy, corporate stakeholder liaison, and high-impact startup product leadership.'}
@@ -399,7 +399,7 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all ${
                   isActive
                     ? 'bg-sky-500 text-slate-950 font-bold shadow-lg shadow-sky-500/20 scale-105'
-                    : 'bg-slate-900/80 dark:bg-slate-900/80 text-slate-400 dark:text-slate-400 hover:text-white dark:hover:text-white hover:bg-slate-800 dark:hover:bg-slate-800 border border-slate-800 dark:border-slate-800'
+                    : 'bg-slate-900/80 dark:bg-slate-900/80 text-slate-300 dark:text-slate-300 hover:text-white dark:hover:text-white hover:bg-slate-800 dark:hover:bg-slate-800 border border-slate-800 dark:border-slate-800'
                 }`}
               >
                 <span>{cat.label}</span>
@@ -445,7 +445,7 @@ export const Skills: React.FC<SkillsProps> = ({ skills = [], currentLang = 'en' 
                     {skill.name}
                   </p>
 
-                  <p className="text-xs text-slate-400 dark:text-slate-400 font-normal mt-1 leading-relaxed">
+                  <p className="text-xs text-slate-300 dark:text-slate-300 font-normal mt-1 leading-relaxed">
                     {skill.desc}
                   </p>
                 </div>

@@ -114,7 +114,7 @@ export const Contact: React.FC<ContactProps> = ({
                 <Mail className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Direct Email</div>
+                <div className="text-[10px] font-mono text-slate-300 uppercase tracking-wider">Direct Email</div>
                 <div className="text-xs sm:text-sm font-semibold">{directEmail}</div>
               </div>
             </a>
@@ -130,7 +130,7 @@ export const Contact: React.FC<ContactProps> = ({
                 <Phone className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Direct Comms</div>
+                <div className="text-[10px] font-mono text-slate-300 uppercase tracking-wider">Direct Comms</div>
                 <div className="text-xs sm:text-sm font-semibold">{directPhone}</div>
               </div>
             </a>
@@ -178,7 +178,7 @@ export const Contact: React.FC<ContactProps> = ({
               <MessageSquare className="w-4 h-4 text-sky-400" />
               <span>{currentLang === 'zh' ? '发送在线消息' : 'Send Direct Message'}</span>
             </h3>
-            <p className="text-xs text-slate-400 mb-6 text-center">
+            <p className="text-xs text-slate-300 mb-6 text-center">
               {currentLang === 'zh' ? '消息将直接送达我的工作信箱' : 'Inquiries dispatch directly to primary inbox'}
             </p>
 

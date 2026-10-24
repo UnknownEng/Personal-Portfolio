@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Info } from 'lucide-react';
+import { useDeviceDetect } from '../../hooks/useDeviceDetect';
 
 interface DroneVisualizationProps {
   telemetry?: {
@@ -13,10 +14,12 @@ interface DroneVisualizationProps {
 }
 
 export const DroneVisualization: React.FC<DroneVisualizationProps> = ({ telemetry }) => {
+  const { isMobile } = useDeviceDetect();
   const containerRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (isMobile) return;
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -51,10 +54,14 @@ export const DroneVisualization: React.FC<DroneVisualizationProps> = ({ telemetr
     mode: 'SITL OFFBOARD',
   };
 
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-lg mx-auto aspect-square rounded-2xl bg-theme-card border border-theme p-6 flex flex-col justify-between overflow-hidden shadow-2xl transition-transform duration-200"
+      className="hidden md:flex relative w-full max-w-lg mx-auto aspect-square rounded-2xl bg-theme-card border border-theme p-6 flex-col justify-between overflow-hidden shadow-2xl transition-transform duration-200"
       style={{
         perspective: '1000px',
       }}
@@ -153,29 +160,29 @@ export const DroneVisualization: React.FC<DroneVisualizationProps> = ({ telemetr
 
         {/* Floating Simulation Metrics Callouts */}
         <div className="absolute top-2 left-2 bg-[#0A0F1D]/90 border border-cyan-500/30 rounded px-2.5 py-1 font-mono text-[10px] text-cyan-300">
-          <div className="text-[8.5px] text-slate-400 font-semibold">SIM ALTITUDE</div>
+          <div className="text-[8.5px] text-slate-300 font-semibold">SIM ALTITUDE</div>
           <div className="font-semibold">{stats.alt}</div>
         </div>
 
         <div className="absolute top-2 right-2 bg-[#0A0F1D]/90 border border-blue-500/30 rounded px-2.5 py-1 font-mono text-[10px] text-blue-300">
-          <div className="text-[8.5px] text-slate-400 font-semibold">SIM TELEMETRY</div>
+          <div className="text-[8.5px] text-slate-300 font-semibold">SIM TELEMETRY</div>
           <div className="font-semibold">{stats.signal}</div>
         </div>
 
         <div className="absolute bottom-2 left-2 bg-[#0A0F1D]/90 border border-slate-700 rounded px-2.5 py-1 font-mono text-[10px] text-slate-300">
-          <div className="text-[8.5px] text-slate-400 font-semibold">SIM BATTERY</div>
+          <div className="text-[8.5px] text-slate-300 font-semibold">SIM BATTERY</div>
           <div className="font-semibold">{stats.battery}</div>
         </div>
 
         <div className="absolute bottom-2 right-2 bg-[#0A0F1D]/90 border border-cyan-500/30 rounded px-2.5 py-1 font-mono text-[10px] text-cyan-300">
-          <div className="text-[8.5px] text-slate-400 font-semibold">SIM NAVIGATION</div>
+          <div className="text-[8.5px] text-slate-300 font-semibold">SIM NAVIGATION</div>
           <div className="font-semibold">{stats.gps}</div>
         </div>
       </div>
 
       {/* Bottom Technical Notice Banner */}
-      <div className="relative z-10 pt-2.5 border-t border-cyan-500/20 flex items-center justify-between text-[10px] font-mono text-slate-400">
-        <div className="flex items-center gap-1.5 text-slate-400">
+      <div className="relative z-10 pt-2.5 border-t border-cyan-500/20 flex items-center justify-between text-[10px] font-mono text-slate-300">
+        <div className="flex items-center gap-1.5 text-slate-300">
           <Info className="w-3 h-3 text-cyan-400" />
           <span>Quadrotor Avionics Schematic • Interactive Vector Model</span>
         </div>

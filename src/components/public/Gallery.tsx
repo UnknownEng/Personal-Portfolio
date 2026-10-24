@@ -298,7 +298,7 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                 <span className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-500/30">
                   {activeItem.category}
                 </span>
-                <span className="text-xs font-mono text-slate-400 hidden sm:inline">
+                <span className="text-xs font-mono text-slate-300 hidden sm:inline">
                   ARTIFACT {lightboxIndex + 1} OF {filteredItems.length}
                 </span>
               </div>
@@ -308,6 +308,7 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                   onClick={handleCloseLightbox}
                   className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
                   title="Close (Esc)"
+                  aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -334,7 +335,7 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                   <h4 className="text-slate-100 font-bold font-mono text-base">
                     {activeItem.title}
                   </h4>
-                  <p className="text-slate-400 text-xs font-mono mt-1 max-w-md">
+                  <p className="text-slate-300 text-xs font-mono mt-1 max-w-md">
                     High-resolution field telemetry artifact registered in technical dossier.
                   </p>
                 </div>
@@ -376,7 +377,7 @@ export const Gallery: React.FC<GalleryProps> = ({ gallery }) => {
                     {activeItem.title}
                   </h3>
                   {activeItem.date && (
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-xs font-mono text-slate-300">
                       • {activeItem.date}
                     </span>
                   )}

@@ -99,26 +99,26 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header className="navbar-wrapper" role="banner">
         {/* Left Side: Clickable Logo & Resume */}
-        <div className="left-nav flex items-center gap-2 sm:gap-3">
+        <div className="left-nav flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={() => scrollToSection('home')}
-            className="flex items-center gap-2 group cursor-pointer text-left focus:outline-none"
+            className="flex items-center gap-2 group cursor-pointer text-left focus:outline-none whitespace-nowrap shrink-0"
             aria-label="Antigracity Home"
             title="Antigracity Flight Radar"
           >
-            <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition-all duration-300 shadow-sm">
+            <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition-all duration-300 shadow-sm shrink-0">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <polygon points="12 2 2 7 12 12 22 7 12 2" />
                 <polyline points="2 17 12 22 22 17" />
                 <polyline points="2 12 12 17 22 12" />
               </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xs tracking-wider text-slate-100 font-mono group-hover:text-sky-400 transition leading-none">
+            <div className="flex flex-col whitespace-nowrap shrink-0">
+              <span className="font-bold text-xs tracking-wider text-slate-100 font-mono group-hover:text-sky-400 transition leading-none whitespace-nowrap shrink-0">
                 ANTIGRACITY
               </span>
-              <span className="text-[9px] text-sky-400 font-mono tracking-widest mt-0.5 uppercase opacity-90">
+              <span className="text-[9px] text-sky-400 font-mono tracking-widest mt-0.5 uppercase opacity-90 whitespace-nowrap shrink-0">
                 AERO•UAV
               </span>
             </div>
@@ -127,11 +127,11 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenResume}
-            className="resume-btn hidden sm:inline-flex items-center gap-1.5 text-xs font-bold"
+            className="resume-btn hidden sm:inline-flex items-center gap-1.5 text-xs font-bold whitespace-nowrap shrink-0"
             aria-label="Open Curriculum Vitae"
           >
-            <FileText className="w-3.5 h-3.5" />
-            <span>{currentLang === 'zh' ? '简历' : 'Resume'}</span>
+            <FileText className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap shrink-0">{currentLang === 'zh' ? '简历' : 'Resume'}</span>
           </button>
         </div>
 
@@ -159,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
               title="Toggle English / 中文"
             >
               <span className={currentLang === 'zh' ? 'active-lang' : 'inactive-lang'}>中</span>
-              <span className="text-slate-400 text-xs">/</span>
+              <span className="text-slate-300 text-xs">/</span>
               <span className={currentLang === 'en' ? 'active-lang' : 'inactive-lang'}>EN</span>
             </button>
 
@@ -181,11 +181,11 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenResume}
-            className="resume-btn text-xs py-1.5 px-3 flex sm:hidden items-center gap-1"
+            className="resume-btn text-xs py-1.5 px-3 flex sm:hidden items-center gap-1 whitespace-nowrap shrink-0"
             aria-label="Resume"
           >
-            <FileText className="w-3 h-3" />
-            <span>CV</span>
+            <FileText className="w-3 h-3 shrink-0" />
+            <span className="whitespace-nowrap shrink-0">CV</span>
           </button>
 
           <button
@@ -195,7 +195,7 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="Language switch"
           >
             <span className={currentLang === 'zh' ? 'active-lang' : 'inactive-lang'}>中</span>
-            <span className="text-slate-400">/</span>
+            <span className="text-slate-300">/</span>
             <span className={currentLang === 'en' ? 'active-lang' : 'inactive-lang'}>EN</span>
           </button>
 
@@ -237,12 +237,12 @@ export const Header: React.FC<HeaderProps> = ({
                     <polyline points="2 12 12 17 22 12" />
                   </svg>
                 </div>
-                <span className="font-mono font-bold text-sm text-white">ANTIGRACITY</span>
+                <span className="font-mono font-bold text-sm text-white whitespace-nowrap shrink-0">ANTIGRACITY</span>
               </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition"
                 aria-label="Close menu"
               >
                 <X className="w-5 h-5" />

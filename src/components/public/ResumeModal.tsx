@@ -52,7 +52,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
         <div className="modal-topbar">
           <div className="modal-org">
             <div className="modal-org-logo">
-              <FileText className="w-5 h-5 text-sky-600" />
+              <FileText className="w-5 h-5 text-sky-400" />
             </div>
             <span className="modal-org-name text-sm sm:text-base">Mansoor Ahmed Rind — CV</span>
           </div>
@@ -61,8 +61,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
             <a
               href={safePdfUrl}
               download="Mansoor_Ahmed_Rind_CV.pdf"
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800 hover:bg-sky-100 transition"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-400 dark:text-sky-400 border border-sky-200 dark:border-sky-800 hover:bg-sky-100 transition"
               title="Download CV"
+              aria-label="Download Mansoor Ahmed Rind Curriculum Vitae PDF"
             >
               <Download className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Download</span> PDF
             </a>
@@ -70,8 +71,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
               href={safePdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 text-slate-500 hover:text-sky-500 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="p-1.5 text-slate-300 hover:text-sky-400 transition rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
               title="Open in new tab"
+              aria-label="Open CV PDF in new tab"
             >
               <ExternalLink className="w-4 h-4" />
             </a>

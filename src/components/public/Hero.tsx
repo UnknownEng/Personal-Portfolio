@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
     <section className="section" id="home">
       <div className="container text-center">
         {/* Subtitle / Greeting */}
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-400 mb-2">
+        <h2 className="text-xl md:text-2xl font-semibold text-slate-300 mb-2">
           {currentLang === 'zh' ? '你好，我是' : 'Hi, I am'}{' '}
           <span className="text-white font-bold">
             {hero.name || 'Mansoor Ahmed Rind'}
@@ -140,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({
           <button
             type="button"
             onClick={scrollToWork}
-            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-slate-400 hover:text-sky-400 font-semibold text-sm transition"
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-slate-300 hover:text-sky-400 font-semibold text-sm transition"
           >
             <span>{currentLang === 'zh' ? '探索研究' : 'Explore Work'}</span>
             <ArrowDown className="w-4 h-4 animate-bounce" />

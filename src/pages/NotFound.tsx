@@ -36,7 +36,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080b12] text-[#f8fafc] flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
+    <main id="main-content" className="min-h-screen bg-[#080b12] text-[#f8fafc] flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
       {/* Background Radar Rings */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
         <div className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full border border-sky-500/30 animate-ping" />
@@ -108,6 +108,6 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
           <div><span className="text-slate-400">ORIGIN:</span> ANTIGRACITY_AUTONOMY_CORE</div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };

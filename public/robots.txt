@@ -17,5 +17,6 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-# Sitemaps
+# Sitemaps and LLM Directives
 Sitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml
+# LLM Context: https://personal-portfolio-swart-sigma-44.vercel.app/llms.txt

@@ -67,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </span>
               </div>
             </button>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-300 leading-relaxed max-w-sm">
               {currentLang === 'zh'
                 ? '自主无人机蜂群、航空嵌入式系统与数字孪生飞行仿真前沿工程项目与学术展示。'
                 : 'Advanced autonomous UAV swarm robotics, embedded flight stacks, and digital-twin aerospace simulations engineered by Mansoor Ahmed Rind.'}
@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({
                   key={item.id}
                   type="button"
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left text-slate-400 hover:text-sky-400 transition py-1 focus:outline-none"
+                  className="text-left text-slate-300 hover:text-sky-400 transition py-1 focus:outline-none"
                 >
                   {item.label}
                 </button>
@@ -152,14 +152,14 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom copyright bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-400 text-center sm:text-left">
+          <p className="text-xs text-slate-300 text-center sm:text-left">
             {footerText || `© ${currentYear} ${siteName} — Antigracity. All rights reserved. Specialized in UAV Autonomy & Embedded Systems.`}
           </p>
 
           <button
             type="button"
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-sky-400 transition p-2 rounded-xl hover:bg-white/5"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-sky-400 transition p-2 rounded-xl hover:bg-white/5"
             aria-label="Scroll back to top of page"
           >
             <span>{currentLang === 'zh' ? '回到顶部' : 'Back to Top'}</span>

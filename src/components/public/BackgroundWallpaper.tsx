@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDeviceDetect } from '../../hooks/useDeviceDetect';
 
 // Crisp SVG engineering & robotics icons for the rotating wallpaper
 const DroneIcon = () => (
@@ -70,8 +71,15 @@ const TerminalIcon = () => (
 );
 
 export const BackgroundWallpaper: React.FC = () => {
+  const { isMobile } = useDeviceDetect();
+
+  // Prevent mounting heavy rotating animation assets on mobile devices
+  if (isMobile) {
+    return null;
+  }
+
   return (
-    <div className="background-wallpaper" aria-hidden="true">
+    <div className="background-wallpaper hidden md:block" aria-hidden="true">
       {/* Row 1 */}
       <div className="wallpaper-row">
         <div className="icon-cell left">

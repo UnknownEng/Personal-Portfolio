@@ -177,7 +177,7 @@ export const Showcase: React.FC<ShowcaseProps> = ({ showcase, currentLang = 'en'
     <section className="section" id="showcase">
       <div className="container">
         <h2 className="section-heading">{currentLang === 'zh' ? '自主无人机与蜂群亮点' : 'Autonomous UAV & Swarm Highlights'}</h2>
-        <h3 className="text-sm md:text-base font-semibold text-sky-600 dark:text-sky-400 -mt-5 mb-8 tracking-wider uppercase">
+        <h3 className="text-sm md:text-base font-semibold text-sky-400 -mt-5 mb-8 tracking-wider uppercase">
           {currentLang === 'zh' ? '2024 至今' : '2024 to Present'}
         </h3>
 
@@ -234,17 +234,21 @@ export const Showcase: React.FC<ShowcaseProps> = ({ showcase, currentLang = 'en'
               </button>
             </div>
 
-            {/* Indicators */}
+            {/* Indicators with enlarged accessible touch targets (p-3 -m-3) */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
               {showcaseItems.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    currentSlide === idx ? 'w-6 bg-sky-400' : 'w-2 bg-white/40 hover:bg-white/70'
-                  }`}
+                  className="p-3 -m-3 focus:outline-none flex items-center justify-center cursor-pointer"
                   aria-label={`Slide ${idx + 1}`}
-                />
+                >
+                  <span
+                    className={`h-2 rounded-full transition-all block ${
+                      currentSlide === idx ? 'w-6 bg-sky-400' : 'w-2 bg-white/40 hover:bg-white/70'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           </div>
