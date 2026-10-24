@@ -77,7 +77,7 @@ export const Projects: React.FC<ProjectsProps> = ({
           <div className="masterCarousel relative rounded-2xl overflow-hidden shadow-2xl w-full min-h-[460px] md:min-h-[500px]">
             <img
               src={getProjectImage(activeCarouselProject, carouselIndex)}
-              alt={activeCarouselProject?.title ? `${activeCarouselProject.title} - Antigracity Engineering System` : 'Antigracity Engineering System and Robotic Platform'}
+              alt={activeCarouselProject?.title ? `${activeCarouselProject.title} - Engineering System` : 'Engineering System and Robotic Platform'}
               width="1200"
               height="675"
               className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700"

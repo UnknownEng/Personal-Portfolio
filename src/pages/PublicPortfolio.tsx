@@ -83,7 +83,7 @@ export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmi
       />
 
       {/* Core Landmark: Main Content */}
-      <main id="main-content">
+      <main id="main-content" className="w-full max-w-7xl mx-auto relative z-10">
         {/* Hero Section */}
         {sectionVisibility.hero && (
           <Hero

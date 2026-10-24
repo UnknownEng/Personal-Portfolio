@@ -49,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({
               type="button"
               onClick={scrollToTop}
               className="flex items-center gap-2.5 group cursor-pointer text-left focus:outline-none"
-              aria-label="Antigracity Top"
+              aria-label="Back to Top"
             >
               <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition-all duration-300">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -60,10 +60,10 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-sm tracking-wider text-slate-100 font-mono group-hover:text-sky-400 transition">
-                  ANTIGRACITY
+                  Mansoor Ahmed Rind
                 </span>
-                <span className="text-[10px] text-sky-400 font-mono tracking-wider">
-                  AUTONOMOUS UAV FLIGHT SYSTEMS
+                <span className="text-[10px] text-sky-400 font-mono tracking-wider uppercase">
+                  Made by Maverick Tech Ventures
                 </span>
               </div>
             </button>
@@ -99,12 +99,12 @@ export const Footer: React.FC<FooterProps> = ({
               {currentLang === 'zh' ? '直达联系' : 'Direct Comms'}
             </div>
             <a
-              href="mailto:mansoorahmedrind@gmail.com"
+              href="mailto:ahmedmansoorrind1210@gmail.com"
               className="inline-flex items-center gap-2 text-xs text-slate-300 hover:text-sky-400 transition"
               aria-label="Direct Email"
             >
               <Mail className="w-3.5 h-3.5 text-sky-400" />
-              <span>mansoorahmedrind@gmail.com</span>
+              <span>ahmedmansoorrind1210@gmail.com</span>
             </a>
             <a
               href="tel:+923273202419"
@@ -153,7 +153,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom copyright bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-300 text-center sm:text-left">
-            {footerText || `© ${currentYear} ${siteName} — Antigracity. All rights reserved. Specialized in UAV Autonomy & Embedded Systems.`}
+            {footerText || `© ${currentYear} ${siteName || 'Mansoor Ahmed Rind'}. Made by Maverick Tech Ventures. All rights reserved.`}
           </p>
 
           <button

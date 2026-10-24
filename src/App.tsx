@@ -36,13 +36,13 @@ const AppRouter: React.FC = () => {
       const hash = window.location.hash;
       if (path.startsWith('/admin') || hash === '#admin') {
         setView('admin');
-        document.title = 'Antigracity Admin CMS | Secure Control Panel';
+        document.title = 'Admin CMS | Secure Control Panel';
       } else if (path === '/' || path === '' || path === '/index.html' || path === '/CV.pdf') {
         setView('public');
-        document.title = 'Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
+        document.title = 'Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
       } else {
         setView('404');
-        document.title = '404 Flight Path Error — Coordinate Deviation | Antigracity';
+        document.title = '404 Flight Path Error — Coordinate Deviation | Mansoor Ahmed Rind';
       }
     };
 
@@ -53,13 +53,13 @@ const AppRouter: React.FC = () => {
   const navigateToAdmin = () => {
     setView('admin');
     window.history.pushState({}, '', '/admin');
-    document.title = 'Antigracity Admin CMS | Secure Control Panel';
+    document.title = 'Admin CMS | Secure Control Panel';
   };
 
   const navigateToPublic = () => {
     setView('public');
     window.history.pushState({}, '', '/');
-    document.title = 'Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
+    document.title = 'Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
   };
 
   if (authLoading || portfolioLoading) {
@@ -128,7 +128,7 @@ const AppRouter: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <ErrorBoundary fallbackTitle="Antigracity Application Safe Mode">
+    <ErrorBoundary fallbackTitle="Application Safe Mode">
       <AuthProvider>
         <PortfolioProvider>
           <AppRouter />

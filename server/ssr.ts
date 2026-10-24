@@ -3,16 +3,16 @@ import { PortfolioData } from '../src/types/portfolio.ts';
 export function renderServerSide(data: PortfolioData): string {
   const hero = data.hero || {};
   const currentYear = new Date().getFullYear();
-  const directEmail = data.contact?.email || 'mansoorahmedrind@gmail.com';
+  const directEmail = data.contact?.email || 'ahmedmansoorrind1210@gmail.com';
   const directPhone = data.contact?.phone || '+92 327 3202419';
   const cleanPhone = directPhone.replace(/[^0-9+]/g, '');
 
   return `
   <div class="relative min-h-screen bg-[#080b12] text-[#f8fafc] overflow-x-hidden">
-    <!-- Server-Rendered Antigracity Header -->
+    <!-- Server-Rendered Header -->
     <header class="navbar-wrapper" role="banner">
       <div class="left-nav flex items-center gap-3">
-        <a href="#home" class="flex items-center gap-2 group text-left text-decoration-none focus:outline-none" aria-label="Antigracity Home">
+        <a href="#home" class="flex items-center gap-2 group text-left text-decoration-none focus:outline-none" aria-label="Home">
           <div class="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
@@ -21,8 +21,8 @@ export function renderServerSide(data: PortfolioData): string {
             </svg>
           </div>
           <div class="flex flex-col">
-            <span class="font-bold text-xs tracking-wider text-slate-100 font-mono">ANTIGRACITY</span>
-            <span class="text-[9px] text-sky-400 font-mono tracking-widest mt-0.5 uppercase opacity-90">AERO•UAV</span>
+            <span class="font-bold text-xs tracking-wider text-slate-100 font-mono">Mansoor Ahmed Rind</span>
+            <span class="text-[9px] text-sky-400 font-mono tracking-widest mt-0.5 uppercase opacity-90">UnknownEng</span>
           </div>
         </a>
         <a href="/CV.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-950">
@@ -206,7 +206,7 @@ export function renderServerSide(data: PortfolioData): string {
     <!-- Footer -->
     <footer class="w-full pt-12 pb-8 border-t border-slate-800 bg-[#080b12]/95 text-center text-xs text-slate-400" role="contentinfo">
       <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p>© ${currentYear} ${hero.name || 'Mansoor Ahmed Rind'} — Antigracity. All rights reserved.</p>
+        <p>© ${currentYear} ${hero.name || 'Mansoor Ahmed Rind'}. Made by Maverick Tech Ventures. All rights reserved.</p>
         <a href="#home" class="text-sky-400 hover:underline">Back to Top</a>
       </div>
     </footer>

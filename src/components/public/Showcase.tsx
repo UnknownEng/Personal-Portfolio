@@ -187,11 +187,17 @@ export const Showcase: React.FC<ShowcaseProps> = ({ showcase, currentLang = 'en'
             {/* Background Media */}
             <img
               src={activeItem.mediaUrl}
-              alt={activeItem.title ? `${activeItem.title} - Antigracity Autonomous UAV Showcase` : 'Antigracity Autonomous UAV and Swarm Robotics Showcase'}
-              width="1200"
-              height="675"
+              srcSet={
+                activeItem.mediaUrl && activeItem.mediaUrl.includes('1791240076525')
+                  ? `${activeItem.mediaUrl.replace('.webp', '-640w.webp')} 640w, ${activeItem.mediaUrl} 1000w`
+                  : undefined
+              }
+              sizes="(max-width: 768px) 100vw, 1000px"
+              alt={activeItem.title ? `${activeItem.title} - Mansoor Ahmed Rind Autonomous UAV Showcase` : 'Mansoor Ahmed Rind Autonomous UAV and Swarm Robotics Showcase'}
+              width="1000"
+              height="558"
               className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />

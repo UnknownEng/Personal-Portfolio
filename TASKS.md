@@ -1,4 +1,4 @@
-# Project Task Tracker — Antigracity
+# Project Task Tracker — Portfolio
 
 ## Part 1: Project Documentation Setup
 - [x] **1.1 PRD.md**: Define product requirements, audience, scope, and quality targets.
@@ -20,7 +20,7 @@
 - [x] **Fix 04: Add a favicon**
   - Created bespoke aerospace SVG favicon (`public/favicon.svg`), web manifest (`public/site.webmanifest`), and linked in `index.html`.
 - [x] **Fix 05: Fix page titles**
-  - Updated primary title to `Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer`; wired dynamic titles for `/admin` and `NotFound` views.
+  - Updated primary title to `Mansoor Ahmed Rind — UAV & Robotics Systems Engineer`; wired dynamic titles for `/admin` and `NotFound` views.
 - [x] **Fix 06: Add meta descriptions**
   - Authored compelling, keyword-rich meta descriptions under 155 characters for OpenGraph, Twitter, and search crawlers.
 - [x] **Fix 07: Fix footer links**
@@ -44,11 +44,11 @@
 - [x] **Fix 16: Fix mobile overflow**
   - Fixed typewriter min-width on narrow screens, responsive padding, fluid font sizing, and container containment.
 - [x] **Fix 17: Make the logo clickable**
-  - Added interactive Antigracity chevron badge logo in Header and Footer linking smoothly to `#home` / top.
+  - Added interactive chevron badge logo in Header and Footer linking smoothly to `#home` / top.
 - [x] **Fix 18: Make the phone number clickable**
   - Added clickable `tel:+923273202419` links in `Contact.tsx`, Header mobile drawer, and `Footer.tsx`.
 - [x] **Fix 19: Make the email clickable**
-  - Added clickable `mailto:mansoorahmedrind@gmail.com` with prefilled subject lines in `Contact.tsx`, Header mobile drawer, and `Footer.tsx`.
+  - Added clickable `mailto:ahmedmansoorrind1210@gmail.com` with prefilled subject lines in `Contact.tsx`, Header mobile drawer, and `Footer.tsx`.
 - [x] **Fix 20: Make every page mobile optimized**
   - Verified touch targets (>= 48px), fluid grids, responsive modals, and zero horizontal scrolling on mobile viewports.
 

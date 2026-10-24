@@ -1,4 +1,4 @@
-# Coding Rules & Engineering Standards — Antigracity
+# Coding Rules & Engineering Standards — Portfolio
 
 ## 1. Core Principles
 1. **Never Compromise Web Performance:** Keep JavaScript bundles lean. All assets must respect the sub-2s performance budget.

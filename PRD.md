@@ -1,8 +1,9 @@
-# Product Requirements Document (PRD) — Antigracity
+# Product Requirements Document (PRD) — Portfolio
 
 ## 1. Project Overview & Vision
-**Project Name:** Antigracity  
+**Project Name:** Portfolio (Mansoor Ahmed Rind)  
 **Role:** Flagship Web Application & Autonomous Systems / Aerospace Portfolio  
+**Organization / Backing:** Made by Maverick Tech Ventures  
 **Objective:** Deliver an ultra-high-performance, server-rendered, mobile-first, and SEO-dominant web platform showcasing autonomous UAV swarms, flight control engineering, robotics research, and engineering innovations.  
 **Quality Target:** Flawless technical SEO, sub-2-second load times, 100/100 Core Web Vitals, zero layout shifts, zero broken links, and full WCAG 2.1 AA accessibility compliance.
 
@@ -30,7 +31,7 @@
 1. **Remove Horizontal Scrolling:** Eliminate `overflow-x` across all viewports (320px to 4K), constraining wide codeblocks, matrices, and absolute containers.
 2. **Find Broken Links:** Audit all internal and external anchors (`href`), social profiles, paper links, and media resources.
 3. **Add a Mobile Menu:** Implement an accessible, animated mobile drawer navigation with focus trapping, backdrop blur, and smooth section scrolling.
-4. **Add a Favicon:** Replace default Vite SVG with bespoke, multi-resolution Antigracity icons (SVG, 32x32 PNG, 180x180 Apple Touch Icon, and web manifest).
+4. **Add a Favicon:** Replace default Vite SVG with bespoke, multi-resolution aerospace icons (SVG, 32x32 PNG, 180x180 Apple Touch Icon, and web manifest).
 5. **Fix Page Titles:** Dynamic, keyword-rich `<title>` tags tailored to each view and section under 60 characters.
 6. **Add Meta Descriptions:** High-CTR, informative meta descriptions under 155 characters per route.
 7. **Fix Footer Links:** Ensure all footer links (socials, policy, back-to-top, contact) are active, secure, and keyboard accessible.

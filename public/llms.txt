@@ -1,6 +1,6 @@
-# Antigracity - Mansoor Ahmed Rind
+# Mansoor Ahmed Rind
 
-> Electrical & Electronics Engineer and NUST Gold Medalist specializing in Autonomous UAV Swarms, Flight Control Stacks, ROS/ROS 2, ArduPilot/PX4, and Embedded Edge Computing.
+> Electrical & Electronics Engineer and NUST Gold Medalist specializing in Autonomous UAV Swarms, Flight Control Stacks, ROS/ROS 2, ArduPilot/PX4, and Embedded Edge Computing. Designed and developed with Maverick Tech Ventures.
 
 ## Bio
 Mansoor Ahmed Rind is an aerospace and robotics engineer based in Islamabad, Pakistan. Awarded the President's Gold Medal for Best Academic Performance by the National University of Sciences and Technology (NUST), Mansoor specializes in multi-agent UAV swarm algorithms, visual-inertial SLAM (VI-SLAM) in GPS-denied dynamic environments, real-time telemetry over MAVLink, and Software-in-the-Loop (SITL) digital twin aerospace simulations.
@@ -20,5 +20,5 @@ He has engineered autonomous precision landing systems for moving USVs (Teknofes
 - GitHub: https://github.com/MansoorAhmedRind
 - LinkedIn: https://linkedin.com/in/mansoorahmedrind
 - Curriculum Vitae (PDF): https://personal-portfolio-swart-sigma-44.vercel.app/CV.pdf
-- Direct Email: mailto:mansoorahmedrind@gmail.com
+- Direct Email: mailto:ahmedmansoorrind1210@gmail.com
 - Direct Telephone: tel:+923273202419

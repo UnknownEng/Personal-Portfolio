@@ -1,9 +1,11 @@
-# Context & Decisions Log (MEMORY.md) — Antigracity
+# Context & Decisions Log (MEMORY.md) — Portfolio
 
 ## 1. Project Context
-- **Name:** Antigracity
+- **Name:** Portfolio (Mansoor Ahmed Rind)
+- **Organization / Backing:** Maverick Tech Ventures
 - **Role:** Autonomous UAV Systems, Multi-Agent Swarm Robotics, and Aerospace Flight Stacks Portfolio
-- **Lead Engineer:** Mansoor Ahmed Rind (NUST Gold Medalist)
+- **Lead Engineer:** Mansoor Ahmed Rind (NUST Gold Medalist) (GitHub: UnknownEng)
+- **Contact:** +92 327 3202419 | ahmedmansoorrind1210@gmail.com
 - **Stack:** React 19, TypeScript, Vite, Tailwind CSS v4, Express SSR backend, Framer Motion, Lucide React.
 - **Repository Location:** `/home/kali/portfolio`
 
@@ -36,9 +38,9 @@
 - [x] **Fix 14 (Remove placeholder text):** Purged generic "e.g. Alex Smith" placeholders from all form fields.
 - [x] **Fix 15 (Remove unused navigation):** Filtered navigation items dynamically to mirror active sections.
 - [x] **Fix 16 (Fix mobile overflow):** Resolved narrow-screen typewriter width and container paddings.
-- [x] **Fix 17 (Make the logo clickable):** Added interactive Antigracity chevron emblem in Header and Footer linking to home.
+- [x] **Fix 17 (Make the logo clickable):** Added interactive chevron emblem in Header and Footer linking to home.
 - [x] **Fix 18 (Make the phone number clickable):** Wired `tel:+923273202419` clickable button in Contact, Header mobile drawer, and Footer.
-- [x] **Fix 19 (Make the email clickable):** Wired `mailto:mansoorahmedrind@gmail.com` clickable links with prefilled subject lines in Contact, Header, and Footer.
+- [x] **Fix 19 (Make the email clickable):** Wired `mailto:ahmedmansoorrind1210@gmail.com` clickable links with prefilled subject lines in Contact, Header, and Footer.
 - [x] **Fix 20 (Make every page mobile optimized):** Passed responsive audits across mobile, tablet, and desktop viewports.
 
 ### Part 3: Comprehensive SEO & Performance Requirements
@@ -55,7 +57,7 @@
 - [x] **SEO 11 (Remove all redirect chains):** Direct 1:1 clean status 200 URLs.
 - [x] **SEO 12 (Handle 404s properly for search engines):** Express server emits genuine HTTP 404 status header on invalid paths.
 - [x] **SEO 13 (Write SEO-optimized meta descriptions):** Tailored, intent-matching meta descriptions.
-- [x] **SEO 14 (Add FAQ schema):** Added Schema.org `FAQPage` JSON-LD covering Antigracity autonomous systems queries.
+- [x] **SEO 14 (Add FAQ schema):** Added Schema.org `FAQPage` JSON-LD covering autonomous systems engineering queries.
 - [x] **SEO 15 (Link orphan pages to the main site structure):** All sub-pages and documents (`/CV.pdf`) linked in header and footer.
 - [x] **SEO 16 (Convert images -> WebP format):** Converted all 60 images to WebP and updated references in database and source files.
 - [x] **SEO 17 (Ensure the site will load under 2s):** Total payload reduced by over 90%, pre-rendered HTML, tree-shaken bundles.

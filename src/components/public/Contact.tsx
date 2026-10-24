@@ -24,7 +24,7 @@ export const Contact: React.FC<ContactProps> = ({
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const directEmail = contact.email || 'mansoorahmedrind@gmail.com';
+  const directEmail = contact.email || 'ahmedmansoorrind1210@gmail.com';
   const directPhone = contact.phone || '+92 327 3202419';
   const cleanPhone = directPhone.replace(/[^0-9+]/g, '');
 
@@ -105,7 +105,7 @@ export const Contact: React.FC<ContactProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8 w-full max-w-lg">
             {/* Clickable Email Anchor (Fix 19) */}
             <a
-              href={sanitizeUrl(`mailto:${directEmail}?subject=${encodeURIComponent('Antigracity Engineering Inquiry')}`)}
+              href={sanitizeUrl(`mailto:${directEmail}?subject=${encodeURIComponent('Engineering Inquiry')}`)}
               className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-sky-500/60 text-slate-200 hover:text-sky-400 transition shadow-lg group focus:outline-none min-h-[48px]"
               aria-label={`Send direct email to ${directEmail}`}
               title="Click to send direct email"
@@ -275,8 +275,8 @@ export const Contact: React.FC<ContactProps> = ({
                     <div className="text-[11px] text-rose-300/80 mt-0.5">
                       {errorMessage ||
                         (currentLang === 'zh'
-                          ? '发送失败，请直接发送电子邮件至 mansoorahmedrind@gmail.com'
-                          : 'Delivery failed. Please email mansoorahmedrind@gmail.com directly.')}
+                          ? '发送失败，请直接发送电子邮件至 ahmedmansoorrind1210@gmail.com'
+                          : 'Delivery failed. Please email ahmedmansoorrind1210@gmail.com directly.')}
                     </div>
                   </div>
                 </div>

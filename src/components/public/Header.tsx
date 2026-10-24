@@ -104,8 +104,8 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             onClick={() => scrollToSection('home')}
             className="flex items-center gap-2 group cursor-pointer text-left focus:outline-none whitespace-nowrap shrink-0"
-            aria-label="Antigracity Home"
-            title="Antigracity Flight Radar"
+            aria-label="Home"
+            title="Flight Radar"
           >
             <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/40 flex items-center justify-center text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition-all duration-300 shadow-sm shrink-0">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -116,10 +116,10 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div className="flex flex-col whitespace-nowrap shrink-0">
               <span className="font-bold text-xs tracking-wider text-slate-100 font-mono group-hover:text-sky-400 transition leading-none whitespace-nowrap shrink-0">
-                ANTIGRACITY
+                Mansoor Ahmed Rind
               </span>
               <span className="text-[9px] text-sky-400 font-mono tracking-widest mt-0.5 uppercase opacity-90 whitespace-nowrap shrink-0">
-                AERO•UAV
+                UnknownEng
               </span>
             </div>
           </button>
@@ -237,7 +237,10 @@ export const Header: React.FC<HeaderProps> = ({
                     <polyline points="2 12 12 17 22 12" />
                   </svg>
                 </div>
-                <span className="font-mono font-bold text-sm text-white whitespace-nowrap shrink-0">ANTIGRACITY</span>
+                <div className="flex flex-col whitespace-nowrap shrink-0">
+                  <span className="font-mono font-bold text-sm text-white whitespace-nowrap shrink-0">Mansoor Ahmed Rind</span>
+                  <span className="text-[10px] text-sky-400 font-mono">UnknownEng</span>
+                </div>
               </div>
               <button
                 type="button"

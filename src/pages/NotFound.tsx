@@ -7,7 +7,7 @@ interface NotFoundProps {
 
 export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
   useEffect(() => {
-    document.title = '404 Flight Path Error — Coordinate Deviation | Antigracity';
+    document.title = '404 Flight Path Error — Coordinate Deviation | Mansoor Ahmed Rind';
 
     // Ensure search engines do not index 404 pages
     let metaRobots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
@@ -23,7 +23,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
       if (metaRobots) {
         metaRobots.content = previousRobots;
       }
-      document.title = 'Antigracity | Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
+      document.title = 'Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
     };
   }, []);
 
@@ -62,7 +62,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
         </h1>
 
         <p className="text-sm sm:text-base text-slate-400 mb-8 max-w-md leading-relaxed">
-          The requested flight path or waypoint does not exist within the Antigracity telemetry grid. The coordinates may have shifted or the page was decommissioned.
+          The requested flight path or waypoint does not exist within the telemetry grid. The coordinates may have shifted or the page was decommissioned.
         </p>
 
         {/* Action Buttons */}
@@ -93,7 +93,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
           </a>
 
           <a
-            href="mailto:mansoorahmedrind@gmail.com"
+            href="mailto:ahmedmansoorrind1210@gmail.com"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-slate-400 hover:text-sky-400 text-xs font-mono transition"
           >
             <Mail className="w-4 h-4" />
@@ -105,7 +105,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
         <div className="mt-12 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 font-mono text-[11px] text-slate-400 text-left w-full">
           <div><span className="text-slate-400">TIMESTAMP:</span> {new Date().toISOString()}</div>
           <div><span className="text-slate-400">WAYPOINT:</span> {typeof window !== 'undefined' ? window.location.pathname : '/'}</div>
-          <div><span className="text-slate-400">ORIGIN:</span> ANTIGRACITY_AUTONOMY_CORE</div>
+          <div><span className="text-slate-400">ORIGIN:</span> AUTONOMY_CORE</div>
         </div>
       </div>
     </main>

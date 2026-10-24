@@ -71,7 +71,7 @@ export const THEME_PRESETS: Record<string, { name: string; colors: ThemeColors }
 export const initialPortfolioData: PortfolioData = {
   "siteSettings": {
     "websiteName": "Mansoor Ahmed Rind | Engineering Portfolio",
-    "footerText": "\u00a9 2026 Mansoor Ahmed Rind. Electrical & Electronics Engineering, UAV Systems & Robotics.",
+    "footerText": "\u00a9 2026 Mansoor Ahmed Rind. Designed and developed by Maverick Tech Ventures (SMC-Private) Limited. All rights reserved.",
     "defaultLanguage": "en",
     "maintenanceMode": false,
     "animationsEnabled": true,

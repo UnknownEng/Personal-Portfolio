@@ -79,7 +79,7 @@ export const BackgroundWallpaper: React.FC = () => {
   }
 
   return (
-    <div className="background-wallpaper hidden md:block" aria-hidden="true">
+    <div className="background-wallpaper hidden md:block overflow-hidden" aria-hidden="true">
       {/* Row 1 */}
       <div className="wallpaper-row">
         <div className="icon-cell left">

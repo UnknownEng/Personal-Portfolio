@@ -1,7 +1,7 @@
-# Technical Architecture — Antigracity
+# Technical Architecture — Mansoor Ahmed Rind Portfolio
 
 ## 1. System Overview
-Antigracity is designed as a hybrid full-stack web application combining a lightning-fast React 19 client with an Express-based Node.js backend capable of server-side rendering (SSR), API delivery, secure data persistence, and fine-grained HTTP cache control.
+The Portfolio web application is designed as a hybrid full-stack web application combining a lightning-fast React 19 client with an Express-based Node.js backend capable of server-side rendering (SSR), API delivery, secure data persistence, and fine-grained HTTP cache control.
 
 ```
                     +------------------------------------+
@@ -48,7 +48,7 @@ To satisfy technical SEO requirements and eliminate JavaScript-dependent crawlin
 
 ### 2.2 Dynamic Metadata & Schema Pipeline
 Every page request injects structured data:
-- **Canonical Tags:** Self-referential canonical URL matching `https://antigracity.vercel.app/` or canonical custom domain.
+- **Canonical Tags:** Self-referential canonical URL matching `https://mansoorahmedrind.vercel.app/` or canonical custom domain.
 - **Heading Hierarchy:** Strict document outline starting with exactly one semantic `<h1>`.
 - **JSON-LD Structured Data:**
   - `Person` & `WebSite` schemas.

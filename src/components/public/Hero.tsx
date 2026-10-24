@@ -73,8 +73,8 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <section className="section" id="home">
-      <div className="container text-center">
+    <section className="section w-full max-w-7xl mx-auto" id="home">
+      <div className="container text-center w-full max-w-7xl mx-auto">
         {/* Subtitle / Greeting */}
         <h2 className="text-xl md:text-2xl font-semibold text-slate-300 mb-2">
           {currentLang === 'zh' ? '你好，我是' : 'Hi, I am'}{' '}

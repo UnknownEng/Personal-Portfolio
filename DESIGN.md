@@ -1,7 +1,7 @@
-# Design System & UI Guidelines — Antigracity
+# Design System & UI Guidelines — Mansoor Ahmed Rind Portfolio
 
 ## 1. Brand Identity & Visual Language
-**Brand Concept:** Antigracity — Autonomous Flight, Swarm Robotics, Aerodynamics, and Future Engineering.  
+**Brand Concept:** Mansoor Ahmed Rind (UnknownEng) — Autonomous Flight, Swarm Robotics, Aerodynamics, and Future Engineering. Made by Maverick Tech Ventures.  
 **Aesthetic:** Deep aerospace dark mode with luminous cyan/sky accents, frosted glass cards (glassmorphism), refined micro-interactions, and crisp high-contrast typography.
 
 ---
@@ -61,6 +61,6 @@
 - Persistent success toast / banner upon submission.
 
 ### 3.6 404 Error Page
-- Styled to match the Antigracity aerospace HUD aesthetic.
+- Styled to match the aerospace HUD aesthetic.
 - Prominent `404` status with clear explanatory text: "Flight Path Not Found / Coordinate Deviation".
 - Instant primary action: "Return to Home Radar" linking directly to `/`.
