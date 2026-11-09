@@ -1,15 +1,32 @@
-import React, { useEffect } from 'react';
-import { PlaneTakeoff, Home, ArrowLeft, Terminal, Compass, Mail } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowLeft, ArrowUpRight, Moon, Sun } from 'lucide-react';
+import '../styles/site.css';
 
 interface NotFoundProps {
   onBackToHome?: () => void;
 }
 
-export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
-  useEffect(() => {
-    document.title = '404 Flight Path Error — Coordinate Deviation | Mansoor Ahmed Rind';
+type Theme = 'light' | 'dark';
 
-    // Ensure search engines do not index 404 pages
+function initialTheme(): Theme {
+  try {
+    const saved = localStorage.getItem('site-theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+  } catch {
+    /* storage blocked */
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+/** 404 page in the same "flight test report" style as the public site. */
+export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+  const path = typeof window !== 'undefined' ? window.location.pathname : '';
+
+  useEffect(() => {
+    document.title = 'Page not found | Mansoor Ahmed Rind';
+
+    // Keep 404s out of search results.
     let metaRobots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
     const previousRobots = metaRobots?.content || 'index, follow';
     if (!metaRobots) {
@@ -20,94 +37,113 @@ export const NotFound: React.FC<NotFoundProps> = ({ onBackToHome }) => {
     metaRobots.content = 'noindex, nofollow';
 
     return () => {
-      if (metaRobots) {
-        metaRobots.content = previousRobots;
-      }
-      document.title = 'Mansoor Ahmed Rind — UAV & Robotics Systems Engineer';
+      if (metaRobots) metaRobots.content = previousRobots;
     };
   }, []);
 
-  const handleReturnHome = () => {
+  useEffect(() => {
+    document.body.style.setProperty('--site-body-bg', theme === 'dark' ? '#10100f' : '#f3f1ec');
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((t) => {
+      const next = t === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem('site-theme', next);
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+
+  const goHome = (e: React.MouseEvent) => {
     if (onBackToHome) {
+      e.preventDefault();
       onBackToHome();
-    } else {
-      window.location.href = '/';
     }
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-[#080b12] text-[#f8fafc] flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
-      {/* Background Radar Rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-        <div className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full border border-sky-500/30 animate-ping" />
-        <div className="w-[450px] h-[450px] sm:w-[700px] sm:h-[700px] rounded-full border border-sky-500/20" />
-        <div className="w-[600px] h-[600px] sm:w-[900px] sm:h-[900px] rounded-full border border-sky-500/10" />
-      </div>
-
-      <div className="relative z-10 max-w-lg w-full text-center flex flex-col items-center">
-        {/* Aerospace Emblem */}
-        <div className="w-20 h-20 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-6 shadow-xl shadow-sky-500/10">
-          <PlaneTakeoff className="w-10 h-10 animate-pulse" />
-        </div>
-
-        {/* Telemetry Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-rose-500/40 text-rose-400 font-mono text-xs font-semibold mb-4 tracking-widest">
-          <Terminal className="w-3.5 h-3.5" />
-          <span>FLIGHT TELEMETRY EXCEPTION // STATUS 404</span>
-        </div>
-
-        {/* Status Heading */}
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-3">
-          404 <span className="text-sky-400 font-mono text-3xl sm:text-4xl font-normal block sm:inline">// LOST SIGNAL</span>
-        </h1>
-
-        <p className="text-sm sm:text-base text-slate-400 mb-8 max-w-md leading-relaxed">
-          The requested flight path or waypoint does not exist within the telemetry grid. The coordinates may have shifted or the page was decommissioned.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+    <div className="site nf" data-theme={theme}>
+      <header className="hdr is-scrolled">
+        <div className="wrap hdr__inner">
+          <a href="/" className="brand" onClick={goHome} aria-label="Mansoor Ahmed Rind — home">
+            <span className="brand__mark" aria-hidden="true">
+              MAR
+            </span>
+            <span className="brand__name">
+              Mansoor Ahmed Rind
+              <small>Robotics Engineer</small>
+            </span>
+          </a>
           <button
             type="button"
-            onClick={handleReturnHome}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-slate-950 font-bold text-sm shadow-lg shadow-sky-500/20 transition hover:scale-105 active:scale-95"
+            className="icon-btn"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
           >
-            <Home className="w-4 h-4" />
-            <span>Return to Home Radar</span>
+            {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
           </button>
+        </div>
+      </header>
 
-          <a
-            href="/#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              handleReturnHome();
-              setTimeout(() => {
-                const el = document.getElementById('projects');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-semibold text-sm transition hover:scale-105"
-          >
-            <Compass className="w-4 h-4 text-sky-400" />
-            <span>Explore Projects</span>
+      <main id="main" className="wrap nf__main">
+        <p className="nf__meta mono">
+          <span>Error 404</span>
+          <span className="nf__path">{path}</span>
+        </p>
+
+        <h1 className="nf__code" aria-label="404">
+          404<em aria-hidden="true">.</em>
+        </h1>
+
+        <p className="nf__title">This page doesn't exist.</p>
+        <p className="nf__lede">
+          The link may be old or mistyped. Everything on this site lives on the homepage: selected work, experience,
+          research, projects and how to get in touch.
+        </p>
+
+        <div className="hero__actions">
+          <a className="btn btn--primary" href="/" onClick={goHome}>
+            <ArrowLeft aria-hidden="true" /> Back to homepage
           </a>
-
-          <a
-            href="mailto:ahmedmansoorrind1210@gmail.com"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-slate-400 hover:text-sky-400 text-xs font-mono transition"
-          >
-            <Mail className="w-4 h-4" />
-            <span>Report Issue</span>
+          <a className="btn btn--ghost" href="/#work">
+            See the work <ArrowUpRight aria-hidden="true" />
           </a>
         </div>
 
-        {/* Diagnostics Info */}
-        <div className="mt-12 p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 font-mono text-[11px] text-slate-400 text-left w-full">
-          <div><span className="text-slate-400">TIMESTAMP:</span> {new Date().toISOString()}</div>
-          <div><span className="text-slate-400">WAYPOINT:</span> {typeof window !== 'undefined' ? window.location.pathname : '/'}</div>
-          <div><span className="text-slate-400">ORIGIN:</span> AUTONOMY_CORE</div>
+        <ul className="nf__links">
+          <li>
+            <a className="link-arrow" href="/#projects">
+              Projects <ArrowUpRight aria-hidden="true" />
+            </a>
+          </li>
+          <li>
+            <a className="link-arrow" href="/#research">
+              Research <ArrowUpRight aria-hidden="true" />
+            </a>
+          </li>
+          <li>
+            <a className="link-arrow" href="/#contact">
+              Contact <ArrowUpRight aria-hidden="true" />
+            </a>
+          </li>
+          <li>
+            <a className="link-arrow" href="/CV.pdf" target="_blank" rel="noopener noreferrer">
+              Résumé <ArrowUpRight aria-hidden="true" />
+            </a>
+          </li>
+        </ul>
+      </main>
+
+      <footer className="ftr">
+        <div className="wrap ftr__inner mono">
+          <p>© {new Date().getFullYear()} Mansoor Ahmed Rind</p>
+          <a href="mailto:ahmedmansoorrind1210@gmail.com">ahmedmansoorrind1210@gmail.com</a>
         </div>
-      </div>
-    </main>
+      </footer>
+    </div>
   );
 };
+
+export default NotFound;

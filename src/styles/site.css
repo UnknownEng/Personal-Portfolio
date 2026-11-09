@@ -1724,6 +1724,74 @@ body:has(.site) {
 }
 
 /* --------------------------------------------------------------------------
+   404 page
+   -------------------------------------------------------------------------- */
+.nf {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nf__main {
+  flex: 1;
+  padding-top: clamp(40px, 8vw, 96px);
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+
+.nf__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--ink-2);
+}
+
+.nf__path {
+  color: var(--signal-ink);
+  overflow-wrap: anywhere;
+}
+
+.nf__code {
+  margin-top: clamp(24px, 5vw, 56px);
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: clamp(6rem, 24vw, 17rem);
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+}
+
+.nf__code em {
+  font-style: normal;
+  color: var(--signal);
+}
+
+.nf__title {
+  margin-top: 28px;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 112%;
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.nf__lede {
+  margin-top: 14px;
+  max-width: 56ch;
+  color: var(--ink-2);
+}
+
+.nf__links {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
+
+/* --------------------------------------------------------------------------
    Detail sheet (modal)
    -------------------------------------------------------------------------- */
 .sheet-backdrop {

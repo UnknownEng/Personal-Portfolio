@@ -18,10 +18,10 @@ if (!fs.existsSync(built)) {
   process.exit(0);
 }
 
-if (!/^[a-z0-9][a-z0-9-]{15,63}$/.test(slug) || /admin|login|cms|dashboard|panel/.test(slug)) {
+if (!/^[a-z0-9][a-z0-9-]{11,63}$/.test(slug) || /admin|login|cms|dashboard|panel/.test(slug)) {
   fs.rmSync(built);
   console.log('[place-admin] ADMIN_PATH not set (or guessable): admin panel NOT published in this build.');
-  console.log('[place-admin] Set ADMIN_PATH to 16-64 random lowercase letters/digits/dashes to publish it.');
+  console.log('[place-admin] Set ADMIN_PATH to 12-64 random lowercase letters/digits/dashes to publish it.');
   process.exit(0);
 }
 

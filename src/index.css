@@ -59,7 +59,7 @@
   }
 
   body {
-    background-color: var(--color-bg) !important;
+    background-color: var(--site-body-bg, var(--color-bg)) !important;
     color: var(--color-text) !important;
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
     overflow-x: hidden !important;
