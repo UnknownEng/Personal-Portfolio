@@ -3,8 +3,19 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { PublicPortfolio } from './pages/PublicPortfolio';
 import { NotFound } from './pages/NotFound';
-import { Terminal, Shield, Loader2 } from 'lucide-react';
+import { Shield, Loader2 } from 'lucide-react';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
+/** Mirrors the public site's theme choice so the loading screen doesn't flash the wrong colour. */
+const prefersDarkSite = (): boolean => {
+  try {
+    const saved = localStorage.getItem('site-theme');
+    if (saved === 'light' || saved === 'dark') return saved === 'dark';
+  } catch {
+    /* storage blocked */
+  }
+  return !!window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+};
 
 // Code-split admin modules to drastically reduce initial visitor bundle size
 const AdminLogin = React.lazy(() =>
@@ -64,14 +75,12 @@ const AppRouter: React.FC = () => {
 
   if (authLoading || portfolioLoading) {
     return (
-      <div className="min-h-screen bg-[#080B12] text-white flex flex-col items-center justify-center font-mono">
-        <div className="w-12 h-12 rounded-xl bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 mb-4 animate-pulse">
-          <Terminal className="w-6 h-6" />
-        </div>
-        <div className="text-xs text-cyan-400 font-semibold tracking-wider animate-pulse">
-          INITIALIZING TELEMETRY STACK...
-        </div>
-      </div>
+      // Quiet placeholder in the site's paper/graphite colours while content loads (usually a few ms).
+      <div
+        aria-busy="true"
+        aria-label="Loading"
+        style={{ minHeight: '100vh', background: prefersDarkSite() ? '#10100f' : '#f3f1ec' }}
+      />
     );
   }
 

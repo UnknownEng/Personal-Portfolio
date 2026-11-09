@@ -1,152 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import { HeroData } from '../../types/portfolio';
-import { ArrowDown, FileText } from 'lucide-react';
-import { LinkedinIcon, GithubIcon } from '../ui/Icons';
-import { sanitizeUrl, isSafeUrl } from '../../utils/url';
+import React from 'react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ExperienceItem, HeroData, SocialLinkItem } from '../../types/portfolio';
+import { SocialPlatformIcon } from '../ui/Icons';
+import { externalUrl, useLocalTime } from './siteKit';
 
 interface HeroProps {
   hero: HeroData;
-  linkedInUrl?: string;
-  githubUrl?: string;
-  onOpenResume?: () => void;
-  currentLang?: 'en' | 'zh' | 'ur';
+  location: string;
+  availability: string;
+  current: ExperienceItem[];
+  socials: SocialLinkItem[];
+  cvUrl: string;
+  email: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({
-  hero,
-  linkedInUrl = 'https://www.linkedin.com/in/mansoorahmedrind',
-  githubUrl = 'https://github.com/MansoorAhmedRind',
-  onOpenResume,
-  currentLang = 'en',
-}) => {
-  const titlesEnglish = [
-    'UAV Systems Engineer',
-    'Swarm Robotics Specialist',
-    'Autonomous Flight Control Architect',
-    'Embedded Electronics Engineer',
-    'NUST Gold Medalist',
-  ];
-
-  const titlesChinese = [
-    '无人机系统工程师',
-    '群体机器人专家',
-    '自主飞行控制架构师',
-    '嵌入式电子工程师',
-    'NUST 金牌得主',
-  ];
-
-  const titles = currentLang === 'zh' ? titlesChinese : titlesEnglish;
-
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentTitle = titles[titleIndex];
-    const typingSpeed = isDeleting ? 40 : 80;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting && charIndex < currentTitle.length) {
-        setCharIndex((prev) => prev + 1);
-      } else if (!isDeleting && charIndex === currentTitle.length) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && charIndex > 0) {
-        setCharIndex((prev) => prev - 1);
-      } else if (isDeleting && charIndex === 0) {
-        setIsDeleting(false);
-        setTitleIndex((prev) => (prev + 1) % titles.length);
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, titleIndex, titles]);
-
-  const displayedText = titles[titleIndex]?.substring(0, charIndex) || '';
-
-  const scrollToWork = () => {
-    const el = document.getElementById('work');
-    if (el) {
-      const yOffset = -70;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+export const Hero: React.FC<HeroProps> = ({ hero, location, availability, current, socials, cvUrl, email }) => {
+  const time = useLocalTime('Asia/Karachi');
+  const words = hero.name.trim().split(/\s+/);
+  const first = words.length > 2 ? words[0] : words.slice(0, -1).join(' ');
+  const rest = words.length > 2 ? words.slice(1).join(' ') : words[words.length - 1];
+  const chips = hero.subtitle
+    .split('|')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const visibleSocials = socials.filter((s) => s.platform !== 'email').slice(0, 5);
 
   return (
-    <section className="section w-full max-w-7xl mx-auto" id="home">
-      <div className="container text-center w-full max-w-7xl mx-auto">
-        {/* Subtitle / Greeting */}
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-300 mb-2">
-          {currentLang === 'zh' ? '你好，我是' : 'Hi, I am'}{' '}
-          <span className="text-white font-bold">
-            {hero.name || 'Mansoor Ahmed Rind'}
-          </span>
-        </h2>
-
-        {/* Dynamic Typewriter Title */}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mt-1 mb-6 flex items-center justify-center flex-wrap gap-1.5 sm:gap-2">
-          <span>{currentLang === 'zh' ? '我是一名 ' : 'I am a '}</span>
-          <span className="text-sky-400 inline-block min-w-[120px] sm:min-w-[220px] text-left max-w-full">
-            {displayedText}
-            <span className="blinkingCursor">_</span>
-          </span>
-        </h1>
-
-        {/* Bio Paragraph */}
-        <p className="max-w-2xl text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-8 mx-auto px-4">
-          {currentLang === 'zh'
-            ? '我是一名电气与电子工程专业工程师，专注于构建自主无人机系统、无人机蜂群自主协同控制与数字孪生航空仿真。'
-            : hero.shortIntroduction ||
-              'I am an Electrical & Electronics engineer passionate about bringing autonomous UAV systems, multi-drone swarm robotics, and aerial digital twins to life.'}
-        </p>
-
-        {/* Action Buttons matching Steven Feng's site */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          {linkedInUrl && isSafeUrl(linkedInUrl) && (
-            <a
-              href={sanitizeUrl(linkedInUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="primary-btn"
-            >
-              <LinkedinIcon className="w-4 h-4 mr-1 inline" />
-              {currentLang === 'zh' ? '与我联系！' : 'CONNECT WITH ME!'}
-            </a>
+    <section className="hero wrap" id="top" aria-labelledby="hero-name">
+      <div className="hero__meta mono rv">
+        <span>
+          <span className="status-dot" aria-hidden="true" />
+          {availability}
+        </span>
+        <span>
+          {location}
+          {time && (
+            <>
+              {' '}· <time aria-label={`Local time ${time}`}>{time} PKT</time>
+            </>
           )}
-
-          {githubUrl && isSafeUrl(githubUrl) && (
-            <a
-              href={sanitizeUrl(githubUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 font-bold text-sm hover:bg-slate-800 shadow-sm transition hover:scale-105"
-            >
-              <GithubIcon className="w-4 h-4 text-sky-400" />
-              <span>GITHUB</span>
-            </a>
-          )}
-
-          {onOpenResume && (
-            <button
-              type="button"
-              onClick={onOpenResume}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 font-bold text-sm hover:bg-slate-800 shadow-sm transition hover:scale-105"
-            >
-              <FileText className="w-4 h-4 text-sky-400" />
-              {currentLang === 'zh' ? '查看简历' : 'VIEW RESUME'}
-            </button>
-          )}
-
-          <button
-            type="button"
-            onClick={scrollToWork}
-            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-slate-300 hover:text-sky-400 font-semibold text-sm transition"
-          >
-            <span>{currentLang === 'zh' ? '探索研究' : 'Explore Work'}</span>
-            <ArrowDown className="w-4 h-4 animate-bounce" />
-          </button>
-        </div>
+        </span>
       </div>
+
+      <div className="hero__grid">
+        <div className="hero__text rv">
+          <p className="hero__kicker mono">{hero.title}</p>
+          <h1 className="hero__name" id="hero-name">
+            <span>{first}</span>
+            <span>
+              {rest}
+              <em aria-hidden="true">.</em>
+            </span>
+          </h1>
+          <p className="hero__lede">{hero.shortIntroduction}</p>
+
+          {chips.length > 0 && (
+            <ul className="tag-list hero__chips" aria-label="Focus areas">
+              {chips.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          )}
+
+          <div className="hero__actions">
+            <a className="btn btn--primary" href="#work">
+              See the work <ArrowDown aria-hidden="true" />
+            </a>
+            <a className="btn btn--ghost" href={cvUrl} target="_blank" rel="noopener noreferrer">
+              Résumé <ArrowUpRight aria-hidden="true" />
+            </a>
+            <div className="hero__social">
+              <a className="icon-btn" href={`mailto:${email}`} aria-label="Email">
+                <SocialPlatformIcon platform="email" />
+              </a>
+              {visibleSocials.map((s) => (
+                <a
+                  key={s.id}
+                  className="icon-btn"
+                  href={externalUrl(s.url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label || s.platform}
+                  title={s.label || s.platform}
+                >
+                  <SocialPlatformIcon platform={s.platform} icon={s.icon} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {hero.profileImage && (
+          <figure className="hero__figure rv">
+            <div className="frame">
+              <img
+                src={hero.profileImage}
+                alt={`Portrait of ${hero.name}`}
+                width={480}
+                height={600}
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
+            <figcaption className="mono">
+              <span>Fig. 01</span>
+              <span>{hero.name}</span>
+            </figcaption>
+          </figure>
+        )}
+      </div>
+
+      {current.length > 0 && (
+        <div className="now rv">
+          <p className="now__label mono">Currently</p>
+          <ul className="now__list">
+            {current.slice(0, 3).map((x) => (
+              <li className="now__item" key={x.id}>
+                <strong>{x.position}</strong>
+                <span>{x.company}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 };

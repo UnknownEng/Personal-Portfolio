@@ -1,186 +1,188 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { useDeviceDetect } from '../hooks/useDeviceDetect';
-import { BackgroundWallpaper } from '../components/public/BackgroundWallpaper';
-import { Header } from '../components/public/Header';
+import { Header, NavEntry } from '../components/public/Header';
 import { Hero } from '../components/public/Hero';
-import { Education } from '../components/public/Education';
 import { Showcase } from '../components/public/Showcase';
 import { Experience } from '../components/public/Experience';
 import { Research } from '../components/public/Research';
 import { Projects } from '../components/public/Projects';
-import { Skills } from '../components/public/Skills';
 import { Competitions } from '../components/public/Competitions';
+import { Education } from '../components/public/Education';
+import { Skills } from '../components/public/Skills';
 import { Contact } from '../components/public/Contact';
 import { Footer } from '../components/public/Footer';
-import { ResumeModal } from '../components/public/ResumeModal';
-import { ShieldAlert } from 'lucide-react';
+import { externalUrl, pad, useActiveSection, useReveal } from '../components/public/siteKit';
+import '../styles/site.css';
 
 interface PublicPortfolioProps {
-  onNavigateAdmin: () => void;
+  /** Kept for API compatibility; the admin lives at /admin and is not linked from the public site. */
+  onNavigateAdmin?: () => void;
 }
 
-export const PublicPortfolio: React.FC<PublicPortfolioProps> = ({ onNavigateAdmin }) => {
-  const { isMobile } = useDeviceDetect();
+type Theme = 'light' | 'dark';
+const THEME_KEY = 'site-theme';
+const CV_URL = '/CV.pdf';
+
+function initialTheme(): Theme {
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === 'light' || saved === 'dark') return saved;
+  } catch {
+    /* storage blocked */
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+const byOrder = <T extends { order: number }>(a: T, b: T) => a.order - b.order;
+const published = <T extends { status?: string }>(x: T) => x.status !== 'draft';
+
+export const PublicPortfolio: React.FC<PublicPortfolioProps> = () => {
   const { data, submitContactForm } = usePortfolio();
-  const {
-    siteSettings,
-    sectionVisibility,
-    hero,
-    skills,
-    projects,
-    experience,
-    education,
-    certifications,
-    achievements,
-    leadership,
-    contact,
-  } = data;
+  const { siteSettings, sectionVisibility: vis, hero, contact } = data;
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  const [resumeOpen, setResumeOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<'en' | 'zh'>('en');
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => {
+      const next = t === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem(THEME_KEY, next);
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, []);
 
-  const toggleLanguage = () => {
-    setCurrentLang((prev) => (prev === 'en' ? 'zh' : 'en'));
-  };
+  useEffect(() => {
+    const bg = theme === 'dark' ? '#10100f' : '#f3f1ec';
+    document.body.style.setProperty('--site-body-bg', bg);
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', bg));
+  }, [theme]);
 
-  const githubUrl = data.socialLinks?.find((s) => s.platform === 'github')?.url || 'https://github.com/MansoorAhmedRind';
+  // ---- Content, filtered and ordered for the public view ----
+  const socials = useMemo(
+    () => (data.socialLinks || []).filter((s) => s.enabled !== false && s.url).sort(byOrder),
+    [data.socialLinks]
+  );
+  const experience = useMemo(() => data.experience.filter(published).sort(byOrder), [data.experience]);
+  const current = useMemo(() => experience.filter((x) => x.current), [experience]);
+  const projects = useMemo(
+    () =>
+      data.projects
+        .filter(published)
+        .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order),
+    [data.projects]
+  );
+  const research = useMemo(() => {
+    const list = data.research?.length
+      ? data.research
+      : data.projects.filter((p) => /research|review|paper/i.test(p.category));
+    return list.filter(published).sort(byOrder);
+  }, [data.research, data.projects]);
+  const achievements = useMemo(() => data.achievements.filter(published).sort(byOrder), [data.achievements]);
+  const education = useMemo(() => data.education.filter(published).sort(byOrder), [data.education]);
+  const certifications = useMemo(() => data.certifications.filter(published).sort(byOrder), [data.certifications]);
+  const leadership = useMemo(() => data.leadership.filter(published).sort(byOrder), [data.leadership]);
+  const showcase = data.showcase || [];
 
-  // Maintenance mode screen
+  // Most-used technologies across work, to round out the toolkit
+  const usedTech = useMemo(() => {
+    const count = new Map<string, number>();
+    [...projects, ...showcase, ...experience].forEach((x) =>
+      (x.technologies || []).forEach((t) => count.set(t, (count.get(t) || 0) + 1))
+    );
+    return Array.from(count.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([t]) => t);
+  }, [projects, showcase, experience]);
+
+  const scholarUrl = externalUrl(socials.find((s) => /scholar/i.test(s.platform))?.url);
+
+  // ---- Section registry: drives numbering, nav and order ----
+  const sections = [
+    { id: 'work', label: 'Work', primary: true, show: showcase.length > 0 },
+    { id: 'experience', label: 'Experience', primary: true, show: vis.experience && experience.length > 0 },
+    { id: 'research', label: 'Research', primary: true, show: (vis.research ?? true) && research.length > 0 },
+    { id: 'projects', label: 'Projects', primary: true, show: vis.projects && projects.length > 0 },
+    { id: 'honors', label: 'Honors', primary: true, show: vis.competitions && achievements.length > 0 },
+    { id: 'education', label: 'Education', primary: false, show: vis.education },
+    { id: 'toolkit', label: 'Toolkit', primary: false, show: vis.skills },
+    { id: 'contact', label: 'Contact', primary: true, show: vis.contact },
+  ].filter((s) => s.show);
+
+  const num = (id: string) => pad(sections.findIndex((s) => s.id === id) + 1);
+  const nav: NavEntry[] = sections.map((s) => ({ id: s.id, label: s.label, primary: s.primary, num: num(s.id) }));
+  const active = useActiveSection(sections.map((s) => s.id));
+
+  useReveal(rootRef, siteSettings.animationsEnabled !== false, [data]);
+
   if (siteSettings.maintenanceMode) {
     return (
-      <div className="min-h-screen bg-[#f8fafd] dark:bg-[#0b0f19] text-slate-800 dark:text-slate-100 flex flex-col items-center justify-center p-6 text-center font-sans">
-        <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 mb-6 animate-pulse">
-          <ShieldAlert className="w-8 h-8" />
-        </div>
-        <h1 className="text-2xl font-bold tracking-tight">System Under Maintenance</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-3 max-w-md">
-          {siteSettings.websiteName} is currently updating telemetry and system software. Normal operations will resume shortly.
-        </p>
+      <div className="site" data-theme={theme}>
+        <main className="wrap" style={{ minHeight: '100vh', display: 'grid', placeContent: 'center', gap: 16 }}>
+          <p className="mono muted">Back shortly</p>
+          <h1 className="sec__title">{hero.name}</h1>
+          <p className="sec__note">This site is being updated. In the meantime, email {contact.email}.</p>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] overflow-x-hidden transition-colors duration-300">
-      {/* Skip to Main Content Link for A11y Landmark Navigation */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2.5 focus:rounded-xl focus:bg-sky-500 focus:text-slate-950 focus:font-bold focus:shadow-xl focus:outline-none"
-      >
-        Skip to main content
+    <div className="site" data-theme={theme} ref={rootRef}>
+      <a href="#main" className="skip-link">
+        Skip to content
       </a>
 
-      {/* Hallmark Animated Rotating Wallpaper Icons (Conditionally rendered on desktop/tablet only) */}
-      {!isMobile && <BackgroundWallpaper />}
-
-      {/* Floating Frosted Glass Navbar */}
       <Header
-        onOpenResume={() => setResumeOpen(true)}
-        onNavigateAdmin={onNavigateAdmin}
-        currentLang={currentLang}
-        onToggleLang={toggleLanguage}
+        name={hero.name}
+        role={hero.title}
+        nav={nav}
+        active={active}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        cvUrl={CV_URL}
+        email={contact.email}
       />
 
-      {/* Core Landmark: Main Content */}
-      <main id="main-content" className="w-full max-w-7xl mx-auto relative z-10">
-        {/* Hero Section */}
-        {sectionVisibility.hero && (
+      <main id="main">
+        {vis.hero && (
           <Hero
             hero={hero}
-            linkedInUrl={contact.linkedIn}
-            githubUrl={githubUrl}
-            onOpenResume={() => setResumeOpen(true)}
-            currentLang={currentLang}
+            location={contact.location}
+            availability={contact.availabilityStatus}
+            current={current}
+            socials={socials}
+            cvUrl={CV_URL}
+            email={contact.email}
           />
         )}
 
-        {/* Education Section */}
-        {sectionVisibility.education && (
+        {sections.some((s) => s.id === 'work') && <Showcase num={num('work')} items={showcase} />}
+        {sections.some((s) => s.id === 'experience') && <Experience num={num('experience')} items={experience} />}
+        {sections.some((s) => s.id === 'research') && (
+          <Research num={num('research')} items={research} scholarUrl={scholarUrl} />
+        )}
+        {sections.some((s) => s.id === 'projects') && <Projects num={num('projects')} items={projects} />}
+        {sections.some((s) => s.id === 'honors') && <Competitions num={num('honors')} items={achievements} />}
+        {sections.some((s) => s.id === 'education') && (
           <Education
+            num={num('education')}
             education={education}
-            certifications={certifications}
-            leadership={leadership}
-            currentLang={currentLang}
+            certifications={vis.certifications ? certifications : []}
+            leadership={vis.leadership ? leadership : []}
           />
         )}
-
-        {/* Autonomous Systems & Swarm Highlights Showcase (matches Steven Feng's NVIDIA section) */}
-        <Showcase showcase={data.showcase} currentLang={currentLang} />
-
-        {/* Internships & Experience Section */}
-        {sectionVisibility.experience && (
-          <Experience
-            experience={experience}
-            currentLang={currentLang}
-          />
+        {sections.some((s) => s.id === 'toolkit') && (
+          <Skills num={num('toolkit')} skills={data.skills} usedTech={usedTech} />
         )}
-
-        {/* Academic Research & Publications Section (SEPARATE) */}
-        {(sectionVisibility.research ?? true) && (
-          <Research
-            research={
-              (data.research && data.research.length > 0)
-                ? data.research
-                : projects.filter(
-                    (p) =>
-                      p.category.includes('Research') ||
-                      p.category.includes('Review') ||
-                      p.category.includes('Paper')
-                  )
-            }
-            currentLang={currentLang}
-          />
-        )}
-
-        {/* Engineering Projects & Products Section (SEPARATE) */}
-        {sectionVisibility.projects && (
-          <Projects
-            projects={projects}
-            currentLang={currentLang}
-          />
-        )}
-
-        {/* Skills Section */}
-        {sectionVisibility.skills && (
-          <Skills
-            skills={skills}
-            currentLang={currentLang}
-          />
-        )}
-
-        {/* Competitions & Honors */}
-        {sectionVisibility.competitions && (
-          <Competitions
-            achievements={achievements}
-            currentLang={currentLang}
-          />
-        )}
-
-        {/* Contact Section */}
-        {sectionVisibility.contact && (
-          <Contact
-            contact={contact}
-            githubUrl={githubUrl}
-            onSubmitMessage={submitContactForm}
-            currentLang={currentLang}
-          />
+        {sections.some((s) => s.id === 'contact') && (
+          <Contact num={num('contact')} contact={contact} socials={socials} onSubmitMessage={submitContactForm} />
         )}
       </main>
 
-      {/* Minimal Footer */}
-      <Footer
-        siteName={hero.name}
-        footerText={siteSettings.footerText}
-        currentLang={currentLang}
-      />
-
-      {/* Dedicated Resume Viewer Modal */}
-      <ResumeModal
-        isOpen={resumeOpen}
-        onClose={() => setResumeOpen(false)}
-        pdfUrl="/CV.pdf"
-      />
+      <Footer name={hero.name} footerText={siteSettings.footerText} socials={socials} cvUrl={CV_URL} />
     </div>
   );
 };

@@ -3,7 +3,7 @@
 > Electrical & Electronics Engineer and NUST Gold Medalist specializing in Autonomous UAV Swarms, Flight Control Stacks, ROS/ROS 2, ArduPilot/PX4, and Embedded Edge Computing. Designed and developed with Maverick Tech Ventures.
 
 ## Bio
-Mansoor Ahmed Rind is an aerospace and robotics engineer based in Islamabad, Pakistan. Awarded the President's Gold Medal for Best Academic Performance by the National University of Sciences and Technology (NUST), Mansoor specializes in multi-agent UAV swarm algorithms, visual-inertial SLAM (VI-SLAM) in GPS-denied dynamic environments, real-time telemetry over MAVLink, and Software-in-the-Loop (SITL) digital twin aerospace simulations.
+Mansoor Ahmed Rind is an aerospace and robotics engineer based in Islamabad, Pakistan. Awarded the Rector's Gold Medal by the National University of Sciences and Technology (NUST), Mansoor specializes in multi-agent UAV swarm algorithms, visual-inertial SLAM (VI-SLAM) in GPS-denied dynamic environments, real-time telemetry over MAVLink, and Software-in-the-Loop (SITL) digital twin aerospace simulations.
 
 He has engineered autonomous precision landing systems for moving USVs (Teknofest Turkey 2025 Finalist), autonomous aerial anti-drone pursuit interceptors (Teknofest Turkey 2024 Finalist), disaster-relief delivery UAVs (National Aerothon '25 Swift Wing Award), and decentralized peer-to-peer quadcopter swarm formation protocols. In addition, Mansoor founded maverick_.tech, an agile beta systems lab incubating production AI platforms including LawerAI and Sasta Dawa Finder.
 
@@ -17,7 +17,7 @@ He has engineered autonomous precision landing systems for moving USVs (Teknofes
 
 ## Direct Links & Resources
 - Live Demo: https://personal-portfolio-swart-sigma-44.vercel.app/
-- GitHub: https://github.com/MansoorAhmedRind
+- GitHub: https://github.com/UnknownEng
 - LinkedIn: https://linkedin.com/in/mansoorahmedrind
 - Curriculum Vitae (PDF): https://personal-portfolio-swart-sigma-44.vercel.app/CV.pdf
 - Direct Email: mailto:ahmedmansoorrind1210@gmail.com

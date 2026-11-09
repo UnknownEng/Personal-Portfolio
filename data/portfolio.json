@@ -109,7 +109,7 @@
   "hero": {
     "name": "Mansoor Ahmed Rind",
     "title": "UAV Electronics & Robotics Systems Engineer",
-    "subtitle": "NUST Gold Medalist | Autonomous UAV Navigation | Swarm Robotics | Flight-Stack Integration",
+    "subtitle": "NUST Rector's Gold Medalist | Autonomous UAV Navigation | Swarm Robotics | Flight-Stack Integration",
     "badge": "AUTONOMY & ROBOTICS SYSTEMS • ISLAMABAD, PK",
     "shortIntroduction": "Bachelor’s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Proven experience in multi-UAV swarm coordination, GPS-denied navigation, and embedded robotic flight stacks.",
     "primaryButtonText": "Inspect Technical Projects",
@@ -195,7 +195,7 @@
       "icon": "Map",
       "featured": true,
       "order": 2,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-3",
@@ -222,7 +222,7 @@
       "icon": "GitBranch",
       "featured": false,
       "order": 6,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-7",
@@ -231,7 +231,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 7,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-8",
@@ -249,7 +249,7 @@
       "icon": "Code",
       "featured": true,
       "order": 9,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-10",
@@ -258,7 +258,7 @@
       "icon": "Box",
       "featured": true,
       "order": 10,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-11",
@@ -276,7 +276,7 @@
       "icon": "Activity",
       "featured": true,
       "order": 12,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-13",
@@ -285,7 +285,7 @@
       "icon": "Monitor",
       "featured": false,
       "order": 13,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-14",
@@ -294,7 +294,7 @@
       "icon": "Crosshair",
       "featured": false,
       "order": 14,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-15",
@@ -303,7 +303,7 @@
       "icon": "Terminal",
       "featured": false,
       "order": 15,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-16",
@@ -312,7 +312,7 @@
       "icon": "Terminal",
       "featured": true,
       "order": 16,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-17",
@@ -321,7 +321,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 17,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-18",
@@ -330,7 +330,7 @@
       "icon": "Eye",
       "featured": true,
       "order": 18,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-19",
@@ -339,7 +339,7 @@
       "icon": "Crosshair",
       "featured": true,
       "order": 19,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-20",
@@ -348,7 +348,7 @@
       "icon": "Layout",
       "featured": false,
       "order": 20,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-21",
@@ -357,7 +357,7 @@
       "icon": "FileCode",
       "featured": false,
       "order": 21,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-22",
@@ -366,7 +366,7 @@
       "icon": "Cpu",
       "featured": true,
       "order": 22,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-23",
@@ -375,7 +375,7 @@
       "icon": "Layers",
       "featured": true,
       "order": 23,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-24",
@@ -384,7 +384,7 @@
       "icon": "Server",
       "featured": true,
       "order": 24,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-25",
@@ -393,7 +393,7 @@
       "icon": "Cpu",
       "featured": false,
       "order": 25,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-26",
@@ -420,7 +420,7 @@
       "icon": "Shield",
       "featured": false,
       "order": 28,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-29",
@@ -439,7 +439,7 @@
       "icon": "Globe",
       "featured": true,
       "order": 30,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-soc-2",
@@ -449,7 +449,7 @@
       "icon": "Users",
       "featured": true,
       "order": 31,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-soc-3",
@@ -459,7 +459,7 @@
       "icon": "Briefcase",
       "featured": true,
       "order": 32,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-soc-4",
@@ -469,7 +469,7 @@
       "icon": "MessageSquare",
       "featured": false,
       "order": 33,
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "sk-soc-7",
@@ -479,10 +479,174 @@
       "icon": "Zap",
       "featured": true,
       "order": 36,
-      "enabled": false
+      "enabled": true
+    },
+    {
+      "id": "sk-x37",
+      "name": "ROS 2 Jazzy & Nav2",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 37,
+      "enabled": true
+    },
+    {
+      "id": "sk-x38",
+      "name": "Gazebo Harmonic",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 38,
+      "enabled": true
+    },
+    {
+      "id": "sk-x39",
+      "name": "Control Barrier Functions (CBF-QP)",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 39,
+      "enabled": true
+    },
+    {
+      "id": "sk-x40",
+      "name": "Visual / VI-SLAM",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 40,
+      "enabled": true
+    },
+    {
+      "id": "sk-x41",
+      "name": "Proportional Navigation Guidance",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 41,
+      "enabled": true
+    },
+    {
+      "id": "sk-x42",
+      "name": "Precision Landing (Static & Dynamic)",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 42,
+      "enabled": true
+    },
+    {
+      "id": "sk-x43",
+      "name": "DroneKit",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 43,
+      "enabled": true
+    },
+    {
+      "id": "sk-x44",
+      "name": "WebODM / OpenDroneMap",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 44,
+      "enabled": true
+    },
+    {
+      "id": "sk-x45",
+      "name": "C",
+      "category": "Programming",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 45,
+      "enabled": true
+    },
+    {
+      "id": "sk-x46",
+      "name": "TypeScript & React",
+      "category": "Programming",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 46,
+      "enabled": true
+    },
+    {
+      "id": "sk-x47",
+      "name": "LiDAR",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 47,
+      "enabled": true
+    },
+    {
+      "id": "sk-x48",
+      "name": "CAD & 3D Printing",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 48,
+      "enabled": true
+    },
+    {
+      "id": "sk-x49",
+      "name": "English (professional)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 49,
+      "enabled": true
+    },
+    {
+      "id": "sk-x50",
+      "name": "Urdu (native)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 50,
+      "enabled": true
+    },
+    {
+      "id": "sk-x51",
+      "name": "Sindhi (native)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 51,
+      "enabled": true
     }
   ],
   "projects": [
+    {
+      "id": "proj-resilient-swarm",
+      "title": "Resilient Swarm Formation — Decentralized Multi-Robot Control with CBF Safety",
+      "shortDescription": "Leaderless 5-robot pentagon formation in ROS 2 Jazzy and Gazebo Harmonic that stays collision-free under packet loss, delay, one-way links and robot failure.",
+      "fullDescription": "Decentralized multi-robot formation control for ROS 2 Jazzy and Gazebo Harmonic. Five differential-drive robots in a collapsed-building arena converge to a regular pentagon (radius 2 m) with no leader robot and no central coordinator: every robot runs the same nodes, measures neighbours in its own body frame, estimates its pose with an EKF (landmarks plus peer estimates), and filters its formation command through a CBF-QP safety filter.\n\nPer-direction network impairments (loss, delay, one-way links) and fault injection are built in. Results: 5/5 convergence with and without faults in Gazebo; 550 headless runs across 22 conditions, with every run that used the safety filter collision-free. Includes displacement, distance and bearing controllers, a robust Huber/EMA variant, rosbag-based metrics, plots, CI and an honest list of known failure cases.",
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ],
+      "category": "Swarm Robotics",
+      "projectImage": "/uploads/resilient-swarm-formation-faults.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/resilient-swarm-formation",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "myRole": "Author — research, controller design and implementation",
+      "projectDate": "Oct 2026",
+      "featured": true,
+      "status": "published",
+      "order": 1
+    },
     {
       "id": "proj-lawerai",
       "title": "LawerAI — Intelligent Legal AI Assistant & Statute Reasoning Platform",
@@ -502,7 +666,7 @@
         "/uploads/1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.webp",
         "/uploads/1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.webp"
       ],
-      "githubUrl": "https://github.com/MansoorAhmedRind/lawerai",
+      "githubUrl": "https://github.com/UnknownEng/lawerai",
       "liveDemoUrl": "https://lawerai-alpha.vercel.app/",
       "videoUrl": "",
       "documentationUrl": "https://lnkd.in/p/dVFmpw2D",
@@ -532,7 +696,7 @@
         "/uploads/1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.webp",
         "/uploads/1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.webp"
       ],
-      "githubUrl": "https://github.com/MansoorAhmedRind/sasta-dawa-finder",
+      "githubUrl": "https://github.com/UnknownEng/sasta-dawa-finder",
       "liveDemoUrl": "https://sasta-dawa-finder.vercel.app/",
       "videoUrl": "",
       "documentationUrl": "https://lnkd.in/p/d2s5WFnz",
@@ -619,7 +783,7 @@
       "galleryImages": [
         "/uploads/1791239863697-695df3a16828-1774310452377.webp"
       ],
-      "githubUrl": "https://github.com/MansoorAhmedRind/Interceptor-Code",
+      "githubUrl": "",
       "liveDemoUrl": "https://drive.google.com/file/d/1wCutPewCVz9VDBB-NcRUmZ2H2x5LT3j1/view",
       "videoUrl": "",
       "documentationUrl": "",
@@ -649,7 +813,7 @@
         "/uploads/1791239489849-9dc97d6b70ca-1771795571854.webp",
         "/uploads/1791239493590-24709cdb916c-1771795589042.webp"
       ],
-      "githubUrl": "",
+      "githubUrl": "https://github.com/UnknownEng/webodm-based-mapping-algorithm-using-drone",
       "liveDemoUrl": "",
       "videoUrl": "",
       "documentationUrl": "",
@@ -678,7 +842,7 @@
       "galleryImages": [
         "/uploads/1791239914114-8d2b744984b9-1759771283051.webp"
       ],
-      "githubUrl": "",
+      "githubUrl": "https://github.com/UnknownEng/gps-denied-navigation-via-depth-camera",
       "liveDemoUrl": "",
       "videoUrl": "",
       "documentationUrl": "",
@@ -1155,8 +1319,8 @@
       "company": "KoreaEHT.Co",
       "position": "Summer Intern",
       "location": "Remote",
-      "startDate": "Jun 2024",
-      "endDate": "Aug 2024",
+      "startDate": "Jul 2024",
+      "endDate": "Sep 2024",
       "current": false,
       "description": "Engineering research on thermal and industrial electrical power systems.",
       "responsibilities": [
@@ -1199,6 +1363,43 @@
       "image": "/uploads/1791237318870-aad6b669f052-pexels-max-fischer-5212648.webp",
       "status": "published",
       "order": 10
+    },
+    {
+      "responsibilities": [],
+      "technologies": [
+        "UAV Electronics",
+        "Power Distribution"
+      ],
+      "companyLogo": "",
+      "image": "",
+      "status": "published",
+      "current": false,
+      "id": "exp-dbf-2026",
+      "company": "Team NUST — International Design, Build & Fly 2026",
+      "position": "Electronics Lead",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Oct 2025",
+      "endDate": "Nov 2025",
+      "description": "Led the electronics for NUST's entry in the International Design, Build & Fly competition.",
+      "achievements": [],
+      "order": 11
+    },
+    {
+      "responsibilities": [],
+      "technologies": [],
+      "companyLogo": "",
+      "image": "",
+      "status": "published",
+      "current": false,
+      "id": "exp-myev",
+      "company": "My EV Academy",
+      "position": "Research Intern",
+      "location": "Remote",
+      "startDate": "Jun 2024",
+      "endDate": "Aug 2024",
+      "description": "Electric-vehicle research: data collection, testing and reporting.",
+      "achievements": [],
+      "order": 12
     }
   ],
   "education": [
@@ -1212,7 +1413,7 @@
       "current": true,
       "type": "degree",
       "description": "Undergraduate engineering program focusing on UAV electronics, autonomous control systems, embedded architectures, signals & systems, and power electronics.",
-      "gpa": "Gold Medalist",
+      "gpa": "Rector's Gold Medalist",
       "relevantCoursework": [
         "Linear Control Systems",
         "Embedded Systems & Microprocessors",
@@ -1222,7 +1423,7 @@
         "Power Electronics & Circuit Analysis"
       ],
       "achievements": [
-        "Honors: Gold Medalist for stellar academic excellence.",
+        "Honors: Rector's Gold Medalist.",
         "Active leadership in research laboratories and competitive engineering teams."
       ],
       "status": "published",
@@ -1350,9 +1551,9 @@
     },
     {
       "id": "ach-4",
-      "title": "Participant — IMeChE UAS Challenge 2025",
+      "title": "Team Captain — IMechE Pakistan UAS Challenge",
       "organization": "Institution of Mechanical Engineers (IMechE)",
-      "date": "2025",
+      "date": "2025 – 2026",
       "description": "Designed and competed with an autonomous Disaster Relief UAV capable of precision payload delivery and reconnaissance.",
       "status": "published",
       "order": 4
@@ -1457,11 +1658,31 @@
       "id": "lead-1791228861382",
       "role": "President",
       "organization": "TABA Youth Force NUST Chapter",
-      "date": "2026 – 2027",
+      "date": "Aug 2026 – Present",
       "description": "",
       "bullets": [],
       "status": "published",
       "order": 6
+    },
+    {
+      "id": "lead-hult",
+      "role": "Campus Director",
+      "organization": "Hult Prize Foundation — NUST",
+      "date": "Oct 2025 – Mar 2026",
+      "description": "",
+      "bullets": [],
+      "status": "published",
+      "order": 7
+    },
+    {
+      "id": "lead-nec",
+      "role": "Vice President",
+      "organization": "NUST Entrepreneurs Club",
+      "date": "Sep 2025 – Oct 2025",
+      "description": "",
+      "bullets": [],
+      "status": "published",
+      "order": 8
     }
   ],
   "socialLinks": [
@@ -1496,7 +1717,7 @@
       "id": "soc-github",
       "platform": "github",
       "label": "GitHub Profile",
-      "url": "https://github.com/MansoorAhmedRind",
+      "url": "https://github.com/UnknownEng",
       "icon": "Github",
       "order": 4,
       "enabled": true
@@ -1523,15 +1744,24 @@
       "id": "soc-1791228442725",
       "platform": "researchgate",
       "label": "ResearchGate",
-      "url": "researchgate.net/profile/Mansoor-Ahmed-43?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImhvbWUiLCJwYWdlIjoiaG9tZSIsInBvc2l0aW9uIjoiZ2xvYmFsSGVhZGVyIn19",
+      "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43",
       "icon": "researchgate",
       "order": 7,
+      "enabled": true
+    },
+    {
+      "id": "soc-orcid",
+      "platform": "orcid",
+      "label": "ORCID",
+      "url": "https://orcid.org/0009-0002-3597-5513",
+      "icon": "orcid",
+      "order": 8,
       "enabled": true
     }
   ],
   "contact": {
-    "heading": "Initiate Technical Collaboration",
-    "description": "Looking to deploy autonomous UAV systems, multi-drone swarm coordination, or embedded robotics hardware? Reach out directly or dispatch an engineering inquiry below.",
+    "heading": "Have a mission that needs to fly?",
+    "description": "I'm open to UAV and autonomy engineering roles, research collaborations and freelance builds, from swarm coordination to embedded flight hardware. Email is the fastest way to reach me.",
     "email": "ahmedmansoorrind1210@gmail.com",
     "phone": "+92 327 3202419",
     "showPhone": true,
@@ -2032,6 +2262,32 @@
   ],
   "showcase": [
     {
+      "id": "showcase-resilient-swarm",
+      "title": "Resilient Decentralized Swarm Formation Under Network Faults",
+      "subtitle": "Open-source research · ROS 2 Jazzy + Gazebo Harmonic",
+      "date": "Oct 2026",
+      "category": "Swarm Robotics",
+      "organization": "Independent research (Apache 2.0)",
+      "summary": "Five differential-drive robots in a collapsed-building arena form a 2 m pentagon with no leader, no central coordinator and no GPS. Each robot senses neighbours in its own frame, localizes with an EKF and passes its formation command through a control-barrier-function (CBF-QP) safety filter before it reaches the motors.",
+      "mediaUrl": "/uploads/resilient-swarm-formation-faults.webp",
+      "highlights": [
+        "Converged in 5/5 Gazebo runs on a clean network (7.8 ± 1.8 s, 0.056 m shape error) and in 5/5 runs with 15% packet loss, 80 ± 40 ms delay and a robot stopped mid-mission (10.8 s, 0.18 m).",
+        "All 500 headless runs with the safety filter enabled were collision-free (minimum robot distance 0.65 m), across 22 conditions × 25 seeds.",
+        "Handles one-way link failures (mute, deaf and one-way-ring profiles) with 96–100% convergence.",
+        "Reproducible: seeded start poses, rosbag recording, offline metrics and plots, CI, and documented failure cases."
+      ],
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ]
+    },
+    {
       "id": "showcase-vslam",
       "title": "A Review of Visual & Visual-Inertial SLAM in Dynamic UAV Environments",
       "subtitle": "SEECS NUST Technical Review Paper & FYP Research",
@@ -2087,7 +2343,7 @@
       "category": "Swarm Systems",
       "organization": "CSN Lab, NUST & INTELGENCY IT Solutions",
       "summary": "Engineered decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms.",
-      "mediaUrl": "/uploads/1791227624943-592139-images.webp",
+      "mediaUrl": "/uploads/1791239927399-a79b5aad575e-1758907419720.webp",
       "highlights": [
         "Implemented Reynolds flocking models and virtual leader-follower formation geometry.",
         "Eliminated centralized single points of failure through peer-to-peer telemetry mesh.",
@@ -2217,6 +2473,32 @@
   ],
   "research": [
     {
+      "id": "res-swarm",
+      "title": "Resilient Decentralized Shape Formation of Multi-Robot Swarms Under Adversarial Real-World Faults in High-Complexity Disaster Environments",
+      "shortDescription": "Leaderless formation control with a control-barrier-function safety filter, evaluated under packet loss, delay, one-way links and robot failure in a simulated collapsed-building arena.",
+      "fullDescription": "Article accompanying the open-source resilient-swarm-formation stack (ROS 2 Jazzy, Gazebo Harmonic).",
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ],
+      "category": "Article",
+      "projectImage": "/uploads/resilient-swarm-formation-faults.webp",
+      "githubUrl": "https://github.com/UnknownEng/resilient-swarm-formation",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Author",
+      "projectDate": "Oct 2026",
+      "featured": true,
+      "status": "published",
+      "order": 0
+    },
+    {
       "id": "res-vslam",
       "title": "A Review of Visual and Visual-Inertial SLAM Techniques for Dynamic-Environment Localization and Mapping in Autonomous UAVs",
       "shortDescription": "Technical review paper synthesizing 27 recent papers on GPS-denied VSLAM/VI-SLAM under dynamic environments for sub-2 kg UAV companion computers.",
@@ -2230,7 +2512,7 @@
         "GPS-Denied Navigation",
         "SEECS NUST"
       ],
-      "category": "Technical Review (FYP)",
+      "category": "Conference Paper (Review)",
       "projectImage": "https://drive.google.com/file/d/17V9iNkDPI_k27N5nx_rU5o8iiJ6M_7yk/view?usp=sharing=1200&q=80",
       "githubUrl": "",
       "liveDemoUrl": "",
@@ -2244,8 +2526,8 @@
     {
       "id": "res-nav2",
       "title": "A Layered ROS 2/Nav2 Architecture for Fail-Safe Indoor UAV Navigation with Deterministic Dynamic-Obstacle Braking",
-      "shortDescription": "Peer-reviewed research architecture utilizing ROS 2 and Nav2 for deterministic obstacle braking and collision avoidance in indoor UAV flights.",
-      "fullDescription": "Developed a layered ROS 2 and Nav2 autonomy architecture engineered specifically for fail-safe indoor UAV navigation. Integrates deterministic dynamic-obstacle braking layers into local costmaps, ensuring provable collision avoidance bounds during GPS-denied indoor trajectories.",
+      "shortDescription": "Preprint: a layered ROS 2 / Nav2 architecture that separates navigation from a safety layer (collision monitor between Nav2 and ArduPilot) for deterministic dynamic-obstacle braking in indoor UAV flight.",
+      "fullDescription": "Developed a layered ROS 2 and Nav2 autonomy architecture engineered specifically for fail-safe indoor UAV navigation. Integrates deterministic dynamic-obstacle braking layers into local costmaps, targeting deterministic collision avoidance during GPS-denied indoor trajectories.",
       "technologies": [
         "ROS 2",
         "Nav2",
@@ -2254,9 +2536,9 @@
         "Indoor Autonomy",
         "Deterministic Systems"
       ],
-      "category": "Peer-Reviewed Paper",
+      "category": "Preprint",
       "projectImage": "https://drive.google.com/file/d/1Dz71ZpKJyoNv5Vh97RsaJ3tgn0N7tSvW/view?usp=sharing",
-      "githubUrl": "https://github.com/MansoorAhmedRind",
+      "githubUrl": "https://github.com/UnknownEng/Layered-ROS-2-Nav2-Architecture-for-Fail-Safe-Indoor-UAV-Navigation",
       "liveDemoUrl": "",
       "documentationUrl": "https://zenodo.org/records/22587966?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6Ijk1NmY3YWQ3LTcyMDEtNDYzOC04Zjc2LWY0MDEzNWYwNjE5ZSIsImRhdGEiOnt9LCJyYW5kb20iOiI0NDk4YjI1MDNkMjE0OWFhMWM2NzMyYzI4OTk2MzJhZSJ9.mVwCYTe07Fly3ewNowEUQ6WrzVqKg-a8hStj2MQ4_SREBc1sT2AzIJEohaguaWARSnQUwwKyfLDrzZr4t9Wwfg",
       "myRole": "Author & Autonomy Architect",

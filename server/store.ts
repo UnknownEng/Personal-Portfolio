@@ -5,6 +5,32 @@ import { PortfolioData, ContactMessage, MediaFile } from '../src/types/portfolio
 import { initialPortfolioData } from '../src/data/initialData.ts';
 import { AdminUser } from './types.ts';
 import { hashPassword } from './auth.ts';
+import { IS_PRODUCTION } from './security.ts';
+import crypto from 'crypto';
+
+/** Maximum stored contact messages; the oldest are dropped beyond this (disk-fill protection). */
+const MAX_CONTACT_MESSAGES = 1000;
+
+/**
+ * Admin credentials from the environment. Required on Vercel, where the filesystem is
+ * per-instance and temporary, so an admin.json written at runtime would vanish and
+ * re-open first-run setup to anyone.
+ *   ADMIN_USERNAME, ADMIN_EMAIL (optional), ADMIN_PASSWORD_HASH (bcrypt, from `npm run hash-password`)
+ *   ADMIN_TOKEN_VERSION (optional; bump to log out every session)
+ */
+function envAdmin(): AdminUser | null {
+  const username = process.env.ADMIN_USERNAME?.trim();
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH?.trim();
+  if (!username || !passwordHash || !/^\$2[aby]\$\d{2}\$/.test(passwordHash)) return null;
+  return {
+    id: 'admin-env',
+    username,
+    email: (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
+    passwordHash,
+    createdAt: '1970-01-01T00:00:00.000Z',
+    tokenVersion: Number(process.env.ADMIN_TOKEN_VERSION) || 1,
+  };
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,9 +40,9 @@ const __dirname = path.dirname(__filename);
 // Local development continues to use the project's data/ and uploads/ directories.
 const PROJECT_DATA_DIR = path.resolve(__dirname, '../data');
 
-const STORAGE_ROOT = process.env.VERCEL === '1'
-  ? '/tmp/portfolio-data'
-  : PROJECT_DATA_DIR;
+// PORTFOLIO_DATA_DIR / PORTFOLIO_UPLOADS_DIR let tests run against a throwaway copy.
+const STORAGE_ROOT = process.env.PORTFOLIO_DATA_DIR
+  || (process.env.VERCEL === '1' ? '/tmp/portfolio-data' : PROJECT_DATA_DIR);
 
 const DATA_DIR = STORAGE_ROOT;
 const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
@@ -27,9 +53,8 @@ const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
 // initial source of truth. Runtime writes still go to /tmp.
 const BUNDLED_PORTFOLIO_FILE = path.join(PROJECT_DATA_DIR, 'portfolio.json');
 
-const UPLOADS_DIR = process.env.VERCEL === '1'
-  ? '/tmp/portfolio-uploads'
-  : path.resolve(__dirname, '../uploads');
+const UPLOADS_DIR = process.env.PORTFOLIO_UPLOADS_DIR
+  || (process.env.VERCEL === '1' ? '/tmp/portfolio-uploads' : path.resolve(__dirname, '../uploads'));
 
 // Ensure directories exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -109,6 +134,9 @@ export class DataStore {
   }
 
   private loadAdmin(): AdminUser | null {
+    const fromEnv = envAdmin();
+    if (fromEnv) return fromEnv;
+
     try {
       if (fs.existsSync(ADMIN_FILE)) {
         const raw = fs.readFileSync(ADMIN_FILE, 'utf-8');
@@ -121,8 +149,9 @@ export class DataStore {
       console.error('Error reading admin.json:', e);
     }
 
-    // If explicit dev fallback is requested via environment variable
-    if (process.env.ALLOW_DEV_FALLBACK === 'true') {
+    // Explicit local-dev fallback only. Never honoured in production, where it would
+    // create a publicly known admin/admin123 account.
+    if (process.env.ALLOW_DEV_FALLBACK === 'true' && !IS_PRODUCTION) {
       console.warn('[SECURITY WARNING] ALLOW_DEV_FALLBACK is enabled. Setting up development fallback credentials.');
       const devAdmin: AdminUser = {
         id: 'admin-dev',
@@ -144,7 +173,17 @@ export class DataStore {
     return this.admin !== null && !!this.admin.passwordHash;
   }
 
+  /** True when the admin is defined by environment variables (read-only credentials). */
+  public isEnvAdmin(): boolean {
+    return envAdmin() !== null;
+  }
+
   public getAdmin(): AdminUser | null {
+    const fromEnv = envAdmin();
+    if (fromEnv) {
+      this.admin = fromEnv;
+      return fromEnv;
+    }
     try {
       if (fs.existsSync(ADMIN_FILE)) {
         const raw = fs.readFileSync(ADMIN_FILE, 'utf-8');
@@ -219,8 +258,8 @@ export class DataStore {
 
   public addContactMessage(message: Omit<ContactMessage, 'id' | 'createdAt' | 'read'>): ContactMessage {
     const newMessage: ContactMessage = {
-      id: `msg-${Date.now()}`,
       ...message,
+      id: `msg-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`,
       createdAt: new Date().toISOString(),
       read: false,
     };
@@ -228,6 +267,9 @@ export class DataStore {
       this.portfolio.contactMessages = [];
     }
     this.portfolio.contactMessages.unshift(newMessage);
+    if (this.portfolio.contactMessages.length > MAX_CONTACT_MESSAGES) {
+      this.portfolio.contactMessages.length = MAX_CONTACT_MESSAGES;
+    }
     atomicWriteJson(PORTFOLIO_FILE, this.portfolio);
     return newMessage;
   }

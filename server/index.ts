@@ -11,6 +11,19 @@ import { dataStore, UPLOADS_DIR } from './store.ts';
 import { renderServerSide } from './ssr.ts';
 import { requireAuth, comparePassword, hashPassword, generateToken, AuthenticatedRequest, setAdminVerifier } from './auth.ts';
 import { MediaFile, PortfolioData } from '../src/types/portfolio.ts';
+import {
+  IS_PRODUCTION,
+  IS_VERCEL,
+  EMAIL_RE,
+  SsrfError,
+  assertFetchableUrl,
+  cleanText,
+  findDangerousUrl,
+  isDangerousUrl,
+  safeEqual,
+  safeFetchText,
+  stripPrototypeKeys,
+} from './security.ts';
 
 // Register admin verifier for immediate session revocation upon password updates
 setAdminVerifier(() => dataStore.getAdmin());
@@ -113,32 +126,23 @@ app.use(cors({
   maxAge: 86400,
 }));
 
-// Body parser with strict payload limits
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Body parsing. Public endpoints get a small limit; the authenticated CMS save routes
+// parse their own (larger) bodies *after* the auth check, so anonymous clients can
+// never make the server buffer megabytes of JSON.
+const smallJson = express.json({ limit: '64kb', strict: true });
+const largeJson = express.json({ limit: '5mb', strict: true });
+const isCmsSave = (req: Request) => req.method === 'PUT' && req.path.startsWith('/api/portfolio');
 
-// Prototype Pollution Defense: Recursively strip dangerous keys from request bodies
-function sanitizePrototypes(obj: any): any {
-  if (obj === null || typeof obj !== 'object') return obj;
-  if (Array.isArray(obj)) {
-    return obj.map(sanitizePrototypes);
-  }
-  const clean: Record<string, any> = {};
-  for (const key of Object.keys(obj)) {
-    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
-      continue;
-    }
-    clean[key] = sanitizePrototypes(obj[key]);
-  }
-  return clean;
-}
+app.use((req: Request, res: Response, next: NextFunction) => (isCmsSave(req) ? next() : smallJson(req, res, next)));
 
-app.use((req: Request, _res: Response, next: NextFunction) => {
+// Prototype-pollution defence: strip __proto__ / constructor / prototype keys from any parsed body
+function stripProto(req: Request, _res: Response, next: NextFunction): void {
   if (req.body && typeof req.body === 'object') {
-    req.body = sanitizePrototypes(req.body);
+    req.body = stripPrototypeKeys(req.body);
   }
   next();
-});
+}
+app.use(stripProto);
 
 // --- 3. RATE LIMITING (BRUTE-FORCE & DOS SAFEGUARDS) ---
 const generalApiLimiter = rateLimit({
@@ -425,16 +429,6 @@ const upload = multer({
   },
 });
 
-// Input sanitization helper for contact form & text inputs
-function sanitizeInput(str: any): string {
-  if (typeof str !== 'string') return '';
-  return str
-    .replace(/\0/g, '') // Strip null bytes
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/<[^>]+>/g, '') // Strip HTML tags
-    .trim();
-}
-
 // Whitelist of valid portfolio sections to prevent injection / prototype pollution
 const VALID_SECTIONS = new Set([
   'siteSettings', 'theme', 'seo', 'sectionVisibility', 'navigation',
@@ -454,17 +448,19 @@ const OBJECT_SECTIONS = new Set([
   'hero', 'about', 'contact'
 ]);
 
-function isDangerousUrl(urlStr: any): boolean {
-  if (typeof urlStr !== 'string') return false;
-  let decoded = urlStr;
-  try {
-    decoded = decodeURIComponent(urlStr);
-  } catch {
-    // Treat malformed URI encoding with strict suspicion
-  }
-  const stripped = decoded.replace(/[\u0000-\u001F\u007F-\u009F\s]/g, '').toLowerCase();
-  const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:', 'about:', 'blob:'];
-  return dangerousProtocols.some((proto) => stripped.startsWith(proto));
+const MIN_PASSWORD_LENGTH = 12;
+const MAX_PASSWORD_LENGTH = 72; // bcrypt ignores bytes beyond 72
+
+/**
+ * First-run setup is only open on a local dev machine. In production it needs
+ * ADMIN_SETUP_TOKEN, and on Vercel it is disabled entirely, because the per-instance
+ * /tmp filesystem would let anyone re-run setup on a fresh instance.
+ */
+function setupMode(): 'open' | 'token' | 'disabled' {
+  if (dataStore.isEnvAdmin()) return 'disabled';
+  if (IS_VERCEL) return 'disabled';
+  if (IS_PRODUCTION) return process.env.ADMIN_SETUP_TOKEN ? 'token' : 'disabled';
+  return 'open';
 }
 
 // --- 7. AUTHENTICATION ROUTES ---
@@ -472,9 +468,12 @@ function isDangerousUrl(urlStr: any): boolean {
 // GET /api/auth/status
 app.get('/api/auth/status', (_req: Request, res: Response): void => {
   const hasAdmin = dataStore.hasAdmin();
+  const mode = setupMode();
   res.json({
-    initialized: hasAdmin,
-    allowDevFallback: process.env.ALLOW_DEV_FALLBACK === 'true',
+    initialized: hasAdmin || mode === 'disabled',
+    setupAllowed: !hasAdmin && mode !== 'disabled',
+    setupRequiresToken: mode === 'token',
+    allowDevFallback: false,
   });
 });
 
@@ -485,9 +484,25 @@ app.post('/api/auth/setup-admin', setupAdminLimiter, (req: Request, res: Respons
     return;
   }
 
-  const { username, email, password, confirmPassword } = req.body;
+  const mode = setupMode();
+  if (mode === 'disabled') {
+    res.status(403).json({
+      error:
+        'Online setup is disabled in production. Set ADMIN_USERNAME and ADMIN_PASSWORD_HASH in the hosting environment instead.',
+    });
+    return;
+  }
+  if (mode === 'token') {
+    const provided = typeof req.body?.setupToken === 'string' ? req.body.setupToken : '';
+    if (!provided || !safeEqual(provided, String(process.env.ADMIN_SETUP_TOKEN))) {
+      res.status(403).json({ error: 'Invalid setup token.' });
+      return;
+    }
+  }
 
-  if (!username || !email || !password) {
+  const { username, email, password, confirmPassword } = req.body ?? {};
+
+  if (typeof username !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
     res.status(400).json({ error: 'Username, email, and password are required.' });
     return;
   }
@@ -497,27 +512,23 @@ app.post('/api/auth/setup-admin', setupAdminLimiter, (req: Request, res: Respons
     return;
   }
 
-  if (String(username).trim().length < 3) {
-    res.status(400).json({ error: 'Username must be at least 3 characters long.' });
+  const cleanUsername = cleanText(username, 40);
+  if (!cleanUsername || !/^[a-zA-Z0-9_.-]{3,40}$/.test(cleanUsername)) {
+    res.status(400).json({ error: 'Username must be 3-40 characters: letters, numbers, dot, dash or underscore.' });
     return;
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(String(email).trim())) {
+  if (!EMAIL_RE.test(email.trim())) {
     res.status(400).json({ error: 'Invalid email address format.' });
     return;
   }
 
-  if (String(password).length < 8) {
-    res.status(400).json({ error: 'Password must be at least 8 characters long.' });
+  if (password.length < MIN_PASSWORD_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
+    res.status(400).json({ error: `Password must be ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} characters long.` });
     return;
   }
 
-  const newAdmin = dataStore.createAdmin(
-    sanitizeInput(username),
-    String(email).trim().toLowerCase(),
-    password
-  );
+  const newAdmin = dataStore.createAdmin(cleanUsername, email.trim().toLowerCase(), password);
 
   const token = generateToken({
     id: newAdmin.id,
@@ -540,31 +551,40 @@ app.post('/api/auth/setup-admin', setupAdminLimiter, (req: Request, res: Respons
 // POST /api/auth/login (with brute-force rate limiting)
 app.post('/api/auth/login', loginLimiter, (req: Request, res: Response): void => {
   if (!dataStore.hasAdmin()) {
+    const mode = setupMode();
     res.status(400).json({
-      error: 'Administrator account not set up yet. Please complete First-Run Setup.',
-      setupRequired: true,
+      error:
+        mode === 'disabled'
+          ? 'No administrator is configured. Set ADMIN_USERNAME and ADMIN_PASSWORD_HASH in the hosting environment.'
+          : 'Administrator account not set up yet. Please complete First-Run Setup.',
+      setupRequired: mode !== 'disabled',
     });
     return;
   }
 
-  const { username, password } = req.body;
+  const { username, password } = req.body ?? {};
 
-  if (!username || !password) {
+  if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
     res.status(400).json({ error: 'Username and password are required.' });
+    return;
+  }
+  if (username.length > 200 || password.length > MAX_PASSWORD_LENGTH * 4) {
+    res.status(401).json({ error: 'Invalid credentials. Access denied.' });
     return;
   }
 
   const admin = dataStore.getAdmin();
   if (!admin) {
-    res.status(401).json({ error: 'Invalid username or password' });
+    res.status(401).json({ error: 'Invalid credentials. Access denied.' });
     return;
   }
 
-  const matchesUsername =
-    admin.username.toLowerCase() === String(username).trim().toLowerCase() ||
-    admin.email.toLowerCase() === String(username).trim().toLowerCase();
+  const id = username.trim().toLowerCase();
+  const matchesUsername = admin.username.toLowerCase() === id || (!!admin.email && admin.email.toLowerCase() === id);
+  // Always run the bcrypt comparison so response time does not reveal whether the username exists.
+  const passwordOk = comparePassword(password, admin.passwordHash);
 
-  if (!matchesUsername || !comparePassword(String(password), admin.passwordHash)) {
+  if (!matchesUsername || !passwordOk) {
     res.status(401).json({ error: 'Invalid credentials. Access denied.' });
     return;
   }
@@ -612,9 +632,16 @@ app.get('/api/auth/me', requireAuth, (req: AuthenticatedRequest, res: Response):
 
 // POST /api/auth/change-password (with brute-force limiter & automatic session invalidation)
 app.post('/api/auth/change-password', requireAuth, changePasswordLimiter, (req: AuthenticatedRequest, res: Response): void => {
-  const { currentPassword, newPassword, confirmNewPassword } = req.body;
+  if (dataStore.isEnvAdmin()) {
+    res.status(400).json({
+      error: 'This admin is configured by environment variables. Generate a new hash with `npm run hash-password` and update ADMIN_PASSWORD_HASH in your hosting settings.',
+    });
+    return;
+  }
 
-  if (!currentPassword || !newPassword) {
+  const { currentPassword, newPassword, confirmNewPassword } = req.body ?? {};
+
+  if (typeof currentPassword !== 'string' || typeof newPassword !== 'string' || !currentPassword || !newPassword) {
     res.status(400).json({ error: 'Current password and new password are required' });
     return;
   }
@@ -624,8 +651,8 @@ app.post('/api/auth/change-password', requireAuth, changePasswordLimiter, (req: 
     return;
   }
 
-  if (String(newPassword).length < 8) {
-    res.status(400).json({ error: 'Password must be at least 8 characters long' });
+  if (newPassword.length < MIN_PASSWORD_LENGTH || newPassword.length > MAX_PASSWORD_LENGTH) {
+    res.status(400).json({ error: `Password must be ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} characters long` });
     return;
   }
 
@@ -687,51 +714,66 @@ app.get('/api/portfolio/admin', requireAuth, adminApiLimiter, (_req: Request, re
   res.json(data);
 });
 
-// PUT /api/portfolio (Full update)
-app.put('/api/portfolio', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
-  const updated = dataStore.savePortfolio(req.body);
+/** Returns an error message if a section value has the wrong shape or carries a dangerous URL. */
+function validateSection(section: string, value: unknown): string | null {
+  if (ARRAY_SECTIONS.has(section)) {
+    if (!Array.isArray(value)) return `Section "${section}" must be an array.`;
+    if (value.length > 2000) return `Section "${section}" has too many items.`;
+    if (value.some((item) => item === null || typeof item !== 'object' || Array.isArray(item))) {
+      return `Every item in "${section}" must be an object.`;
+    }
+  } else if (OBJECT_SECTIONS.has(section)) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return `Section "${section}" must be an object.`;
+  }
+  const badPath = findDangerousUrl(value, section);
+  if (badPath) {
+    return `Security violation: "${badPath}" uses a disallowed URL scheme (javascript:, data:, vbscript:, file:, blob:).`;
+  }
+  return null;
+}
+
+// PUT /api/portfolio (Full update) — only known sections are accepted, each one validated
+app.put('/api/portfolio', requireAuth, adminApiLimiter, largeJson, stripProto, (req: Request, res: Response): void => {
+  const body = req.body;
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    res.status(400).json({ error: 'Expected a JSON object.' });
+    return;
+  }
+  const allowed = new Set([...VALID_SECTIONS, 'contactMessages']);
+  const clean: Partial<PortfolioData> = {};
+  for (const [key, value] of Object.entries(body)) {
+    if (!allowed.has(key)) continue; // silently drop unknown keys (mass-assignment guard)
+    if (key === 'contactMessages') {
+      if (!Array.isArray(value)) {
+        res.status(400).json({ error: 'contactMessages must be an array.' });
+        return;
+      }
+    } else {
+      const err = validateSection(key, value);
+      if (err) {
+        res.status(400).json({ error: err });
+        return;
+      }
+    }
+    (clean as Record<string, unknown>)[key] = value;
+  }
+  const updated = dataStore.savePortfolio(clean as PortfolioData);
   res.json(updated);
 });
 
 // PUT /api/portfolio/:section (Single section update with strict type and schema enforcement)
-app.put('/api/portfolio/:section', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
-  const { section } = req.params;
+app.put('/api/portfolio/:section', requireAuth, adminApiLimiter, largeJson, stripProto, (req: Request, res: Response): void => {
+  const section = String(req.params.section);
 
   if (!VALID_SECTIONS.has(section)) {
-    res.status(400).json({ error: `Invalid or disallowed section key: ${section}` });
+    res.status(400).json({ error: 'Invalid or disallowed section key.' });
     return;
   }
 
-  // Strict Type & Schema Validation (Reject non-arrays for array sections, non-objects for object sections)
-  if (ARRAY_SECTIONS.has(section)) {
-    if (!Array.isArray(req.body)) {
-      res.status(400).json({
-        error: `Invalid payload for section "${section}". Expected an Array of items, received ${req.body === null ? 'null' : typeof req.body}.`,
-      });
-      return;
-    }
-
-    // Backend defense-in-depth: check for dangerous URL schemes in array items
-    for (const item of req.body) {
-      if (item && typeof item === 'object') {
-        const urlFields = ['url', 'link', 'liveDemoUrl', 'githubUrl', 'documentationUrl', 'credentialUrl', 'externalUrl', 'mediaUrl'];
-        for (const field of urlFields) {
-          if (field in item && isDangerousUrl(item[field])) {
-            res.status(400).json({
-              error: `Security violation: Field "${field}" contains a disallowed URL scheme (e.g. javascript:, data:, vbscript:).`,
-            });
-            return;
-          }
-        }
-      }
-    }
-  } else if (OBJECT_SECTIONS.has(section)) {
-    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
-      res.status(400).json({
-        error: `Invalid payload for section "${section}". Expected a JSON Object, received ${Array.isArray(req.body) ? 'Array' : req.body === null ? 'null' : typeof req.body}.`,
-      });
-      return;
-    }
+  const err = validateSection(section, req.body);
+  if (err) {
+    res.status(400).json({ error: err });
+    return;
   }
 
   const updated = dataStore.updateSection(section as keyof PortfolioData, req.body);
@@ -748,49 +790,37 @@ app.post('/api/portfolio/reset', requireAuth, adminApiLimiter, (_req: Request, r
 
 // POST /api/contact (Public inquiry form with rate limit & HTML sanitization)
 app.post('/api/contact', contactLimiter, (req: Request, res: Response): void => {
-  const { name, email, subject, message } = req.body;
+  const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
+
+  // Honeypot: real visitors never see or fill the "website" field; bots usually do.
+  // Pretend success so the bot learns nothing, but store nothing.
+  if (typeof body.website === 'string' && body.website.trim() !== '') {
+    res.json({ success: true, message: 'Message received.' });
+    return;
+  }
+
+  const name = cleanText(body.name, 100);
+  const email = cleanText(body.email, 254)?.toLowerCase() ?? null;
+  const subject = body.subject === undefined || body.subject === '' ? 'Portfolio enquiry' : cleanText(body.subject, 150);
+  const message = cleanText(body.message, 3000);
 
   if (!name || !email || !message) {
-    res.status(400).json({ error: 'Name, email, and message are required.' });
+    res.status(400).json({ error: 'Name, email and message are required (text only, within length limits).' });
     return;
   }
-
-  const sanitizedName = sanitizeInput(name);
-  const sanitizedEmail = String(email).trim().toLowerCase();
-  const sanitizedSubject = sanitizeInput(subject || 'Engineering Portfolio Inquiry');
-  const sanitizedMessage = sanitizeInput(message);
-
-  if (sanitizedName.length > 100) {
-    res.status(400).json({ error: 'Name cannot exceed 100 characters.' });
+  if (subject === null) {
+    res.status(400).json({ error: 'Subject must be text of at most 150 characters.' });
     return;
   }
-  if (sanitizedEmail.length > 120) {
-    res.status(400).json({ error: 'Email cannot exceed 120 characters.' });
-    return;
-  }
-  if (sanitizedSubject.length > 150) {
-    res.status(400).json({ error: 'Subject cannot exceed 150 characters.' });
-    return;
-  }
-  if (sanitizedMessage.length > 3000) {
-    res.status(400).json({ error: 'Message cannot exceed 3000 characters.' });
-    return;
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(sanitizedEmail)) {
+  if (!EMAIL_RE.test(email)) {
     res.status(400).json({ error: 'Invalid email address format.' });
     return;
   }
 
-  const newMsg = dataStore.addContactMessage({
-    name: sanitizedName,
-    email: sanitizedEmail,
-    subject: sanitizedSubject,
-    message: sanitizedMessage,
-  });
+  dataStore.addContactMessage({ name, email, subject, message });
 
-  res.json({ success: true, message: 'Message dispatched successfully!', item: newMsg });
+  // Do not echo stored data back to an anonymous caller.
+  res.json({ success: true, message: 'Message received.' });
 });
 
 // GET /api/contact-messages
@@ -801,15 +831,15 @@ app.get('/api/contact-messages', requireAuth, adminApiLimiter, (_req: Request, r
 
 // PATCH /api/contact-messages/:id/read
 app.patch('/api/contact-messages/:id/read', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
-  const { id } = req.params;
-  const { read } = req.body;
+  const id = String(req.params.id);
+  const read = req.body && typeof req.body === 'object' ? req.body.read : undefined;
   const success = dataStore.markContactMessageRead(id, read !== undefined ? Boolean(read) : true);
   res.json({ success });
 });
 
 // DELETE /api/contact-messages/:id
 app.delete('/api/contact-messages/:id', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
-  const { id } = req.params;
+  const id = String(req.params.id);
   const success = dataStore.deleteContactMessage(id);
   res.json({ success });
 });
@@ -829,73 +859,49 @@ interface LinkPreviewResult {
 // In-memory cache with 15-minute TTL to reduce latency and redundant external network calls
 const linkPreviewCache = new Map<string, { data: LinkPreviewResult; expiresAt: number }>();
 
-function isPrivateOrLocalHost(hostname: string): boolean {
-  const lower = hostname.toLowerCase().trim();
-
-  // Block localhost, link-local, loopback, special internal suffixes
-  if (
-    lower === 'localhost' ||
-    lower.endsWith('.localhost') ||
-    lower.endsWith('.local') ||
-    lower.endsWith('.internal') ||
-    lower === '0.0.0.0' ||
-    lower === '127.0.0.1' ||
-    lower === '::1' ||
-    lower === '[::1]' ||
-    lower === '169.254.169.254'
-  ) {
-    return true;
-  }
-
-  // Check IPv4 patterns: 10.x.x.x, 172.16-31.x.x, 192.168.x.x, 127.x.x.x, 169.254.x.x
-  const ipv4Regex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
-  const match = lower.match(ipv4Regex);
-  if (match) {
-    const a = parseInt(match[1], 10);
-    const b = parseInt(match[2], 10);
-    if (a === 127 || a === 10 || a === 0) return true;
-    if (a === 172 && b >= 16 && b <= 31) return true;
-    if (a === 192 && b === 168) return true;
-    if (a === 169 && b === 254) return true;
-  }
-
-  return false;
+/** Pull an attribute value out of the first matching <meta> tag (plain-text result). */
+function metaContent(html: string, attr: 'property' | 'name', key: string): string | undefined {
+  const k = key.replace(/[^a-z:_-]/gi, ''); // keys are fixed literals; keep only safe chars
+  return (
+    html.match(new RegExp(`<meta[^>]{0,400}?${attr}=["']${k}["'][^>]{0,400}?content=["']([^"'<>]{1,500})["']`, 'i'))?.[1] ||
+    html.match(new RegExp(`<meta[^>]{0,400}?content=["']([^"'<>]{1,500})["'][^>]{0,400}?${attr}=["']${k}["']`, 'i'))?.[1]
+  );
 }
 
+const plain = (s: string | undefined, max: number) =>
+  (s || '').replace(/<[^>]*>/g, '').replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, max);
+
+const httpUrlOrEmpty = (u: string | undefined) => {
+  if (!u) return '';
+  try {
+    const parsed = new URL(u);
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : '';
+  } catch {
+    return '';
+  }
+};
+
 // GET /api/link-preview?url=<targetUrl>
-app.get('/api/link-preview', linkPreviewLimiter, async (req: Request, res: Response): Promise<void> => {
+// Admin-only: an unauthenticated URL fetcher is an open proxy / SSRF primitive.
+app.get('/api/link-preview', requireAuth, linkPreviewLimiter, async (req: Request, res: Response): Promise<void> => {
   const targetUrl = req.query.url;
 
-  if (!targetUrl || typeof targetUrl !== 'string') {
+  if (!targetUrl || typeof targetUrl !== 'string' || targetUrl.length > 2048) {
     res.status(400).json({ error: 'Query parameter "url" is required.' });
     return;
   }
 
-  const trimmed = targetUrl.trim();
   let parsed: URL;
   try {
-    parsed = new URL(trimmed);
-  } catch {
-    res.status(400).json({ error: 'Invalid URL format.' });
-    return;
-  }
-
-  // Enforce HTTP / HTTPS protocol only
-  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    res.status(400).json({ error: 'Only HTTP and HTTPS protocols are supported for website previews.' });
-    return;
-  }
-
-  // Enforce SSRF protection
-  if (isPrivateOrLocalHost(parsed.hostname)) {
-    res.status(403).json({ error: 'Access to private or local network addresses is prohibited.' });
+    parsed = assertFetchableUrl(targetUrl.trim());
+  } catch (e) {
+    res.status(e instanceof SsrfError ? 403 : 400).json({ error: (e as Error).message });
     return;
   }
 
   const cleanUrl = parsed.href;
   const now = Date.now();
 
-  // Check cache
   const cached = linkPreviewCache.get(cleanUrl);
   if (cached && cached.expiresAt > now) {
     res.json({ success: true, ...cached.data });
@@ -904,7 +910,7 @@ app.get('/api/link-preview', linkPreviewLimiter, async (req: Request, res: Respo
 
   const domain = parsed.hostname;
   const defaultScreenshot = `https://image.thum.io/get/width/800/crop/600/${encodeURIComponent(cleanUrl)}`;
-  const defaultFavicon = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  const defaultFavicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
 
   let title = domain;
   let description = '';
@@ -912,73 +918,47 @@ app.get('/api/link-preview', linkPreviewLimiter, async (req: Request, res: Respo
   let screenshot = defaultScreenshot;
   let favicon = defaultFavicon;
 
-  // 1. Attempt: Microlink API for high-resolution screenshot and verified metadata
+  // 1. Microlink (third-party service fetches the page, not this server)
   try {
-    const microRes = await fetch(
-      `https://api.microlink.io/?url=${encodeURIComponent(cleanUrl)}&screenshot=true`,
-      {
-        signal: AbortSignal.timeout(3500),
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (compatible; PortfolioBot/1.0)',
-        },
-      }
-    );
-
+    const microRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(cleanUrl)}&screenshot=true`, {
+      signal: AbortSignal.timeout(3500),
+      headers: { Accept: 'application/json', 'User-Agent': 'PortfolioLinkPreview/1.0' },
+    });
     if (microRes.ok) {
       const json: any = await microRes.json();
-      if (json.status === 'success' && json.data) {
-        if (json.data.title) title = json.data.title.trim();
-        if (json.data.description) description = json.data.description.trim();
-        if (json.data.screenshot?.url) screenshot = json.data.screenshot.url;
-        if (json.data.image?.url) image = json.data.image.url;
-        else if (screenshot) image = screenshot;
-        if (json.data.logo?.url) favicon = json.data.logo.url;
+      if (json?.status === 'success' && json.data) {
+        if (typeof json.data.title === 'string') title = plain(json.data.title, 200) || title;
+        if (typeof json.data.description === 'string') description = plain(json.data.description, 400);
+        screenshot = httpUrlOrEmpty(json.data.screenshot?.url) || screenshot;
+        image = httpUrlOrEmpty(json.data.image?.url) || screenshot;
+        favicon = httpUrlOrEmpty(json.data.logo?.url) || favicon;
       }
     }
   } catch {
-    // Microlink timed out or network error; proceed to fallback
+    // fall through to direct fetch
   }
 
-  // 2. Fallback: If title or description missing, attempt direct fetch with HTML parse
+  // 2. Direct fetch, SSRF-guarded on every hop, size-capped and time-boxed
   if (title === domain || !description) {
     try {
-      const pageRes = await fetch(cleanUrl, {
-        signal: AbortSignal.timeout(3500),
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml',
-        },
-      });
-
-      if (pageRes.ok) {
-        const text = await pageRes.text();
-
-        // Title
-        const ogTitle = text.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)?.[1]
-          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i)?.[1]
-          || text.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1];
-        if (ogTitle && title === domain) title = ogTitle.trim();
-
-        // Description
-        const ogDesc = text.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i)?.[1]
-          || text.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)?.[1]
-          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:description["']/i)?.[1];
-        if (ogDesc && !description) description = ogDesc.trim();
-
-        // Image
-        const ogImg = text.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)?.[1]
-          || text.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i)?.[1];
-        if (ogImg && image === defaultScreenshot) {
+      const page = await safeFetchText(cleanUrl, { maxBytes: 512 * 1024, timeoutMs: 3500, maxRedirects: 3 });
+      const html = page.body;
+      if (html) {
+        const t = metaContent(html, 'property', 'og:title') || html.match(/<title[^>]*>([^<]{1,300})<\/title>/i)?.[1];
+        if (t && title === domain) title = plain(t, 200);
+        const d = metaContent(html, 'property', 'og:description') || metaContent(html, 'name', 'description');
+        if (d && !description) description = plain(d, 400);
+        const img = metaContent(html, 'property', 'og:image');
+        if (img && image === defaultScreenshot) {
           try {
-            image = new URL(ogImg, cleanUrl).href;
+            image = httpUrlOrEmpty(new URL(img, page.url).href) || image;
           } catch {
-            // Keep default
+            /* keep default */
           }
         }
       }
     } catch {
-      // Direct fetch timed out or blocked
+      // blocked, timed out or unreachable
     }
   }
 
@@ -992,13 +972,7 @@ app.get('/api/link-preview', linkPreviewLimiter, async (req: Request, res: Respo
     favicon,
   };
 
-  // Cache for 15 minutes
-  linkPreviewCache.set(cleanUrl, {
-    data: resultData,
-    expiresAt: now + 15 * 60 * 1000,
-  });
-
-  // Limit cache size to 250 entries
+  linkPreviewCache.set(cleanUrl, { data: resultData, expiresAt: now + 15 * 60 * 1000 });
   if (linkPreviewCache.size > 250) {
     const firstKey = linkPreviewCache.keys().next().value;
     if (firstKey) linkPreviewCache.delete(firstKey);
@@ -1053,7 +1027,7 @@ app.post('/api/upload', requireAuth, uploadLimiter, upload.single('file'), (req:
 
 // DELETE /api/media/:id
 app.delete('/api/media/:id', requireAuth, adminApiLimiter, (req: Request, res: Response): void => {
-  const { id } = req.params;
+  const id = String(req.params.id);
   const success = dataStore.deleteMedia(id);
   res.json({ success });
 });
@@ -1080,6 +1054,16 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       return;
     }
     res.status(400).json({ error: `Upload error: ${err.message}` });
+    return;
+  }
+
+  // Body-parser errors: malformed JSON or oversized payloads are client errors, not 500s
+  if (err?.type === 'entity.parse.failed') {
+    res.status(400).json({ error: 'Malformed JSON body.' });
+    return;
+  }
+  if (err?.type === 'entity.too.large') {
+    res.status(413).json({ error: 'Request body too large.' });
     return;
   }
 

@@ -9,7 +9,9 @@
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
     "build": "tsc && vite build && mkdir -p dist/uploads && cp -rn uploads/* dist/uploads/ 2>/dev/null || true",
     "preview": "vite preview",
-    "start": "NODE_ENV=production tsx server/index.ts"
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "hash-password": "tsx scripts/hash-password.ts",
+    "test:security": "tsx tests/security.test.ts"
   },
   "keywords": [],
   "author": "",

@@ -79,13 +79,13 @@
     position: relative;
   }
 
-  /* Safe word breaking on mobile */
-  p, h1, h2, h3, h4, h5, h6, span, a {
+  /* Safe word breaking on mobile (admin / legacy views; the public site in .site manages its own) */
+  :is(p, h1, h2, h3, h4, h5, h6, span, a):not(.site *) {
     overflow-wrap: break-word;
     word-break: break-word;
   }
 
-  h1, h2, h3, h4, h5, h6, p, button, a, span, div, li, input, textarea {
+  :is(h1, h2, h3, h4, h5, h6, p, button, a, span, div, li, input, textarea):not(.site, .site *) {
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
   }
 
