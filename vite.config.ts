@@ -7,6 +7,16 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      // Two separate pages: the public site, and the admin CMS (moved to a secret
+      // path after the build by scripts/place-admin.mjs). They share no entry chunk.
+      input: {
+        main: 'index.html',
+        admin: 'admin.html',
+      },
+    },
+  },
   server: {
     port: 5173,
     host: true,

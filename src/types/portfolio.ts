@@ -1,5 +1,11 @@
 export type StatusState = 'draft' | 'published';
 
+/** An outbound link shown with an item (GitHub, paper, live site, profile...). */
+export interface LinkRef {
+  label: string;
+  url: string;
+}
+
 export interface SiteSettings {
   websiteName: string;
   footerText: string;
@@ -153,6 +159,7 @@ export interface ExperienceItem {
   technologies: string[];
   companyLogo?: string;
   image?: string;
+  links?: LinkRef[];
   status: StatusState;
   order: number;
 }
@@ -280,6 +287,7 @@ export interface ShowcaseItem {
   mediaUrl: string;
   highlights: string[];
   technologies: string[];
+  links?: LinkRef[];
 }
 
 export interface PortfolioData {

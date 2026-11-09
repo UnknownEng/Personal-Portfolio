@@ -56,6 +56,14 @@ export const Education: React.FC<EducationProps> = ({ num, education, certificat
                   <strong>{l.role}</strong>
                   <p>{l.organization}</p>
                   <span className="mono">{l.date}</span>
+                  {l.description && <p>{l.description}</p>}
+                  {l.bullets?.length > 0 && (
+                    <ul>
+                      {l.bullets.map((b) => (
+                        <li key={b}>{b}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               ))}
             </div>

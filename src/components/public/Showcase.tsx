@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShowcaseItem } from '../../types/portfolio';
-import { SectionHead, pad, yearOf } from './siteKit';
+import { ArrowUpRight } from 'lucide-react';
+import { SectionHead, externalUrl, pad, yearOf } from './siteKit';
 import { DetailModal, ModalItem } from './DetailModal';
 
 interface ShowcaseProps {
@@ -27,7 +28,11 @@ export const Showcase: React.FC<ShowcaseProps> = ({ num, items }) => {
     mediaUrl: s.mediaUrl,
     highlights: s.highlights,
     technologies: s.technologies,
+    links: s.links,
   }));
+  const currentLinks = (current.links || [])
+    .map((l) => ({ ...l, url: externalUrl(l.url) }))
+    .filter((l) => l.url && l.url !== '#');
 
   return (
     <section className="sec" id="work" aria-labelledby="work-title">
@@ -67,7 +72,7 @@ export const Showcase: React.FC<ShowcaseProps> = ({ num, items }) => {
             ))}
           </ol>
 
-          <aside className="work__preview" aria-hidden="true">
+          <aside className="work__preview" aria-label={`Preview: ${current.title}`}>
             <div className="frame">
               {current.mediaUrl && <img key={current.id} src={current.mediaUrl} alt="" decoding="async" />}
             </div>
@@ -76,6 +81,15 @@ export const Showcase: React.FC<ShowcaseProps> = ({ num, items }) => {
                 Fig. {pad(active + 1)} — {current.subtitle || current.category}
               </p>
               <p>{current.summary}</p>
+              {currentLinks.length > 0 && (
+                <div className="work__links">
+                  {currentLinks.map((l) => (
+                    <a key={l.label} className="link-arrow" href={l.url} target="_blank" rel="noopener noreferrer">
+                      {l.label} <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              )}
               <p className="mono muted">Select an entry for the full write-up →</p>
             </div>
           </aside>

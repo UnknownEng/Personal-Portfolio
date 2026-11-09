@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { PortfolioData, ThemeSettings, SectionVisibility, NavigationItem, ContactMessage } from '../types/portfolio';
 import { initialPortfolioData, THEME_PRESETS } from '../data/initialData';
-import { useAuth } from './AuthContext';
+import { useAuth } from './authCore';
 
 interface PortfolioContextType {
   data: PortfolioData;

@@ -21,17 +21,21 @@ export const Research: React.FC<ResearchProps> = ({ num, items, scholarUrl }) =>
           id="research-title"
           note={
             <>
-              Papers and technical reviews on UAV localization and navigation.
-              {scholarUrl && (
-                <>
-                  {' '}
-                  Full list on{' '}
-                  <a className="link" href={scholarUrl} target="_blank" rel="noopener noreferrer">
-                    Google Scholar
-                  </a>
-                  .
-                </>
-              )}
+              Papers, reviews and preprints on swarm control, UAV localization and navigation. Profiles:{' '}
+              {[
+                { label: 'Google Scholar', url: scholarUrl },
+                { label: 'ResearchGate', url: 'https://www.researchgate.net/profile/Mansoor-Ahmed-43' },
+                { label: 'ORCID', url: 'https://orcid.org/0009-0002-3597-5513' },
+              ]
+                .filter((l) => l.url)
+                .map((l, i, arr) => (
+                  <React.Fragment key={l.label}>
+                    <a className="link" href={l.url} target="_blank" rel="noopener noreferrer">
+                      {l.label}
+                    </a>
+                    {i < arr.length - 1 ? ', ' : '.'}
+                  </React.Fragment>
+                ))}
             </>
           }
         />

@@ -34,11 +34,11 @@ The Express server will automatically serve the production build on `http://loca
 
 ## 🔐 Admin Panel / CMS & First-Run Setup
 
-Access the Command Center at:
-* **URL**: `http://localhost:5001/admin` (or click **"CMS Admin"** in the header)
-* **First-Run Setup Flow**: If no administrator account exists, the application immediately prompts you with a **First-Run Administrator Account Creation** screen.
-* Enter your desired username, email, and a secure password.
-* The credentials are salted and hashed with `bcryptjs` (salt rounds 10) and stored in `data/admin.json`.
+The admin CMS is a separate page that the public site never links to or bundles.
+* **Local development**: `http://localhost:5173/admin.html`. On first visit it shows a **First-Run Setup** form (local only).
+* **Production**: published only at a secret path. Set `ADMIN_PATH` (16–64 random lowercase letters, digits or dashes, not containing words like "admin") in the hosting environment; the build moves the admin to `/<ADMIN_PATH>/`. Without `ADMIN_PATH` the admin is not published at all, and `/admin` is always a 404.
+* **Production login**: set `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH` (from `npm run hash-password`) and `JWT_SECRET`. Online first-run setup is disabled in production.
+* Passwords are hashed with `bcryptjs` (cost 12); local admins are stored in `data/admin.json` (git-ignored).
 * Subsequent visits present a secure login form authenticated via JSON Web Tokens (JWT).
 * *(You can update your password anytime securely via the **Password** button in the CMS topbar).*
 

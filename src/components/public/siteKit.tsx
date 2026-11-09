@@ -49,7 +49,7 @@ export function pad(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-/** Live local time for a timezone, refreshed every 30s. */
+/** Live local time (HH:MM:SS) for a timezone, ticking every second in step with the clock. */
 export function useLocalTime(timeZone: string): string {
   const fmt = () => {
     try {
@@ -57,6 +57,7 @@ export function useLocalTime(timeZone: string): string {
         timeZone,
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
         hour12: false,
       }).format(new Date());
     } catch {
@@ -65,8 +66,14 @@ export function useLocalTime(timeZone: string): string {
   };
   const [time, setTime] = useState(fmt);
   useEffect(() => {
-    const t = window.setInterval(() => setTime(fmt()), 30_000);
-    return () => window.clearInterval(t);
+    let timer = 0;
+    const tick = () => {
+      setTime(fmt());
+      // Re-align to the next whole second so the display never drifts or skips.
+      timer = window.setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
+    };
+    tick();
+    return () => window.clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeZone]);
   return time;

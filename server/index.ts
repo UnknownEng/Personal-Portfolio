@@ -234,7 +234,7 @@ app.get('/robots.txt', (_req: Request, res: Response) => {
   if (fs.existsSync(robotsPath)) {
     res.sendFile(robotsPath);
   } else {
-    res.send("User-agent: Googlebot\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nUser-agent: Googlebot-Image\nAllow: /\nAllow: /uploads/\n\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml\n");
+    res.send("User-agent: Googlebot\nAllow: /\nDisallow: /api/\n\nUser-agent: Googlebot-Image\nAllow: /\nAllow: /uploads/\n\nUser-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://personal-portfolio-swart-sigma-44.vercel.app/sitemap.xml\n");
   }
 });
 
@@ -1092,12 +1092,24 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 // Serve frontend dist in production with Server-Side Rendering (SSR) & true 404s
 const DIST_DIR = path.resolve(__dirname, '../dist');
 if (fs.existsSync(DIST_DIR)) {
+  // The admin CMS is published only at the secret ADMIN_PATH (see scripts/place-admin.mjs).
+  // Its folder must never be reachable through plain static serving under another name.
+  const ADMIN_SLUG = (process.env.ADMIN_PATH || '').trim().replace(/^\/+|\/+$/g, '');
   app.use(express.static(DIST_DIR, { index: false }));
   app.use((req: Request, res: Response) => {
     const p = req.path;
     const isPublicValid = p === '/' || p === '/index.html' || p === '/CV.pdf';
-    const isAdmin = p.startsWith('/admin');
     const indexPath = path.join(DIST_DIR, 'index.html');
+
+    if (ADMIN_SLUG && (p === `/${ADMIN_SLUG}` || p === `/${ADMIN_SLUG}/`)) {
+      const adminIndex = path.join(DIST_DIR, ADMIN_SLUG, 'index.html');
+      if (fs.existsSync(adminIndex)) {
+        res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        res.setHeader('Cache-Control', 'no-store');
+        res.sendFile(adminIndex);
+        return;
+      }
+    }
 
     if (!fs.existsSync(indexPath)) {
       res.status(404).send('Not Found');
@@ -1106,7 +1118,8 @@ if (fs.existsSync(DIST_DIR)) {
 
     let html = fs.readFileSync(indexPath, 'utf-8');
 
-    if (!isPublicValid && !isAdmin) {
+    // Everything else, /admin included, is a genuine 404.
+    if (!isPublicValid) {
       // Emit true HTTP 404 status code for search engines and crawlers (Fix 8 & SEO 12)
       res.status(404);
       res.setHeader('Content-Type', 'text/html; charset=utf-8');

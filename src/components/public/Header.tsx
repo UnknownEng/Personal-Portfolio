@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({ name, role, nav, active, theme, 
     };
   }, [open]);
 
-  const shortRole = role.split(/[&,|]/)[0].trim();
+  const shortRole = role.split(/[&,|·]/)[0].trim();
 
   return (
     <>
