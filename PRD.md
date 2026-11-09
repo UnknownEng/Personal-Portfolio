@@ -24,8 +24,6 @@
   - `ARCHITECTURE.md`: Server, client, and SEO pipeline designs.
   - `RULES.md`: Zero-tolerance engineering and coding guidelines.
   - `DESIGN.md`: Comprehensive design system tokens and mobile guidelines.
-  - `TASKS.md`: Granular checklist tracking all fixes and milestones.
-  - `MEMORY.md`: Persistent engineering decisions and workspace state.
 
 ### 3.2 UI/UX and Functional Fixes (Part 2 — Exactly 20 Fixes)
 1. **Remove Horizontal Scrolling:** Eliminate `overflow-x` across all viewports (320px to 4K), constraining wide codeblocks, matrices, and absolute containers.
@@ -52,7 +50,7 @@
 ### 3.3 Comprehensive Technical SEO & Performance (Part 3)
 1. **Render Server-Side (SSR):** Implement server-side rendering / pre-rendering so search bots receive fully populated HTML without client JS execution.
 2. **Submit to Search Console:** Format project for instant Google Search Console and Bing Webmaster submission with verification hooks.
-3. **Check & Implement Noindex Tags Properly:** Keep indexing enabled on public routes while applying `noindex, nofollow` to private/admin routes (`/admin`, API endpoints).
+3. **Check & Implement Noindex Tags Properly:** Keep indexing enabled on public routes while applying `noindex, nofollow` to the admin page (served only at the secret `ADMIN_PATH`) and API endpoints.
 4. **Add Canonical Tags:** Enforce self-referential, absolute canonical URLs (`rel="canonical"`) to prevent duplicate content penalties.
 5. **Ensure Exactly One H1 Per Page:** Enforce strict semantic heading hierarchy with a single `<h1>` representing primary document topic.
 6. **Implement Breadcrumbs:** Add visible and Schema.org `BreadcrumbList` structured data for hierarchal indexing.

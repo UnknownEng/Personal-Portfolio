@@ -34,8 +34,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackTo
       return;
     }
 
-    if (setupPassword.length < 8) {
-      setError('Password must be at least 8 characters long.');
+    if (setupPassword.length < 12) {
+      setError('Password must be at least 12 characters long.');
       setLoading(false);
       return;
     }
@@ -153,7 +153,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackTo
 
             <div>
               <label className="block text-xs font-mono font-medium text-slate-300 mb-1.5">
-                MASTER PASSWORD (min. 8 characters)
+                MASTER PASSWORD (min. 12 characters)
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />

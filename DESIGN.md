@@ -1,66 +1,38 @@
-# Design System & UI Guidelines — Mansoor Ahmed Rind Portfolio
+# Design system — public site
 
-## 1. Brand Identity & Visual Language
-**Brand Concept:** Mansoor Ahmed Rind (UnknownEng) — Autonomous Flight, Swarm Robotics, Aerodynamics, and Future Engineering. Made by Maverick Tech Ventures.  
-**Aesthetic:** Deep aerospace dark mode with luminous cyan/sky accents, frosted glass cards (glassmorphism), refined micro-interactions, and crisp high-contrast typography.
+Concept: a "flight test report". Editorial and technical rather than sci-fi: warm paper and ink, one aviation-orange signal colour, numbered sections, hairline rules, and lists or tables instead of card grids and carousels. All public styles live in `src/styles/site.css`, scoped under `.site`.
 
----
+## Colour tokens
 
-## 2. Color Palette & Tokens
+| Token | Light | Dark | Use |
+| --- | --- | --- | --- |
+| `--paper` | `#f3f1ec` | `#10100f` | Page background |
+| `--paper-2` | `#e9e6df` | `#181816` | Alternate sections |
+| `--ink` | `#151513` | `#ece9e2` | Text, rules, primary borders |
+| `--ink-2` | `#47453f` | `#b9b4aa` | Body copy |
+| `--ink-3` | `#6b675f` | `#8e897f` | Labels, metadata |
+| `--rule` | `#d3cec3` | `#2c2b27` | Hairlines |
+| `--signal` | `#ff4f00` | `#ff5a1f` | Accent marks, primary buttons (ink text on top) |
+| `--signal-ink` | `#b23a06` | `#ff8a5c` | Accent-coloured text (meets 4.5:1) |
 
-### 2.1 Dark Mode (Default)
-- **Deep Void Background:** `#080B12` (Base Canvas)
-- **Surface Elevation 1:** `#0F172A` / `#0D1322` (Card / Section Backgrounds)
-- **Surface Elevation 2:** `rgba(15, 23, 42, 0.75)` with `backdrop-blur-xl` (Floating Nav & Modals)
-- **Border Subtle:** `rgba(255, 255, 255, 0.08)` / `#1E293B`
-- **Border Highlight:** `rgba(56, 189, 248, 0.3)` (Sky Glow)
+The contact section and footer are an inverse dark band in both themes. The theme follows the visitor's system setting until they use the toggle (stored as `site-theme`).
 
-### 2.2 Accent & Semantic Colors
-- **Primary Accent:** `#38BDF8` (Sky 400) / `#0284C7` (Sky 600)
-- **Secondary Telemetry Accent:** `#22D3EE` (Cyan 400) / `#06B6D4` (Cyan 500)
-- **Success:** `#10B981` (Emerald 500) / `#059669` (Emerald 600)
-- **Warning:** `#F59E0B` (Amber 500)
-- **Error / Danger:** `#F43F5E` (Rose 500) / `#E11D48` (Rose 600)
+## Type
 
-### 2.3 Typography
-- **Headings & Brand:** `Montserrat`, -apple-system, sans-serif (Weights: 600, 700, 800)
-- **Body & Copy:** `Inter`, `Montserrat`, system-ui, sans-serif (Weights: 400, 500)
-- **Telemetry & Technical Specs:** `JetBrains Mono`, monospace (Weights: 400, 500, 600)
+- **Display:** Archivo, wide (`font-stretch` 112–125%), weight 800, tight tracking — name, section titles, 404.
+- **Body:** Archivo at normal width, 17px, line-height 1.6.
+- **Labels and data:** IBM Plex Mono, uppercase, small — dates, section numbers, tags.
 
----
+## Layout and components
 
-## 3. Component Guidelines
+- Max width 1240px, gutter `clamp(16px, 4vw, 40px)`, mobile-first, no horizontal scroll.
+- Section head: `§NN` number, wide title, one-line note, separated by a full-width ink rule.
+- Selected work: numbered index with a sticky image preview; rows open a side sheet with details and links.
+- Experience: horizontal slider of role cards (scroll-snap, arrow buttons, keyboard, range counter).
+- Buttons: square, mono uppercase labels; primary = signal orange, ghost = ink outline.
+- Project images: generated technical illustrations (dark grid, cream line work, one orange accent) in `uploads/projects/`.
 
-### 3.1 Header & Navigation
-- **Desktop:** Floating frosted-glass navigation bar centered horizontally, anchored to top with 16px margin.
-- **Mobile:**
-  - Compact header with accessible logo and hamburger trigger button.
-  - Full-screen or slide-in mobile menu drawer with large touch targets (min 48px height).
-  - Background overlay with smooth fade-in and backdrop-blur.
-  - Active section indicators and language switchers built into the drawer.
+## Motion and accessibility
 
-### 3.2 Hero Section
-- Dynamic typing title with fixed minimum width to prevent line wrapping jumps.
-- Clear action buttons: Download CV, Explore Work, and Contact.
-- Social links with accessible icons and hover state glow.
-
-### 3.3 Cards & Project Showcases
-- Card corners: `rounded-2xl` or `rounded-xl`.
-- Subtle border highlights on hover (`hover:border-sky-500/50`).
-- Responsive multi-column grid: 1 column on mobile (`< 640px`), 2 columns on tablet (`640px - 1024px`), 3 columns on desktop (`> 1024px`).
-
-### 3.4 Buttons & Interactive Elements
-- Primary Button: `bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition shadow-lg shadow-sky-500/20 active:scale-95`.
-- Secondary Button: `bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 px-5 py-2.5 rounded-xl transition`.
-- Minimum tap target: 48x48px on mobile devices.
-
-### 3.5 Forms & Feedback
-- Floating or clear top-aligned labels.
-- Input focus rings: `focus:ring-2 focus:ring-sky-500 focus:outline-none`.
-- Instant inline feedback on validation errors.
-- Persistent success toast / banner upon submission.
-
-### 3.6 404 Error Page
-- Styled to match the aerospace HUD aesthetic.
-- Prominent `404` status with clear explanatory text: "Flight Path Not Found / Coordinate Deviation".
-- Instant primary action: "Return to Home Radar" linking directly to `/`.
+- Fade-up reveal on scroll; disabled for `prefers-reduced-motion` and when the CMS turns animations off.
+- One `h1` per page, labelled controls, visible focus rings in the signal colour, WCAG AA contrast in both themes, 44px minimum touch targets.

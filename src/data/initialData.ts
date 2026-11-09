@@ -68,17 +68,21 @@ export const THEME_PRESETS: Record<string, { name: string; colors: ThemeColors }
   },
 };
 
+/**
+ * Bundled copy of data/portfolio.json, used before the API responds and by the admin's
+ * "reset to defaults". Regenerate it from data/portfolio.json after content changes.
+ */
 export const initialPortfolioData: PortfolioData = {
   "siteSettings": {
     "websiteName": "Mansoor Ahmed Rind | Engineering Portfolio",
-    "footerText": "\u00a9 2026 Mansoor Ahmed Rind. Designed and developed by Maverick Tech Ventures (SMC-Private) Limited. All rights reserved.",
+    "footerText": "© 2026 Mansoor Ahmed Rind. Designed and developed by Maverick Tech Ventures (SMC-Private) Limited. All rights reserved.",
     "defaultLanguage": "en",
     "maintenanceMode": false,
     "animationsEnabled": true,
     "droneVisualizationEnabled": true,
     "analyticsId": "",
     "publicWebsiteUrl": "https://www.linkedin.com/in/mansoorahmedrind",
-    "lastUpdated": "2026-09-10"
+    "lastUpdated": "2026-10-05"
   },
   "theme": {
     "activePreset": "cyan",
@@ -94,10 +98,10 @@ export const initialPortfolioData: PortfolioData = {
   },
   "seo": {
     "websiteTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
-    "metaDescription": "Personal engineering portfolio of Mansoor Ahmed Rind - Electrical & Electronics Engineering student at NUST, Gold Medalist, specializing in UAV Electronics, Swarm Robotics, and Autonomous Navigation.",
+    "metaDescription": "Mansoor Ahmed Rind — NUST Electrical & Electronics Engineering student and Gold Medalist specializing in UAV Electronics, Swarm Robotics, and Autonomous Navigation.",
     "keywords": "Mansoor Ahmed Rind, Electrical Engineering, UAV Electronics, Drone Swarm, ROS, MAVROS, ArduPilot, PX4, Pixhawk, NUST Gold Medalist, Autonomous Robotics, Teknofest, Computer Vision",
-    "ogTitle": "Mansoor Ahmed Rind | Electrical & Electronics Engineering",
-    "ogDescription": "Explore verified autonomous UAV projects, multi-drone swarm coordination research, flight-stack integration, and engineering achievements by Mansoor Ahmed Rind.",
+    "ogTitle": "Mansoor Ahmed Rind | UAV Electronics & Autonomous Systems",
+    "ogDescription": "Electrical & Electronics Engineering student at NUST and Gold Medalist, specializing in UAV Electronics, Swarm Robotics, VSLAM, and Autonomous Navigation.",
     "ogImage": "",
     "favicon": ""
   },
@@ -178,21 +182,21 @@ export const initialPortfolioData: PortfolioData = {
   ],
   "hero": {
     "name": "Mansoor Ahmed Rind",
-    "title": "UAV Electronics & Robotics Systems Engineer",
-    "subtitle": "NUST Gold Medalist | Autonomous UAV Navigation | Swarm Robotics | Flight-Stack Integration",
-    "badge": "AUTONOMY & ROBOTICS SYSTEMS \u2022 ISLAMABAD, PK",
-    "shortIntroduction": "Bachelor\u2019s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Proven experience in multi-UAV swarm coordination, GPS-denied navigation, and embedded robotic flight stacks.",
+    "title": "Robotics Engineer · Researcher · Founder",
+    "subtitle": "NUST Rector's Gold Medalist | Autonomous UAV Navigation | Swarm Robotics | Flight-Stack Integration",
+    "badge": "AUTONOMY & ROBOTICS SYSTEMS • ISLAMABAD, PK",
+    "shortIntroduction": "Bachelor’s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Proven experience in multi-UAV swarm coordination, GPS-denied navigation, and embedded robotic flight stacks.",
     "primaryButtonText": "Inspect Technical Projects",
     "primaryButtonLink": "#projects",
     "secondaryButtonText": "Connect on LinkedIn",
     "secondaryButtonLink": "https://www.linkedin.com/in/mansoorahmedrind",
-    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.webp",
+    "profileImage": "/uploads/1791240164754-de9427931d88-1778339546695.webp",
     "backgroundEffect": "radar",
     "telemetryStats": {
       "alt": "120.4 M [SIMULATED]",
-      "signal": "LINK \u2014 MAVLINK (SIM)",
-      "gps": "GNSS \u2014 3D FIX (SITL)",
-      "battery": "6S LIPO \u2014 DEMO CELL",
+      "signal": "LINK — MAVLINK (SIM)",
+      "gps": "GNSS — 3D FIX (SITL)",
+      "battery": "6S LIPO — DEMO CELL",
       "flightTime": "28m 42s [TEST RUN]",
       "mode": "SITL AUTO OFFBOARD"
     }
@@ -200,9 +204,9 @@ export const initialPortfolioData: PortfolioData = {
   "about": {
     "sectionTitle": "Engineering Profile & Technical Focus",
     "badge": "CORE PROFILE",
-    "bioParagraph": "Bachelor\u2019s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Highly skilled in robotics systems integration, automation, embedded systems, and full-stack web development.",
+    "bioParagraph": "Bachelor’s in Electrical Engineering student at the National University of Sciences and Technology (NUST), Islamabad, Pakistan, with specialized expertise in UAV Electronics and Automation. Highly skilled in robotics systems integration, automation, embedded systems, and full-stack web development.",
     "secondaryBio": "Proven experience in research, development, and deployment of innovative technological solutions, with strong leadership in technical teams and student organizations. From leading autonomous disaster-relief UAV development to engineering decentralized multi-drone swarm coordination algorithms, I engineer mission-critical hardware-software systems that perform reliably in real-world scenarios.",
-    "profileImage": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.webp",
+    "profileImage": "/uploads/1791240171093-5224f174a81d-1778339546695.webp",
     "engineeringPhilosophy": "Reliable autonomy requires seamless integration between bare-metal flight hardware, real-time telemetry links, and higher-level perception pipelines. Every flight stack is engineered for determinism, fault-tolerance, and precision.",
     "focusAreas": [
       "Autonomous UAV Navigation & Mission Planning",
@@ -217,7 +221,7 @@ export const initialPortfolioData: PortfolioData = {
         "id": "card-1",
         "title": "NUST Gold Medalist",
         "subtitle": "Electrical & Electronics Engineering",
-        "description": "Recognized with Gold Medalist honors for academic excellence in Electrical & Electronics Engineering at Pakistan\u2019s premier institution (NUST, 2023\u20132027).",
+        "description": "Recognized with Gold Medalist honors for academic excellence in Electrical & Electronics Engineering at Pakistan’s premier institution (NUST, 2023–2027).",
         "icon": "Award",
         "order": 1
       },
@@ -252,6 +256,7 @@ export const initialPortfolioData: PortfolioData = {
       "id": "sk-1",
       "name": "Autonomous UAV Navigation",
       "category": "Robotics & Navigation",
+      "description": "",
       "icon": "Compass",
       "featured": true,
       "order": 1,
@@ -273,15 +278,6 @@ export const initialPortfolioData: PortfolioData = {
       "icon": "Share2",
       "featured": true,
       "order": 3,
-      "enabled": true
-    },
-    {
-      "id": "sk-4",
-      "name": "Precision Dynamic/Static Landing",
-      "category": "Robotics & Navigation",
-      "icon": "Target",
-      "featured": true,
-      "order": 4,
       "enabled": true
     },
     {
@@ -550,26 +546,6 @@ export const initialPortfolioData: PortfolioData = {
       "enabled": true
     },
     {
-      "id": "sk-soc-5",
-      "name": "Crisis Management & Mission-Critical Operations",
-      "category": "Leadership & Social Skills",
-      "description": "Commanded live telemetry pipelines, flight-line safety protocols, and emergency recovery loops under high pressure at Teknofest Turkey and National Aerothon.",
-      "icon": "Shield",
-      "featured": true,
-      "order": 34,
-      "enabled": true
-    },
-    {
-      "id": "sk-soc-6",
-      "name": "Sponsorship Acquisition & Negotiation",
-      "category": "Leadership & Social Skills",
-      "description": "Headed Sponsorship & Operations at NUST Digital Club, successfully securing corporate sponsorships and institutional partnerships for campus technical conventions.",
-      "icon": "Award",
-      "featured": false,
-      "order": 35,
-      "enabled": true
-    },
-    {
       "id": "sk-soc-7",
       "name": "Agile Product Strategy & Startup Prototyping",
       "category": "Leadership & Social Skills",
@@ -580,21 +556,175 @@ export const initialPortfolioData: PortfolioData = {
       "enabled": true
     },
     {
-      "id": "sk-soc-8",
-      "name": "Multilingual Fluency & Global Collaboration",
-      "category": "Leadership & Social Skills",
-      "description": "Fluent in English (Professional Working Proficiency), Urdu (Native / Bilingual), and Sindhi (Native / Bilingual).",
-      "icon": "Languages",
-      "featured": false,
+      "id": "sk-x37",
+      "name": "ROS 2 Jazzy & Nav2",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": true,
       "order": 37,
+      "enabled": true
+    },
+    {
+      "id": "sk-x38",
+      "name": "Gazebo Harmonic",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 38,
+      "enabled": true
+    },
+    {
+      "id": "sk-x39",
+      "name": "Control Barrier Functions (CBF-QP)",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 39,
+      "enabled": true
+    },
+    {
+      "id": "sk-x40",
+      "name": "Visual / VI-SLAM",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 40,
+      "enabled": true
+    },
+    {
+      "id": "sk-x41",
+      "name": "Proportional Navigation Guidance",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 41,
+      "enabled": true
+    },
+    {
+      "id": "sk-x42",
+      "name": "Precision Landing (Static & Dynamic)",
+      "category": "Robotics & Navigation",
+      "icon": "Cpu",
+      "featured": true,
+      "order": 42,
+      "enabled": true
+    },
+    {
+      "id": "sk-x43",
+      "name": "DroneKit",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 43,
+      "enabled": true
+    },
+    {
+      "id": "sk-x44",
+      "name": "WebODM / OpenDroneMap",
+      "category": "Software & Frameworks",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 44,
+      "enabled": true
+    },
+    {
+      "id": "sk-x45",
+      "name": "C",
+      "category": "Programming",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 45,
+      "enabled": true
+    },
+    {
+      "id": "sk-x46",
+      "name": "TypeScript & React",
+      "category": "Programming",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 46,
+      "enabled": true
+    },
+    {
+      "id": "sk-x47",
+      "name": "LiDAR",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 47,
+      "enabled": true
+    },
+    {
+      "id": "sk-x48",
+      "name": "CAD & 3D Printing",
+      "category": "Embedded & Hardware",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 48,
+      "enabled": true
+    },
+    {
+      "id": "sk-x49",
+      "name": "English (professional)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 49,
+      "enabled": true
+    },
+    {
+      "id": "sk-x50",
+      "name": "Urdu (native)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 50,
+      "enabled": true
+    },
+    {
+      "id": "sk-x51",
+      "name": "Sindhi (native)",
+      "category": "Languages",
+      "icon": "Cpu",
+      "featured": false,
+      "order": 51,
       "enabled": true
     }
   ],
   "projects": [
     {
+      "id": "proj-resilient-swarm",
+      "title": "Resilient Swarm Formation — Decentralized Multi-Robot Control with CBF Safety",
+      "shortDescription": "Leaderless 5-robot pentagon formation in ROS 2 Jazzy and Gazebo Harmonic that stays collision-free under packet loss, delay, one-way links and robot failure.",
+      "fullDescription": "Decentralized multi-robot formation control for ROS 2 Jazzy and Gazebo Harmonic. Five differential-drive robots in a collapsed-building arena converge to a regular pentagon (radius 2 m) with no leader robot and no central coordinator: every robot runs the same nodes, measures neighbours in its own body frame, estimates its pose with an EKF (landmarks plus peer estimates), and filters its formation command through a CBF-QP safety filter.\n\nPer-direction network impairments (loss, delay, one-way links) and fault injection are built in. Results: 5/5 convergence with and without faults in Gazebo; 550 headless runs across 22 conditions, with every run that used the safety filter collision-free. Includes displacement, distance and bearing controllers, a robust Huber/EMA variant, rosbag-based metrics, plots, CI and an honest list of known failure cases.",
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ],
+      "category": "Swarm Robotics",
+      "projectImage": "/uploads/projects/resilient-swarm.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/resilient-swarm-formation",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "myRole": "Author — research, controller design and implementation",
+      "projectDate": "Oct 2026",
+      "featured": true,
+      "status": "published",
+      "order": 1
+    },
+    {
       "id": "proj-lawerai",
-      "title": "LawerAI \u2014 Intelligent Legal AI Assistant & Statute Reasoning Platform",
-      "shortDescription": "Production AI legal intelligence platform developed under maverick_.tech, providing automated statute lookup, case analysis, and document reasoning.",
+      "title": "LawerAI — Legal Intake and Statute Reasoning for Pakistani Law",
+      "shortDescription": "Open-source legal assistant that explains Pakistani statutes in English, Urdu and Roman Urdu, with citation-grounded answers.",
       "fullDescription": "Engineered and deployed LawerAI as an agile production beta system under maverick_.tech (sub-startup of AeroMavericks Technologies). Features conversational legal intelligence, structured statute retrieval, document analysis, and natural language query interpretation built to democratize legal accessibility.\n\nLive Deployment: https://lawerai-alpha.vercel.app/",
       "technologies": [
         "AI / LLMs",
@@ -605,10 +735,13 @@ export const initialPortfolioData: PortfolioData = {
         "Vercel"
       ],
       "category": "AI Systems & Web Apps",
-      "projectImage": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "projectImage": "/uploads/projects/lawerai.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/lawerai",
       "liveDemoUrl": "https://lawerai-alpha.vercel.app/",
-      "documentationUrl": "https://lawerai-alpha.vercel.app/",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/dVFmpw2D",
+      "diagramUrl": "",
       "myRole": "Founder & Full-Stack AI Engineer (maverick_.tech)",
       "projectDate": "2026",
       "featured": true,
@@ -617,8 +750,8 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "proj-sasta-dawa",
-      "title": "Sasta Dawa Finder \u2014 Pharmaceutical Price Intelligence & Affordable Medicine Engine",
-      "shortDescription": "Pharmaceutical price transparency and generic medicine discovery engine helping patients locate affordable alternatives.",
+      "title": "Sasta Dawa Finder — Medicine Prices and Generic Alternatives",
+      "shortDescription": "Mobile-first finder for cheaper generic medicines in Pakistan, with Urdu mode and offline support.",
       "fullDescription": "Developed and launched Sasta Dawa Finder under maverick_.tech (AeroMavericks Technologies) to solve acute medicine pricing disparities. Implemented smart indexing of generic formulations, comparative dosage matching, and real-time pharmacy search routines to maximize public healthcare accessibility.\n\nLive Deployment: https://sasta-dawa-finder.vercel.app/",
       "technologies": [
         "React",
@@ -629,10 +762,13 @@ export const initialPortfolioData: PortfolioData = {
         "Vercel"
       ],
       "category": "Healthcare & Web Systems",
-      "projectImage": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "projectImage": "/uploads/projects/sasta-dawa.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/sasta-dawa-finder",
       "liveDemoUrl": "https://sasta-dawa-finder.vercel.app/",
-      "documentationUrl": "https://sasta-dawa-finder.vercel.app/",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/d2s5WFnz",
+      "diagramUrl": "",
       "myRole": "Founder & Lead Developer (maverick_.tech)",
       "projectDate": "2026",
       "featured": true,
@@ -653,12 +789,15 @@ export const initialPortfolioData: PortfolioData = {
         "ROS"
       ],
       "category": "Swarm Systems",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/gcs.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "https://lnkd.in/p/dQpJFSaR",
+      "diagramUrl": "",
       "myRole": "System Architecture & Telemetry Integration",
-      "projectDate": "2025 \u2013 2026",
+      "projectDate": "2025 – 2026",
       "featured": true,
       "status": "published",
       "order": 5
@@ -677,10 +816,13 @@ export const initialPortfolioData: PortfolioData = {
         "Embedded Linux"
       ],
       "category": "Autonomous Guidance",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/loiter.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Lead Autonomy & Guidance Engineer",
       "projectDate": "2025",
       "featured": true,
@@ -701,12 +843,15 @@ export const initialPortfolioData: PortfolioData = {
         "C++"
       ],
       "category": "Autonomous Guidance",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/interceptor.webp",
+      "galleryImages": [],
       "githubUrl": "",
-      "liveDemoUrl": "",
+      "liveDemoUrl": "https://drive.google.com/file/d/1wCutPewCVz9VDBB-NcRUmZ2H2x5LT3j1/view",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Lead Systems Developer",
-      "projectDate": "2024 \u2013 2025",
+      "projectDate": "2024 – 2025",
       "featured": true,
       "status": "published",
       "order": 7
@@ -725,10 +870,13 @@ export const initialPortfolioData: PortfolioData = {
         "OpenCV"
       ],
       "category": "Aerial Mapping",
-      "projectImage": "",
-      "githubUrl": "",
+      "projectImage": "/uploads/projects/ortho.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/webodm-based-mapping-algorithm-using-drone",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Workflow & Processing Engineer",
       "projectDate": "2025",
       "featured": false,
@@ -749,10 +897,13 @@ export const initialPortfolioData: PortfolioData = {
         "EKF"
       ],
       "category": "Autonomous Navigation",
-      "projectImage": "",
-      "githubUrl": "",
+      "projectImage": "/uploads/projects/gps-denied.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/gps-denied-navigation-via-depth-camera",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Autonomy Researcher",
       "projectDate": "2025",
       "featured": true,
@@ -773,12 +924,15 @@ export const initialPortfolioData: PortfolioData = {
         "Python"
       ],
       "category": "Swarm Systems",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/multi-uav.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Swarm Autonomy Developer",
-      "projectDate": "2025 \u2013 2026",
+      "projectDate": "2025 – 2026",
       "featured": true,
       "status": "published",
       "order": 10
@@ -797,10 +951,13 @@ export const initialPortfolioData: PortfolioData = {
         "Embedded Linux"
       ],
       "category": "Computer Vision",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/yolo.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Computer Vision Engineer",
       "projectDate": "2024",
       "featured": false,
@@ -821,12 +978,15 @@ export const initialPortfolioData: PortfolioData = {
         "Mission Planner"
       ],
       "category": "UAV & Flight Stack",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/vtol.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Electronics & Autonomy Developer",
-      "projectDate": "2024 \u2013 2025",
+      "projectDate": "2024 – 2025",
       "featured": false,
       "status": "published",
       "order": 12
@@ -846,10 +1006,13 @@ export const initialPortfolioData: PortfolioData = {
         "C++"
       ],
       "category": "Simulation & ROS",
-      "projectImage": "",
+      "projectImage": "/uploads/projects/sitl.webp",
+      "galleryImages": [],
       "githubUrl": "",
       "liveDemoUrl": "",
+      "videoUrl": "",
       "documentationUrl": "",
+      "diagramUrl": "",
       "myRole": "Simulation Engineer",
       "projectDate": "2024",
       "featured": false,
@@ -861,7 +1024,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "gal-1",
       "title": "Dynamic UAV Landing on Moving USV",
-      "caption": "Teknofest 2025 Finalist \u2014 Autonomous dynamic touchdown architecture on maritime surface vessel",
+      "caption": "Teknofest 2025 Finalist — Autonomous dynamic touchdown architecture on maritime surface vessel",
       "category": "UAV & Drones",
       "imageUrl": "",
       "altText": "Teknofest dynamic landing UAV flight test",
@@ -874,7 +1037,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "gal-2",
       "title": "Anti-Drone Autonomous Interceptor",
-      "caption": "Teknofest 2024 Finalist \u2014 Optical detection and pursuit testbed",
+      "caption": "Teknofest 2024 Finalist — Optical detection and pursuit testbed",
       "category": "UAV & Drones",
       "imageUrl": "",
       "altText": "Autonomous interceptor drone schematic and tracking rig",
@@ -900,7 +1063,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "gal-4",
       "title": "Team AeroMavericks Swift Wing Winner",
-      "caption": "National Aerothon 2025 \u2014 Medical sample transport UAV with precision delivery payload",
+      "caption": "National Aerothon 2025 — Medical sample transport UAV with precision delivery payload",
       "category": "Competitions & Awards",
       "imageUrl": "",
       "altText": "Team AeroMavericks winning airframe and payload delivery mechanism",
@@ -913,7 +1076,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "gal-5",
       "title": "Autonomous Road Defect Inspection UAV",
-      "caption": "Aerial Robotics Lab, SINES NUST \u2014 Onboard edge machine learning camera stream integration",
+      "caption": "Aerial Robotics Lab, SINES NUST — Onboard edge machine learning camera stream integration",
       "category": "Lab & Research",
       "imageUrl": "",
       "altText": "SINES Lab defect detection drone with edge computing module",
@@ -926,7 +1089,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "gal-6",
       "title": "DBFC-24 Fixed-Wing Aircraft",
-      "caption": "Design, Build and Fly Competition \u2014 Airframe structural integrity and aerodynamic test trial",
+      "caption": "Design, Build and Fly Competition — Airframe structural integrity and aerodynamic test trial",
       "category": "CAD & Engineering",
       "imageUrl": "",
       "altText": "DBFC-24 composite fixed wing airframe testing",
@@ -967,21 +1130,18 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "exp-maverick",
       "company": "maverick_.tech (AeroMavericks Technologies)",
-      "position": "Founder & Lead Systems Architect",
+      "position": "Founder",
       "location": "Islamabad, Pakistan / Remote",
       "startDate": "Nov 2025",
       "endDate": "Present",
       "current": true,
-      "description": "Founded maverick_.tech as a high-velocity venture and software engineering arm under AeroMavericks Technologies, building rapid beta systems and production AI solutions for modern legal and healthcare challenges.",
+      "description": "Software arm of AeroMavericks Technologies that builds web products for everyday problems in Pakistan.",
       "responsibilities": [
-        "Founded maverick_.tech as a sub-startup under AeroMavericks Technologies, architecting rapid beta systems and AI-powered production applications for today\u2019s critical problems.",
-        "Built and launched LawerAI (https://lawerai-alpha.vercel.app/), an intelligent legal AI assistant for statute reasoning, legal document summarization, and query interpretation.",
-        "Designed and launched Sasta Dawa Finder (https://sasta-dawa-finder.vercel.app/), an open pharmaceutical price intelligence and generic medicine discovery engine solving medicine affordability.",
-        "Directed full-stack engineering, prompt pipelines, edge deployment, and cloud infrastructure on Vercel."
+        "Full-stack development: React, Vite, Tailwind, FastAPI and PostgreSQL, deployed on Vercel."
       ],
       "achievements": [
-        "Launched two operational production web systems (LawerAI & Sasta Dawa Finder) within the maverick_.tech startup ecosystem.",
-        "Established continuous deployment workflows and AI reasoning pipelines on Vercel."
+        "Built and launched LawerAI, a legal intake and statute-reasoning assistant for Pakistani law in English, Urdu and Roman Urdu.",
+        "Built and launched Sasta Dawa Finder, a medicine-price and generic-alternative finder that works offline."
       ],
       "technologies": [
         "Next.js",
@@ -993,27 +1153,37 @@ export const initialPortfolioData: PortfolioData = {
         "Full-Stack Architecture"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236721278-c99e96b8993e-Code_Generated_Image.webp",
       "status": "published",
-      "order": 1,
-      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+      "order": 2,
+      "links": [
+        {
+          "label": "LawerAI",
+          "url": "https://lawerai-alpha.vercel.app/"
+        },
+        {
+          "label": "Sasta Dawa Finder",
+          "url": "https://sasta-dawa-finder.vercel.app/"
+        }
+      ]
     },
     {
       "id": "exp-1",
-      "company": "Team AeroMavericks",
+      "company": "Team Aero Mavericks",
       "position": "Founder & Team Captain",
       "location": "Islamabad, Pakistan",
       "startDate": "Nov 2025",
       "endDate": "Present",
       "current": true,
-      "description": "Founded and lead a premier student engineering team developing cutting-edge autonomous UAV systems.",
+      "description": "Founded and lead a student team that designs, builds and flies autonomous UAVs, from electronics and embedded code to flight-ready prototypes.",
       "responsibilities": [
-        "Founded and lead a student engineering team developing autonomous UAV systems, overseeing electronics design, embedded programming, system integration and flight-ready prototypes.",
-        "Led an autonomous disaster-relief UAV for National Aerothon \u201925, integrating electronics, computer vision, GPS navigation and precision-landing algorithms for medical sample collection.",
-        "Achieved 3rd Overall and the \u201cSwift Wing\u201d title after completing autonomous missions simulating hazardous medical environments."
+        "Lead electronics design, embedded programming, integration and flight testing on ROS, ArduPilot and MAVLink.",
+        "Mentor team members in UAV electronics, automation and programming.",
+        "Aerothon '25 entry: computer vision, GPS navigation and precision landing for medical sample collection."
       ],
       "achievements": [
-        "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon \u201925.",
-        "Engineered complete medical sample collection payload mechanism and autonomous recovery loop."
+        "3rd overall and the \"Swift Wing\" title at National Aerothon '25, with an autonomous disaster-relief UAV that collects medical samples.",
+        "Team Captain for the IMechE Pakistan UAS Challenge (Oct 2025 – Oct 2026)."
       ],
       "technologies": [
         "Autonomous Navigation",
@@ -1024,25 +1194,24 @@ export const initialPortfolioData: PortfolioData = {
         "UAV Electronics"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236894788-de7d8d9afe5a-1771788458397.webp",
       "status": "published",
-      "order": 2,
-      "image": ""
+      "order": 1
     },
     {
       "id": "exp-2",
-      "company": "INTELGENCY IT Solutions",
+      "company": "Intelgency IT Solutions",
       "position": "Drone Swarm Engineer",
       "location": "Islamabad, Pakistan",
       "startDate": "Feb 2026",
       "endDate": "Jun 2026",
       "current": false,
-      "description": "Engineered drone swarm architectures and multi-UAV autonomy workflows for industrial aerial robotics.",
+      "description": "Worked on drone-swarm software and multi-UAV autonomy workflows for industrial aerial robotics.",
       "responsibilities": [
-        "Worked on drone swarm engineering and multi-UAV autonomy workflows, contributing to distributed coordination and scalable aerial robotics systems.",
-        "Formulated decentralized task allocation protocols and telemetry broadcasting structures."
+        "Contributed to decentralized task allocation and telemetry broadcasting between drones."
       ],
       "achievements": [
-        "Optimized distributed multi-agent communication latency across radio mesh links."
+        "Worked on distributed coordination and telemetry between UAVs over radio links."
       ],
       "technologies": [
         "Drone Swarm",
@@ -1053,19 +1222,19 @@ export const initialPortfolioData: PortfolioData = {
         "Telemetry"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236903847-30cb8522e7a4-intelgency_logo.webp",
       "status": "published",
-      "order": 3,
-      "image": ""
+      "order": 5
     },
     {
       "id": "exp-3",
-      "company": "CSN Lab, SEECS \u2014 NUST",
-      "position": "Research Student \u2014 UAV Autonomy & Swarm Systems",
+      "company": "CSN Lab, SEECS — NUST",
+      "position": "Research Student — UAV Autonomy & Swarm Systems",
       "location": "Islamabad, Pakistan",
       "startDate": "Jun 2025",
       "endDate": "Jan 2026",
       "current": false,
-      "description": "Core research on autonomous UAV missions, decentralized communication, and GPS-denied navigation.",
+      "description": "Research on autonomous UAV missions, drone-to-drone communication and GPS-denied navigation.",
       "responsibilities": [
         "Engineered precision dynamic and static landing workflows for autonomous UAV missions.",
         "Implemented decentralized drone-to-drone communication using radio telemetry, enabling swarm coordination independent of a Ground Control Station.",
@@ -1073,8 +1242,8 @@ export const initialPortfolioData: PortfolioData = {
         "Integrated onboard computer vision and autonomy pipelines for GPS-denied navigation, distributed control and intelligent aerial systems."
       ],
       "achievements": [
-        "Successfully proved GCS-independent swarm coordination over decentralized radio telemetry.",
-        "Validated Gazebo swarm simulations with real-time flight hardware."
+        "Showed swarm coordination over drone-to-drone radio telemetry, with no ground control station.",
+        "Tested swarm algorithms in Gazebo and validated them in real flights."
       ],
       "technologies": [
         "ROS",
@@ -1085,26 +1254,31 @@ export const initialPortfolioData: PortfolioData = {
         "Swarm Coordination"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791236951491-89c8d07e5cca-1740558321053.webp",
       "status": "published",
-      "order": 4,
-      "image": ""
+      "order": 6,
+      "links": [
+        {
+          "label": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43"
+        }
+      ]
     },
     {
       "id": "exp-4",
-      "company": "Team Vitesse \u2014 Teknofest Turkey",
-      "position": "Vice-Captain & Lead Electronics and Automation",
+      "company": "Team Vitesse (Teknofest Turkey)",
+      "position": "Vice Captain & Lead, Electronics and Automation",
       "location": "Islamabad, Pakistan",
       "startDate": "Feb 2025",
       "endDate": "Sep 2025",
       "current": false,
-      "description": "Directed UAV electronics and autonomous dynamic landing on moving Unmanned Surface Vehicles (USVs).",
+      "description": "Led UAV electronics and automation for landing on a moving unmanned surface vehicle (USV).",
       "responsibilities": [
-        "Directed UAV electronics and automation for a dynamic landing system on moving Unmanned Surface Vehicles (USVs).",
-        "Coordinated cross-functional engineering efforts and mission-critical system integration, helping the team become a finalist among 160+ international teams."
+        "Electronics and automation for a dynamic-landing system on a moving USV.",
+        "Coordinated integration across the electronics, mechanical and software teams."
       ],
       "achievements": [
-        "Teknofest Turkey Finalist among 160+ international university teams.",
-        "Achieved repeatable dynamic target recognition and precision touchdown on moving maritime targets."
+        "Finalist at Teknofest Turkey 2025, among 160+ international university teams."
       ],
       "technologies": [
         "Dynamic Landing",
@@ -1114,9 +1288,9 @@ export const initialPortfolioData: PortfolioData = {
         "Vision Servoing"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237032081-701e32dcc6d0-1675983634915.webp",
       "status": "published",
-      "order": 5,
-      "image": ""
+      "order": 8
     },
     {
       "id": "exp-5",
@@ -1126,12 +1300,13 @@ export const initialPortfolioData: PortfolioData = {
       "startDate": "Nov 2025",
       "endDate": "Present",
       "current": true,
-      "description": "Providing technical consulting on UAV autonomy, embedded hardware, and flight stack automation.",
+      "description": "UAV autonomy, embedded systems and automation work for international clients.",
       "responsibilities": [
-        "Deliver UAV autonomy, embedded systems and intelligent automation solutions for international clients, covering system design, implementation, debugging and technical documentation."
+        "Design robotics workflows, control systems and AI integrations; handle documentation, client communication and delivery."
       ],
       "achievements": [
-        "Delivered custom flight controller configurations, MAVLink scripting, and computer vision pipelines to global clients."
+        "5.0 rating across 5 reviews.",
+        "Delivered a WebODM/OpenDroneMap drone-mapping workflow with mission planning, video recording and Raspberry Pi variants."
       ],
       "technologies": [
         "UAV Autonomy",
@@ -1142,25 +1317,35 @@ export const initialPortfolioData: PortfolioData = {
         "Technical Documentation"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237075210-701fc0b3dc2b-fiverr_com_logo.webp",
       "status": "published",
-      "order": 6,
-      "image": ""
+      "order": 3,
+      "links": [
+        {
+          "label": "Fiverr profile",
+          "url": "https://www.fiverr.com/sellers/mansoor_rind/"
+        },
+        {
+          "label": "Mapping code",
+          "url": "https://github.com/UnknownEng/webodm-based-mapping-algorithm-using-drone"
+        }
+      ]
     },
     {
       "id": "exp-6",
-      "company": "Aerial Robotics Lab, SINES NUST",
+      "company": "Aerial Robotics Lab, SINES, NUST",
       "position": "Robotics Engineer Intern",
       "location": "Islamabad, Pakistan",
       "startDate": "Jul 2024",
       "endDate": "Sep 2024",
       "current": false,
-      "description": "Developed UAV autonomy workflows and machine-learning aerial inspection systems.",
+      "description": "Built UAV autonomy workflows and a machine-learning road-inspection UAV.",
       "responsibilities": [
-        "Developed and tested UAV autonomy workflows using ROS and MAVROS for GPS-based missions and ArduPilot operations.",
-        "Built an ML-enabled pothole-detection UAV system with onboard processing and server-side data transfer."
+        "ROS and MAVROS autonomy workflows for GPS-based missions.",
+        "ArduPilot tools: Mission Planner, QGroundControl and MAVProxy; UAV electronics and flight-stack integration."
       ],
       "achievements": [
-        "Integrated onboard camera stream with edge inference model for automated road defect geocoding."
+        "Built an ML pothole-detection UAV with onboard processing and server-side data transfer."
       ],
       "technologies": [
         "ROS",
@@ -1171,25 +1356,23 @@ export const initialPortfolioData: PortfolioData = {
         "Telemetry"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237119823-c4700b88f749-1644149247801.webp",
       "status": "published",
-      "order": 7,
-      "image": ""
+      "order": 9
     },
     {
       "id": "exp-7",
-      "company": "Precision Newsletters by One International Services (Pvt.) Ltd",
+      "company": "One International Services (Precision Newsletters)",
       "position": "Web Developer",
       "location": "Remote",
       "startDate": "Sep 2024",
       "endDate": "Dec 2024",
       "current": false,
-      "description": "Full-stack web engineering and brand digital presence development.",
+      "description": "Built the Precision Newsletters website, front end and back end.",
       "responsibilities": [
-        "Designed and developed a dynamic, user-centric website to enhance brand presence."
+        "Designed and developed a responsive company website."
       ],
-      "achievements": [
-        "Delivered high-performance responsive web interface with robust content delivery."
-      ],
+      "achievements": [],
       "technologies": [
         "HTML",
         "CSS",
@@ -1197,49 +1380,45 @@ export const initialPortfolioData: PortfolioData = {
         "Responsive Web Design"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.webp",
       "status": "published",
-      "order": 8,
-      "image": ""
+      "order": 10
     },
     {
       "id": "exp-8",
-      "company": "KoreaEHT.Co",
+      "company": "Korea EHT Co., Ltd.",
       "position": "Summer Intern",
       "location": "Remote",
-      "startDate": "Jun 2024",
-      "endDate": "Aug 2024",
+      "startDate": "Jul 2024",
+      "endDate": "Sep 2024",
       "current": false,
-      "description": "Engineering research on thermal and industrial electrical power systems.",
+      "description": "Remote internship: electric heat-tracing and heating-cable layout designs in AutoCAD.",
       "responsibilities": [
-        "Conducted detailed research on Electric Heating Systems and EHT cables."
+        "Drew heat-tracing and heating-cable layouts in AutoCAD."
       ],
-      "achievements": [
-        "Compiled comprehensive engineering reference documents on heat-tracing topologies and thermal dissipation."
-      ],
+      "achievements": [],
       "technologies": [
         "Electric Heating Systems",
         "EHT Cables",
         "Power Systems"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237162451-6cc5aec1b141-koreaeht_logo.webp",
       "status": "published",
-      "order": 9,
-      "image": ""
+      "order": 11
     },
     {
       "id": "exp-9",
       "company": "National School & College System",
-      "position": "Robotics Workshop Instructor",
+      "position": "Robotics Instructor",
       "location": "Islamabad, Pakistan",
       "startDate": "2024",
       "endDate": "2024",
       "current": false,
-      "description": "Technical instruction on robotics fundamentals and future applications.",
-      "responsibilities": [
-        "Delivered engaging sessions on the fundamentals of robotics and future applications."
-      ],
+      "description": "Taught robotics fundamentals to school students.",
+      "responsibilities": [],
       "achievements": [
-        "Mentored aspiring students in basic kinematics, microcontroller programming, and sensor integration."
+        "Covered basic kinematics, microcontroller programming and sensors."
       ],
       "technologies": [
         "Robotics Education",
@@ -1247,15 +1426,72 @@ export const initialPortfolioData: PortfolioData = {
         "Sensors & Actuators"
       ],
       "companyLogo": "",
+      "image": "/uploads/1791237318870-aad6b669f052-pexels-max-fischer-5212648.webp",
       "status": "published",
-      "order": 10,
-      "image": ""
+      "order": 13
+    },
+    {
+      "responsibilities": [],
+      "technologies": [
+        "UAV Electronics",
+        "Power Distribution"
+      ],
+      "companyLogo": "",
+      "image": "",
+      "status": "published",
+      "current": false,
+      "id": "exp-dbf-2026",
+      "company": "Team NUST — International Design, Build & Fly 2026",
+      "position": "Electronics Lead",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Oct 2025",
+      "endDate": "Nov 2025",
+      "description": "Led the electronics for NUST's entry in the International Design, Build & Fly competition.",
+      "achievements": [],
+      "order": 7
+    },
+    {
+      "responsibilities": [],
+      "technologies": [],
+      "companyLogo": "",
+      "image": "",
+      "status": "published",
+      "current": false,
+      "id": "exp-myev",
+      "company": "My EV Academy",
+      "position": "Research Intern",
+      "location": "Remote",
+      "startDate": "Jun 2024",
+      "endDate": "Aug 2024",
+      "description": "Electric-vehicle research: data collection, testing and reporting.",
+      "achievements": [],
+      "order": 12
+    },
+    {
+      "id": "exp-idp",
+      "company": "IDP Education Pakistan",
+      "position": "Marketing & Promotions Intern / Ambassador",
+      "location": "Islamabad, Pakistan",
+      "startDate": "Sep 2026",
+      "endDate": "Oct 2026",
+      "current": false,
+      "description": "Marketing and promotion of IDP's study-abroad services to students.",
+      "responsibilities": [],
+      "achievements": [],
+      "technologies": [
+        "Marketing",
+        "Student Outreach"
+      ],
+      "companyLogo": "",
+      "image": "",
+      "status": "published",
+      "order": 4
     }
   ],
   "education": [
     {
       "id": "edu-1",
-      "degree": "Bachelor of Engineering \u2014 Electrical & Electronics Engineering",
+      "degree": "Bachelor of Engineering — Electrical & Electronics Engineering",
       "institution": "National University of Sciences and Technology (NUST)",
       "location": "Islamabad, Pakistan",
       "startDate": "Sep 2023",
@@ -1263,7 +1499,7 @@ export const initialPortfolioData: PortfolioData = {
       "current": true,
       "type": "degree",
       "description": "Undergraduate engineering program focusing on UAV electronics, autonomous control systems, embedded architectures, signals & systems, and power electronics.",
-      "gpa": "Gold Medalist",
+      "gpa": "Rector's Gold Medalist",
       "relevantCoursework": [
         "Linear Control Systems",
         "Embedded Systems & Microprocessors",
@@ -1273,16 +1509,16 @@ export const initialPortfolioData: PortfolioData = {
         "Power Electronics & Circuit Analysis"
       ],
       "achievements": [
-        "Honors: Gold Medalist for stellar academic excellence.",
+        "Honors: Rector's Gold Medalist.",
         "Active leadership in research laboratories and competitive engineering teams."
       ],
       "status": "published",
       "order": 1,
-      "image": ""
+      "image": "/uploads/1791227395373-522409-Glance-picture.webp"
     },
     {
       "id": "edu-2",
-      "degree": "Non-Credit Specialization \u2014 Internet of Things",
+      "degree": "Non-Credit Specialization — Internet of Things",
       "institution": "University of California (UCI) via Coursera",
       "location": "Irvine, California (Online)",
       "startDate": "2024",
@@ -1300,11 +1536,11 @@ export const initialPortfolioData: PortfolioData = {
       ],
       "status": "published",
       "order": 2,
-      "image": ""
+      "image": "/uploads/1791227523142-138729-niversity-of-california-irvine-logo-vector-png_1020x.webp"
     },
     {
       "id": "edu-3",
-      "degree": "Non-Credit Specialization \u2014 Autonomous Vehicle Engineering",
+      "degree": "Non-Credit Specialization — Autonomous Vehicle Engineering",
       "institution": "University of Naples Federico II",
       "location": "Naples, Italy (Online)",
       "startDate": "2024",
@@ -1322,11 +1558,11 @@ export const initialPortfolioData: PortfolioData = {
       ],
       "status": "published",
       "order": 3,
-      "image": ""
+      "image": "/uploads/1791227579604-332032-unina-federico-ii-logo-png_seeklogo-516317.webp"
     },
     {
       "id": "edu-4",
-      "degree": "Non-Credit Specialization \u2014 Mastering ROS 2 for Robotics Programming",
+      "degree": "Non-Credit Specialization — Mastering ROS 2 for Robotics Programming",
       "institution": "Packt",
       "location": "Online Specialization",
       "startDate": "2024",
@@ -1344,13 +1580,13 @@ export const initialPortfolioData: PortfolioData = {
       ],
       "status": "published",
       "order": 4,
-      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+      "image": "/uploads/1791227646159-427649-images.webp"
     }
   ],
   "certifications": [
     {
       "id": "cert-1",
-      "name": "UAS Remote Pilot Open Category \u2014 A1+A3",
+      "name": "UAS Remote Pilot Open Category — A1+A3",
       "issuingOrganization": "Civil Aviation Authority / European Aviation Safety Agency (EASA Standard)",
       "date": "2024",
       "credentialId": "UAS-A1-A3",
@@ -1374,7 +1610,7 @@ export const initialPortfolioData: PortfolioData = {
   "achievements": [
     {
       "id": "ach-1",
-      "title": "3rd Overall \u2014 National Aerothon \u201925 | Swift Wing title",
+      "title": "3rd Overall — National Aerothon ’25 | Swift Wing title",
       "organization": "National Aerothon 2025",
       "date": "2025",
       "description": "Achieved 3rd Overall and the \"Swift Wing\" title after completing autonomous missions simulating hazardous medical sample collection in GPS-constrained environments with an autonomous disaster-relief UAV.",
@@ -1383,7 +1619,7 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "ach-2",
-      "title": "Finalist \u2014 Teknofest Turkey 2025 | Dynamic UAV Landing on Moving USV",
+      "title": "Finalist — Teknofest Turkey 2025 | Dynamic UAV Landing on Moving USV",
       "organization": "Teknofest Aviation, Space and Technology Festival",
       "date": "2025",
       "description": "Selected as international finalist among 160+ global teams for engineering an autonomous UAV landing system on a dynamically moving Unmanned Surface Vehicle.",
@@ -1392,7 +1628,7 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "ach-3",
-      "title": "Finalist \u2014 Teknofest Turkey 2024 | Anti Drone UAV",
+      "title": "Finalist — Teknofest Turkey 2024 | Anti Drone UAV",
       "organization": "Teknofest Aviation, Space and Technology Festival",
       "date": "2024",
       "description": "Finalist among 160+ international teams for developing an autonomous Anti-Drone counter-UAS interceptor system.",
@@ -1401,16 +1637,16 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "ach-4",
-      "title": "Participant \u2014 IMeChE UAS Challenge 2025",
+      "title": "Team Captain — IMechE Pakistan UAS Challenge",
       "organization": "Institution of Mechanical Engineers (IMechE)",
-      "date": "2025",
+      "date": "2025 – 2026",
       "description": "Designed and competed with an autonomous Disaster Relief UAV capable of precision payload delivery and reconnaissance.",
       "status": "published",
       "order": 4
     },
     {
       "id": "ach-5",
-      "title": "Ranked 112/200 \u2014 International Design, Build & Fly Competition 2025",
+      "title": "Ranked 112/200 — International Design, Build & Fly Competition 2025",
       "organization": "DBFC International",
       "date": "2025",
       "description": "Competed among 200 top global aerospace universities in aircraft design, telemetry, and flight testing.",
@@ -1419,7 +1655,7 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "ach-6",
-      "title": "Finalist \u2014 National Design, Build & Fly Competition 2024",
+      "title": "Finalist — National Design, Build & Fly Competition 2024",
       "organization": "National DBFC",
       "date": "2024",
       "description": "Recognized as national finalist for electric UAV flight performance, structural reliability, and aerodynamic payload delivery.",
@@ -1428,9 +1664,9 @@ export const initialPortfolioData: PortfolioData = {
     },
     {
       "id": "ach-7",
-      "title": "Participant \u2014 National Engineering Robotics Competition 2024 & 2025",
+      "title": "Participant — National Engineering Robotics Competition 2024 & 2025",
       "organization": "NERC Pakistan",
-      "date": "2024 \u2013 2025",
+      "date": "2024 – 2025",
       "description": "Competed in autonomous navigation, obstacle clearance, and embedded precision actuation challenges.",
       "status": "published",
       "order": 7
@@ -1439,77 +1675,80 @@ export const initialPortfolioData: PortfolioData = {
   "leadership": [
     {
       "id": "lead-1",
-      "role": "President NUST Young Student Exchange Program / Office Representative NUST Internship Program for International Students\u201926",
+      "role": "President, NYSEP · Vice President, NIPIS'26",
       "organization": "NUST Placement Office",
-      "date": "Jun 2026 \u2013 August 2026",
-      "description": "Supported NUST international internship operations for 51 international interns from 15+ countries; led registration, onboarding and operational workflows.",
-      "bullets": [
-        "Supported NUST international internship operations for 51 international interns from 15+ countries.",
-        "Led registration, onboarding and operational workflows across international delegations."
-      ],
+      "date": "Jun – Jul 2026",
+      "description": "Ran the NUST Young Students Engagement Program and co-led the international internship program for 51 interns from 15+ countries.",
+      "bullets": [],
       "status": "published",
-      "order": 1
+      "order": 2
     },
     {
       "id": "lead-2",
       "role": "Coordinator",
       "organization": "NUST Career Connect 2026",
-      "date": "Dec 2025 \u2013 Feb 2026",
-      "description": "Coordinated Pakistan\u2019s premier university career fair.",
-      "bullets": [
-        "Coordinated security, finances, registration and logistics for a career fair involving 150+ companies.",
-        "Managed registration workflows for 130+ companies."
-      ],
+      "date": "Dec 2025 – Feb 2026",
+      "description": "Coordinated one of the region's largest career fairs, with 150+ companies.",
+      "bullets": [],
       "status": "published",
-      "order": 2
+      "order": 3
     },
     {
       "id": "lead-3",
       "role": "General Secretary / VP Operations",
       "organization": "NUST Digital Club",
-      "date": "Sep 2025 \u2013 Jun 2026",
-      "description": "Headed operations for university-wide digital and technical society.",
-      "bullets": [
-        "Led Administration, Events, Sponsorship, Marketing and Security/Protocols teams.",
-        "Coordinated cross-functional operations across campus-wide technical conventions."
-      ],
-      "status": "published",
-      "order": 3
-    },
-    {
-      "id": "lead-4",
-      "role": "Director, Liaison & Registration",
-      "organization": "NUST Orientation",
-      "date": "Jul 2025 \u2013 Sep 2025",
-      "description": "Directed registration and onboarding workflows for 3,000+ incoming students.",
-      "bullets": [
-        "Directed registration and onboarding workflows for 3,000+ incoming students.",
-        "Coordinating participants, faculty and organizing committees across campus facilities."
-      ],
+      "date": "Sep 2025 – Jun 2026",
+      "description": "Led the admin, events, sponsorship, marketing and security teams.",
+      "bullets": [],
       "status": "published",
       "order": 4
     },
     {
-      "id": "lead-5",
-      "role": "Student Volunteer Lead & Diplomatic Conference Volunteer",
-      "organization": "International Conferences",
-      "date": "2024 \u2013 2025",
-      "description": "Volunteered across major high-level international forums.",
-      "bullets": [
-        "CONNEX\u201924 National HR Conference by PSTD \u2014 Student Volunteer Lead",
-        "CAREC by Asian Development Bank \u2014 Student Volunteer",
-        "Conference of Parties (COP 24) by UNICEF x Youth4Pak \u2014 Student Volunteer",
-        "Gender Equity and Climate Change Conference by German Cooperation x NUST \u2014 Student Volunteer"
-      ],
+      "id": "lead-1791228861382",
+      "role": "President",
+      "organization": "TABA Youth Force, NUST Chapter",
+      "date": "Aug 2026 – Present",
+      "description": "Lead the chapter's community and donation campaigns.",
+      "bullets": [],
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "lead-nec",
+      "role": "Vice President",
+      "organization": "NUST Entrepreneurs Club",
+      "date": "Sep 2025 – Oct 2025",
+      "description": "",
+      "bullets": [],
       "status": "published",
       "order": 5
+    },
+    {
+      "id": "lead-other",
+      "role": "Director, organizer and volunteer roles",
+      "organization": "NUST societies and community work",
+      "date": "2023 – 2026",
+      "description": "",
+      "bullets": [
+        "Campus Director, Hult Prize at NUST (Oct 2025 – Mar 2026); organizer, Hult Prize NUST regional 2025",
+        "Director of Liaison and Registration, NUST Orientation 2025 (3,000+ students)",
+        "Director HR and Deputy Director HR, NUST Entrepreneurs Club (2024 – 2025)",
+        "Lead, Logistics, Registration and Security, NUST Career Connect 2025 (130+ companies)",
+        "Director of Logistics, NUST Bazm-e-Pakistan and NUST Archery Club (2024 – 2025)",
+        "Deputy Director Marketing, NUST Debating Society; Deputy Director, NUST Literary Circle (2024)",
+        "Event organizer, Space Week, NUST Physics and Astronomy Society (2024)",
+        "Ambassador: UET Science Society, Career Connect Pakistan, Zayan Academy",
+        "Volunteer: Chadar NUST flood-relief and clothing drives, UNICEF environment drive, TABA Youth Force donation campaigns, international conferences"
+      ],
+      "status": "published",
+      "order": 99
     }
   ],
   "socialLinks": [
     {
       "id": "soc-1",
       "platform": "linkedin",
-      "label": "LinkedIn Profile",
+      "label": "LinkedIn",
       "url": "https://www.linkedin.com/in/mansoorahmedrind",
       "icon": "Linkedin",
       "order": 1,
@@ -1518,7 +1757,7 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "soc-2",
       "platform": "email",
-      "label": "Direct Email",
+      "label": "Email",
       "url": "mailto:ahmedmansoorrind1210@gmail.com",
       "icon": "Mail",
       "order": 2,
@@ -1527,25 +1766,70 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "soc-3",
       "platform": "fiverr",
-      "label": "Robotics Consulting on Fiverr",
-      "url": "https://www.fiverr.com",
+      "label": "Fiverr",
+      "url": "https://www.fiverr.com/sellers/mansoor_rind/",
       "icon": "Briefcase",
-      "order": 3,
+      "order": 8,
       "enabled": true
     },
     {
       "id": "soc-github",
       "platform": "github",
-      "label": "GitHub Profile",
+      "label": "GitHub",
       "url": "https://github.com/UnknownEng",
       "icon": "Github",
+      "order": 3,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228243261",
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/_unknown._.engineer/",
+      "icon": "instagram",
+      "order": 9,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228280205",
+      "platform": "googlescholar",
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=PW06l9YAAAAJ&hl=en",
+      "icon": "googlescholar",
+      "order": 5,
+      "enabled": true
+    },
+    {
+      "id": "soc-1791228442725",
+      "platform": "researchgate",
+      "label": "ResearchGate",
+      "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43",
+      "icon": "researchgate",
+      "order": 6,
+      "enabled": true
+    },
+    {
+      "id": "soc-orcid",
+      "platform": "orcid",
+      "label": "ORCID",
+      "url": "https://orcid.org/0009-0002-3597-5513",
+      "icon": "orcid",
+      "order": 7,
+      "enabled": true
+    },
+    {
+      "id": "soc-whatsapp",
+      "platform": "whatsapp",
+      "label": "WhatsApp",
+      "url": "https://wa.me/923273202419",
+      "icon": "whatsapp",
       "order": 4,
       "enabled": true
     }
   ],
   "contact": {
-    "heading": "Initiate Technical Collaboration",
-    "description": "Looking to deploy autonomous UAV systems, multi-drone swarm coordination, or embedded robotics hardware? Reach out directly or dispatch an engineering inquiry below.",
+    "heading": "Have a mission that needs to fly?",
+    "description": "I'm open to UAV and autonomy engineering roles, research collaborations and freelance builds, from swarm coordination to embedded flight hardware. Email is the fastest way to reach me.",
     "email": "ahmedmansoorrind1210@gmail.com",
     "phone": "+92 327 3202419",
     "showPhone": true,
@@ -1554,56 +1838,556 @@ export const initialPortfolioData: PortfolioData = {
     "availabilityStatus": "Available for UAV Engineering & Autonomous Systems roles",
     "formEnabled": true
   },
-  "contactMessages": [
-    {
-      "id": "msg-1789073520371",
-      "name": "Integration Test Recruiter",
-      "email": "recruiter@aerospace.test",
-      "subject": "Research Engineer Interview",
-      "message": "We reviewed your portfolio and NUST Gold Medalist robotics research.",
-      "createdAt": "2026-09-10T20:52:00.371Z",
-      "read": false
-    }
-  ],
+  "contactMessages": [],
   "media": [
     {
-      "id": "media-1789073575177",
-      "filename": "1789073575174-677234-test_schematic.png",
-      "originalName": "test_schematic.png",
-      "mimeType": "image/png",
-      "size": 33,
-      "url": "/uploads/1789073575174-677234-test_schematic.png",
-      "uploadedAt": "2026-09-10T20:52:55.177Z"
-    },
-    {
-      "id": "media-1789073551849",
-      "filename": "1789073551796-370609-test_schematic.png",
-      "originalName": "test_schematic.png",
-      "mimeType": "image/png",
-      "size": 33,
-      "url": "/uploads/1789073551796-370609-test_schematic.png",
-      "uploadedAt": "2026-09-10T20:52:31.849Z"
-    },
-    {
-      "id": "media-1789070588559",
-      "filename": "1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.jpeg",
-      "originalName": "WhatsApp Image 2026-09-07 at 6.11.37 PM.jpeg",
+      "id": "media-1791240171099",
+      "filename": "1791240171093-5224f174a81d-1778339546695.jpg",
+      "originalName": "1778339546695.jpg",
       "mimeType": "image/jpeg",
-      "size": 2537315,
-      "url": "/uploads/1789070588303-926943-WhatsApp_Image_2026-09-07_at_6.11.37_PM.webp",
-      "uploadedAt": "2026-09-10T20:03:08.559Z"
+      "size": 50732,
+      "url": "/uploads/1791240171093-5224f174a81d-1778339546695.webp",
+      "uploadedAt": "2026-10-05T22:42:51.099Z"
+    },
+    {
+      "id": "media-1791240164757",
+      "filename": "1791240164754-de9427931d88-1778339546695.jpg",
+      "originalName": "1778339546695.jpg",
+      "mimeType": "image/jpeg",
+      "size": 50732,
+      "url": "/uploads/1791240164754-de9427931d88-1778339546695.webp",
+      "uploadedAt": "2026-10-05T22:42:44.757Z"
+    },
+    {
+      "id": "media-1791240115572",
+      "filename": "1791240115571-bc679937b476-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791240115571-bc679937b476-1774126892270.webp",
+      "uploadedAt": "2026-10-05T22:41:55.572Z"
+    },
+    {
+      "id": "media-1791240110736",
+      "filename": "1791240110734-5bad31572de2-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791240110734-5bad31572de2-1758907419720.webp",
+      "uploadedAt": "2026-10-05T22:41:50.736Z"
+    },
+    {
+      "id": "media-1791240098933",
+      "filename": "1791240098931-1a8ee611a9e6-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791240098931-1a8ee611a9e6-1774310452377.webp",
+      "uploadedAt": "2026-10-05T22:41:38.933Z"
+    },
+    {
+      "id": "media-1791240089832",
+      "filename": "1791240089831-5ddd1693300d-1771795571854.jpg",
+      "originalName": "1771795571854.jpg",
+      "mimeType": "image/jpeg",
+      "size": 23513,
+      "url": "/uploads/1791240089831-5ddd1693300d-1771795571854.webp",
+      "uploadedAt": "2026-10-05T22:41:29.832Z"
+    },
+    {
+      "id": "media-1791240086194",
+      "filename": "1791240086184-ef7ced3cdd08-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791240086184-ef7ced3cdd08-1784286261890.webp",
+      "uploadedAt": "2026-10-05T22:41:26.194Z"
+    },
+    {
+      "id": "media-1791240076591",
+      "filename": "1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
+      "originalName": "Gemini_Generated_Image_ntz9cwntz9cwntz9.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3515505,
+      "url": "/uploads/1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.webp",
+      "uploadedAt": "2026-10-05T22:41:16.591Z"
+    },
+    {
+      "id": "media-1791239978780",
+      "filename": "1791239978779-a4d4bf149b7e-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "originalName": "output_still_image_c668377b-bcd2-430f-9e4d-d1952e192090.jpg",
+      "mimeType": "image/jpeg",
+      "size": 31302,
+      "url": "/uploads/1791239978779-a4d4bf149b7e-output_still_image_c668377b-bcd2-430f-9e.webp",
+      "uploadedAt": "2026-10-05T22:39:38.780Z"
+    },
+    {
+      "id": "media-1791239969096",
+      "filename": "1791239969095-ef9aaf329353-output_still_image_c668377b-bcd2-430f-9e.jpg",
+      "originalName": "output_still_image_c668377b-bcd2-430f-9e4d-d1952e192090.jpg",
+      "mimeType": "image/jpeg",
+      "size": 31302,
+      "url": "/uploads/1791239969095-ef9aaf329353-output_still_image_c668377b-bcd2-430f-9e.webp",
+      "uploadedAt": "2026-10-05T22:39:29.096Z"
+    },
+    {
+      "id": "media-1791239962369",
+      "filename": "1791239962367-ca2ce1d55e8f-1758909062581.jpg",
+      "originalName": "1758909062581.jpg",
+      "mimeType": "image/jpeg",
+      "size": 106663,
+      "url": "/uploads/1791239962367-ca2ce1d55e8f-1758909062581.webp",
+      "uploadedAt": "2026-10-05T22:39:22.369Z"
+    },
+    {
+      "id": "media-1791239956716",
+      "filename": "1791239956712-8b4d9e56e4ad-1758909062581.jpg",
+      "originalName": "1758909062581.jpg",
+      "mimeType": "image/jpeg",
+      "size": 106663,
+      "url": "/uploads/1791239956712-8b4d9e56e4ad-1758909062581.webp",
+      "uploadedAt": "2026-10-05T22:39:16.716Z"
+    },
+    {
+      "id": "media-1791239950569",
+      "filename": "1791239950568-ab26c9eee630-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239950568-ab26c9eee630-1758909062587.webp",
+      "uploadedAt": "2026-10-05T22:39:10.569Z"
+    },
+    {
+      "id": "media-1791239931179",
+      "filename": "1791239931178-7391ceece0b5-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791239931178-7391ceece0b5-1758907419720.webp",
+      "uploadedAt": "2026-10-05T22:38:51.179Z"
+    },
+    {
+      "id": "media-1791239927401",
+      "filename": "1791239927399-a79b5aad575e-1758907419720.jpg",
+      "originalName": "1758907419720.jpg",
+      "mimeType": "image/jpeg",
+      "size": 43982,
+      "url": "/uploads/1791239927399-a79b5aad575e-1758907419720.webp",
+      "uploadedAt": "2026-10-05T22:38:47.401Z"
+    },
+    {
+      "id": "media-1791239914115",
+      "filename": "1791239914114-8d2b744984b9-1759771283051.jpg",
+      "originalName": "1759771283051.jpg",
+      "mimeType": "image/jpeg",
+      "size": 26538,
+      "url": "/uploads/1791239914114-8d2b744984b9-1759771283051.webp",
+      "uploadedAt": "2026-10-05T22:38:34.115Z"
+    },
+    {
+      "id": "media-1791239910784",
+      "filename": "1791239910783-c4d7e3e889c8-1759771283051.jpg",
+      "originalName": "1759771283051.jpg",
+      "mimeType": "image/jpeg",
+      "size": 26538,
+      "url": "/uploads/1791239910783-c4d7e3e889c8-1759771283051.webp",
+      "uploadedAt": "2026-10-05T22:38:30.784Z"
+    },
+    {
+      "id": "media-1791239886250",
+      "filename": "1791239886248-1cb93c386cf4-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239886248-1cb93c386cf4-1758909062587.webp",
+      "uploadedAt": "2026-10-05T22:38:06.250Z"
+    },
+    {
+      "id": "media-1791239883358",
+      "filename": "1791239883354-1b35c0f66e92-1758909062587.jpg",
+      "originalName": "1758909062587.jpg",
+      "mimeType": "image/jpeg",
+      "size": 55874,
+      "url": "/uploads/1791239883354-1b35c0f66e92-1758909062587.webp",
+      "uploadedAt": "2026-10-05T22:38:03.358Z"
+    },
+    {
+      "id": "media-1791239863699",
+      "filename": "1791239863697-695df3a16828-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239863697-695df3a16828-1774310452377.webp",
+      "uploadedAt": "2026-10-05T22:37:43.699Z"
+    },
+    {
+      "id": "media-1791239852361",
+      "filename": "1791239852355-9f87c81d2160-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239852355-9f87c81d2160-1774310452377.webp",
+      "uploadedAt": "2026-10-05T22:37:32.361Z"
+    },
+    {
+      "id": "media-1791239631460",
+      "filename": "1791239631458-43773b3a7edb-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239631458-43773b3a7edb-1774310452377.webp",
+      "uploadedAt": "2026-10-05T22:33:51.460Z"
+    },
+    {
+      "id": "media-1791239626979",
+      "filename": "1791239626964-88494d839f58-1774310452377.jpg",
+      "originalName": "1774310452377.jpg",
+      "mimeType": "image/jpeg",
+      "size": 60667,
+      "url": "/uploads/1791239626964-88494d839f58-1774310452377.webp",
+      "uploadedAt": "2026-10-05T22:33:46.979Z"
+    },
+    {
+      "id": "media-1791239607976",
+      "filename": "1791239607975-90e00765bff6-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791239607975-90e00765bff6-1774126892270.webp",
+      "uploadedAt": "2026-10-05T22:33:27.976Z"
+    },
+    {
+      "id": "media-1791239604409",
+      "filename": "1791239604408-e9e81dc53be4-1774126892270.jpg",
+      "originalName": "1774126892270.jpg",
+      "mimeType": "image/jpeg",
+      "size": 36665,
+      "url": "/uploads/1791239604408-e9e81dc53be4-1774126892270.webp",
+      "uploadedAt": "2026-10-05T22:33:24.409Z"
+    },
+    {
+      "id": "media-1791239493591",
+      "filename": "1791239493590-24709cdb916c-1771795589042.jpg",
+      "originalName": "1771795589042.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3557,
+      "url": "/uploads/1791239493590-24709cdb916c-1771795589042.webp",
+      "uploadedAt": "2026-10-05T22:31:33.591Z"
+    },
+    {
+      "id": "media-1791239489850",
+      "filename": "1791239489849-9dc97d6b70ca-1771795571854.jpg",
+      "originalName": "1771795571854.jpg",
+      "mimeType": "image/jpeg",
+      "size": 23513,
+      "url": "/uploads/1791239489849-9dc97d6b70ca-1771795571854.webp",
+      "uploadedAt": "2026-10-05T22:31:29.850Z"
+    },
+    {
+      "id": "media-1791239483816",
+      "filename": "1791239483814-0ffbb57a4e0c-1771795527978.jpg",
+      "originalName": "1771795527978.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4357,
+      "url": "/uploads/1791239483814-0ffbb57a4e0c-1771795527978.webp",
+      "uploadedAt": "2026-10-05T22:31:23.816Z"
+    },
+    {
+      "id": "media-1791239304164",
+      "filename": "1791239304163-f01b0213586a-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791239304163-f01b0213586a-1784286261890.webp",
+      "uploadedAt": "2026-10-05T22:28:24.164Z"
+    },
+    {
+      "id": "media-1791239299142",
+      "filename": "1791239299140-de160f03f525-1784286261890.jpg",
+      "originalName": "1784286261890.jpg",
+      "mimeType": "image/jpeg",
+      "size": 77877,
+      "url": "/uploads/1791239299140-de160f03f525-1784286261890.webp",
+      "uploadedAt": "2026-10-05T22:28:19.142Z"
+    },
+    {
+      "id": "media-1791239147317",
+      "filename": "1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004.png",
+      "mimeType": "image/png",
+      "size": 9026044,
+      "url": "/uploads/1791239147195-5dc2d2e9f531-pomelli_creative_image_9_16_4k_1004.webp",
+      "uploadedAt": "2026-10-05T22:25:47.317Z"
+    },
+    {
+      "id": "media-1791239131380",
+      "filename": "1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004 (3).png",
+      "mimeType": "image/png",
+      "size": 3117890,
+      "url": "/uploads/1791239131223-c8a8fb1f16b6-pomelli_creative_image_9_16_4k_1004__3_.webp",
+      "uploadedAt": "2026-10-05T22:25:31.380Z"
+    },
+    {
+      "id": "media-1791239112139",
+      "filename": "1791239111899-b7dc863a0f03-pomelli_creative_image_9_16_4k_1004__5_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1004 (5).png",
+      "mimeType": "image/png",
+      "size": 7991250,
+      "url": "/uploads/1791239111899-b7dc863a0f03-pomelli_creative_image_9_16_4k_1004__5_.webp",
+      "uploadedAt": "2026-10-05T22:25:12.139Z"
+    },
+    {
+      "id": "media-1791238975113",
+      "filename": "1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005.png",
+      "mimeType": "image/png",
+      "size": 9075013,
+      "url": "/uploads/1791238975030-ab9c8c10e2ce-pomelli_creative_image_9_16_4k_1005.webp",
+      "uploadedAt": "2026-10-05T22:22:55.113Z"
+    },
+    {
+      "id": "media-1791238961966",
+      "filename": "1791238961887-88f386eb07ce-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005 (1).png",
+      "mimeType": "image/png",
+      "size": 7691389,
+      "url": "/uploads/1791238961887-88f386eb07ce-pomelli_creative_image_9_16_4k_1005__1_.webp",
+      "uploadedAt": "2026-10-05T22:22:41.966Z"
+    },
+    {
+      "id": "media-1791238952388",
+      "filename": "1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005 (1).png",
+      "mimeType": "image/png",
+      "size": 7691389,
+      "url": "/uploads/1791238952239-91f3b8782aba-pomelli_creative_image_9_16_4k_1005__1_.webp",
+      "uploadedAt": "2026-10-05T22:22:32.388Z"
+    },
+    {
+      "id": "media-1791238940321",
+      "filename": "1791238940233-64f2bd54e71a-pomelli_creative_image_9_16_4k_1005.png",
+      "originalName": "pomelli_creative_image_9_16_4k_1005.png",
+      "mimeType": "image/png",
+      "size": 9075013,
+      "url": "/uploads/1791238940233-64f2bd54e71a-pomelli_creative_image_9_16_4k_1005.webp",
+      "uploadedAt": "2026-10-05T22:22:20.321Z"
+    },
+    {
+      "id": "media-1791237318914",
+      "filename": "1791237318870-aad6b669f052-pexels-max-fischer-5212648.jpg",
+      "originalName": "pexels-max-fischer-5212648.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2825816,
+      "url": "/uploads/1791237318870-aad6b669f052-pexels-max-fischer-5212648.webp",
+      "uploadedAt": "2026-10-05T21:55:18.914Z"
+    },
+    {
+      "id": "media-1791237276209",
+      "filename": "1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "originalName": "cfb0df5c-8deb-4230-969e-0e41c1d19ec7_1344x256.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3522,
+      "url": "/uploads/1791237276208-7b1f3ed7cff8-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.webp",
+      "uploadedAt": "2026-10-05T21:54:36.209Z"
+    },
+    {
+      "id": "media-1791237255378",
+      "filename": "1791237255376-af440c291fde-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.jpg",
+      "originalName": "cfb0df5c-8deb-4230-969e-0e41c1d19ec7_1344x256.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3522,
+      "url": "/uploads/1791237255376-af440c291fde-cfb0df5c-8deb-4230-969e-0e41c1d19ec7_134.webp",
+      "uploadedAt": "2026-10-05T21:54:15.378Z"
+    },
+    {
+      "id": "media-1791237162452",
+      "filename": "1791237162451-6cc5aec1b141-koreaeht_logo.jpg",
+      "originalName": "koreaeht_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2244,
+      "url": "/uploads/1791237162451-6cc5aec1b141-koreaeht_logo.webp",
+      "uploadedAt": "2026-10-05T21:52:42.452Z"
+    },
+    {
+      "id": "media-1791237119824",
+      "filename": "1791237119823-c4700b88f749-1644149247801.jpg",
+      "originalName": "1644149247801.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3694,
+      "url": "/uploads/1791237119823-c4700b88f749-1644149247801.webp",
+      "uploadedAt": "2026-10-05T21:51:59.824Z"
+    },
+    {
+      "id": "media-1791237075217",
+      "filename": "1791237075210-701fc0b3dc2b-fiverr_com_logo.jpg",
+      "originalName": "fiverr_com_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 2888,
+      "url": "/uploads/1791237075210-701fc0b3dc2b-fiverr_com_logo.webp",
+      "uploadedAt": "2026-10-05T21:51:15.217Z"
+    },
+    {
+      "id": "media-1791237032082",
+      "filename": "1791237032081-701e32dcc6d0-1675983634915.jpg",
+      "originalName": "1675983634915.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4429,
+      "url": "/uploads/1791237032081-701e32dcc6d0-1675983634915.webp",
+      "uploadedAt": "2026-10-05T21:50:32.082Z"
+    },
+    {
+      "id": "media-1791236951494",
+      "filename": "1791236951491-89c8d07e5cca-1740558321053.jpg",
+      "originalName": "1740558321053.jpg",
+      "mimeType": "image/jpeg",
+      "size": 5655,
+      "url": "/uploads/1791236951491-89c8d07e5cca-1740558321053.webp",
+      "uploadedAt": "2026-10-05T21:49:11.494Z"
+    },
+    {
+      "id": "media-1791236903848",
+      "filename": "1791236903847-30cb8522e7a4-intelgency_logo.jpg",
+      "originalName": "intelgency_logo.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4598,
+      "url": "/uploads/1791236903847-30cb8522e7a4-intelgency_logo.webp",
+      "uploadedAt": "2026-10-05T21:48:23.848Z"
+    },
+    {
+      "id": "media-1791236894797",
+      "filename": "1791236894788-de7d8d9afe5a-1771788458397.jpg",
+      "originalName": "1771788458397.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3860,
+      "url": "/uploads/1791236894788-de7d8d9afe5a-1771788458397.webp",
+      "uploadedAt": "2026-10-05T21:48:14.797Z"
+    },
+    {
+      "id": "media-1791236805694",
+      "filename": "1791236805692-2e9829e39c94-560620559_17855307960541100_488530118246.jpg",
+      "originalName": "560620559_17855307960541100_4885301182467722117_n.jpg",
+      "mimeType": "image/jpeg",
+      "size": 4646,
+      "url": "/uploads/1791236805692-2e9829e39c94-560620559_17855307960541100_488530118246.webp",
+      "uploadedAt": "2026-10-05T21:46:45.694Z"
+    },
+    {
+      "id": "media-1791236721281",
+      "filename": "1791236721278-c99e96b8993e-Code_Generated_Image.png",
+      "originalName": "Code_Generated_Image.png",
+      "mimeType": "image/png",
+      "size": 190981,
+      "url": "/uploads/1791236721278-c99e96b8993e-Code_Generated_Image.webp",
+      "uploadedAt": "2026-10-05T21:45:21.281Z"
+    },
+    {
+      "id": "media-1791236397662",
+      "filename": "1791236397656-f87dfa52f2a1-test_check.png",
+      "originalName": "test_check.png",
+      "mimeType": "image/png",
+      "size": 68,
+      "url": "/uploads/1791236397656-f87dfa52f2a1-test_check.png",
+      "uploadedAt": "2026-10-05T21:39:57.662Z"
+    },
+    {
+      "id": "media-1791235061962",
+      "filename": "1791235061899-3643d016e66a-test_valid_upload.png",
+      "originalName": "test_valid_upload.png",
+      "mimeType": "image/png",
+      "size": 68,
+      "url": "/uploads/1791235061899-3643d016e66a-test_valid_upload.png",
+      "uploadedAt": "2026-10-05T21:17:41.962Z"
+    },
+    {
+      "id": "media-1791232550644",
+      "filename": "1791232550631-a0199d9b645b-Code_Generated_Image.png",
+      "originalName": "Code_Generated_Image.png",
+      "mimeType": "image/png",
+      "size": 190981,
+      "url": "/uploads/1791232550631-a0199d9b645b-Code_Generated_Image.webp",
+      "uploadedAt": "2026-10-05T20:35:50.644Z"
     }
   ],
   "showcase": [
+    {
+      "id": "showcase-resilient-swarm",
+      "title": "Resilient Decentralized Swarm Formation Under Network Faults",
+      "subtitle": "Open-source research · ROS 2 Jazzy + Gazebo Harmonic",
+      "date": "Oct 2026",
+      "category": "Swarm Robotics",
+      "organization": "Independent research (Apache 2.0)",
+      "summary": "Five differential-drive robots in a collapsed-building arena form a 2 m pentagon with no leader, no central coordinator and no GPS. Each robot senses neighbours in its own frame, localizes with an EKF and passes its formation command through a control-barrier-function (CBF-QP) safety filter before it reaches the motors.",
+      "mediaUrl": "/uploads/resilient-swarm-formation-faults.webp",
+      "highlights": [
+        "Converged in 5/5 Gazebo runs on a clean network (7.8 ± 1.8 s, 0.056 m shape error) and in 5/5 runs with 15% packet loss, 80 ± 40 ms delay and a robot stopped mid-mission (10.8 s, 0.18 m).",
+        "All 500 headless runs with the safety filter enabled were collision-free (minimum robot distance 0.65 m), across 22 conditions × 25 seeds.",
+        "Handles one-way link failures (mute, deaf and one-way-ring profiles) with 96–100% convergence.",
+        "Reproducible: seeded start poses, rosbag recording, offline metrics and plots, CI, and documented failure cases."
+      ],
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ],
+      "links": [
+        {
+          "label": "Code",
+          "url": "https://github.com/UnknownEng/resilient-swarm-formation"
+        },
+        {
+          "label": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43"
+        }
+      ]
+    },
+    {
+      "id": "showcase-nav2",
+      "title": "Layered ROS 2 / Nav2 Architecture for Fail-Safe Indoor UAV Navigation",
+      "subtitle": "Preprint and open-source stack",
+      "date": "Sep 2026",
+      "category": "Autonomous Navigation",
+      "organization": "Independent research",
+      "summary": "Keeps high-level Nav2 navigation separate from a safety layer: perception and environment representation feed Nav2, and a collision monitor sits between Nav2's velocity commands and ArduPilot so the vehicle brakes deterministically for dynamic obstacles indoors.",
+      "mediaUrl": "/uploads/projects/nav2-failsafe.webp",
+      "highlights": [
+        "Pipeline: perception → environment representation → Nav2 → cmd_vel → collision monitor → safe cmd_vel → ArduPilot.",
+        "Runs on ROS 2 Jazzy with LiDAR perception, Gazebo and ArduPilot SITL, with a full installation guide.",
+        "Companion code to the preprint on deterministic dynamic-obstacle braking."
+      ],
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Nav2",
+        "LiDAR",
+        "Gazebo",
+        "ArduPilot SITL",
+        "Python"
+      ],
+      "links": [
+        {
+          "label": "Code",
+          "url": "https://github.com/UnknownEng/Layered-ROS-2-Nav2-Architecture-for-Fail-Safe-Indoor-UAV-Navigation"
+        },
+        {
+          "label": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43"
+        }
+      ]
+    },
     {
       "id": "showcase-vslam",
       "title": "A Review of Visual & Visual-Inertial SLAM in Dynamic UAV Environments",
       "subtitle": "SEECS NUST Technical Review Paper & FYP Research",
       "date": "2026",
       "category": "Research & Autonomy",
-      "organization": "SEECS \u2014 NUST (Advised by Dr. Moazzam Ali & Muhammad Saad Zia)",
+      "organization": "SEECS — NUST (Advised by Dr. Moazzam Ali & Muhammad Saad Zia)",
       "summary": "Synthesized 27 recent papers on GPS-denied VI-SLAM, categorizing detection-based, geometry-based, and semantic-geometric frameworks running on sub-2 kg UAV compute budgets.",
-      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240076525-f35d9c2a70d2-Gemini_Generated_Image_ntz9cwntz9cwntz9.webp",
       "highlights": [
         "Synthesized 27 state-of-the-art papers classifying dynamic-handling pipelines.",
         "Prioritized techniques running under strict sub-2 kg UAV embedded compute constraints.",
@@ -1617,76 +2401,16 @@ export const initialPortfolioData: PortfolioData = {
         "Dynamic Filtering",
         "GPS-Denied",
         "SEECS NUST"
-      ]
-    },
-    {
-      "id": "showcase-maverick",
-      "title": "maverick_.tech \u2014 High-Velocity Beta Systems Lab",
-      "subtitle": "Sub-Startup of AeroMavericks Technologies",
-      "date": "2026",
-      "category": "Startup & AI Products",
-      "organization": "maverick_.tech / AeroMavericks Technologies",
-      "summary": "Founded maverick_.tech to architect rapid beta systems for modern challenges. Built and deployed LawerAI (legal intelligence) and Sasta Dawa Finder (medicine price transparency).",
-      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      "highlights": [
-        "LawerAI: AI-powered legal assistant for automated statute reasoning and case analysis (lawerai-alpha.vercel.app).",
-        "Sasta Dawa Finder: Pharmaceutical price transparency and generic medicine engine (sasta-dawa-finder.vercel.app).",
-        "Continuous deployment and AI vector search workflows deployed on Vercel.",
-        "Incubated within AeroMavericks Technologies ecosystem."
       ],
-      "technologies": [
-        "Next.js",
-        "AI / LLMs",
-        "TypeScript",
-        "Vector Search",
-        "Healthcare Tech",
-        "Vercel"
-      ]
-    },
-    {
-      "id": "showcase-1",
-      "title": "Decentralized Multi-UAV Swarm Formation Control",
-      "subtitle": "Research & Field Deployment",
-      "date": "2025 \u2013 2026",
-      "category": "Swarm Systems",
-      "organization": "CSN Lab, NUST & INTELGENCY IT Solutions",
-      "summary": "Engineered decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms.",
-      "mediaUrl": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
-      "highlights": [
-        "Implemented Reynolds flocking models and virtual leader-follower formation geometry.",
-        "Eliminated centralized single points of failure through peer-to-peer telemetry mesh.",
-        "Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests.",
-        "Achieved sub-meter formation spacing with collision-avoidance potential fields."
-      ],
-      "technologies": [
-        "MAVLink",
-        "ROS",
-        "Python",
-        "ArduPilot",
-        "Gazebo",
-        "Swarm Robotics"
-      ]
-    },
-    {
-      "id": "showcase-2",
-      "title": "Custom Ground Control Station for Multi-UAV Swarms",
-      "subtitle": "Avionics & Telemetry Command Interface",
-      "date": "2025 \u2013 2026",
-      "category": "GCS",
-      "organization": "Team AeroMavericks",
-      "summary": "Developed a centralized, MAVLink-integrated ground control application capable of simultaneous telemetry ingestion, packet inspection, and real-time waypoint mission dispatching for multi-drone fleets.",
-      "mediaUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      "highlights": [
-        "Real-time visualization of GPS coordinates, battery voltage, airspeed, and flight modes for up to 10 vehicles.",
-        "Asynchronous telemetry parser built with PyMAVLink and multi-threaded socket pipelines.",
-        "Emergency failsafe trigger broadcasting return-to-launch (RTL) or loiter commands across all aircraft."
-      ],
-      "technologies": [
-        "PyMAVLink",
-        "Python",
-        "Telemetry Radios",
-        "UI/UX",
-        "ROS"
+      "links": [
+        {
+          "label": "Read paper",
+          "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7447982"
+        },
+        {
+          "label": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43"
+        }
       ]
     },
     {
@@ -1695,9 +2419,9 @@ export const initialPortfolioData: PortfolioData = {
       "subtitle": "Teknofest Turkey 2025 Finalist Project",
       "date": "2025",
       "category": "Teknofest",
-      "organization": "Team Vitesse \u2014 Teknofest Turkey",
+      "organization": "Team Vitesse — Teknofest Turkey",
       "summary": "Engineered an autonomous visual servoing and precision landing pipeline enabling a hexacopter UAV to detect, track, and land on an autonomous moving unmanned surface vessel (USV).",
-      "mediaUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240089831-5ddd1693300d-1771795571854.webp",
       "highlights": [
         "Trained visual detection algorithms for dynamic fiducial AprilTags and platform motion estimation.",
         "Constructed Kalman filter velocity estimator to compensate for wave-induced pitch, roll, and heave.",
@@ -1717,9 +2441,9 @@ export const initialPortfolioData: PortfolioData = {
       "subtitle": "Teknofest Turkey 2024 Finalist Project",
       "date": "2024",
       "category": "Aerospace",
-      "organization": "Team Vitesse \u2014 Teknofest Turkey",
+      "organization": "Team Vitesse — Teknofest Turkey",
       "summary": "Designed high-speed avionics, power distribution, and computer vision guidance loops for an aerial interceptor quadcopter designed to autonomously pursue rogue drones.",
-      "mediaUrl": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240098931-1a8ee611a9e6-1774310452377.webp",
       "highlights": [
         "Integrated onboard companion computer running YOLO object detection at 30+ FPS.",
         "Developed proportional navigation guidance algorithms to close line-of-sight velocity vectors.",
@@ -1731,19 +2455,25 @@ export const initialPortfolioData: PortfolioData = {
         "Raspberry Pi",
         "Pixhawk",
         "Guidance Algorithms"
+      ],
+      "links": [
+        {
+          "label": "Demo video",
+          "url": "https://drive.google.com/file/d/1wCutPewCVz9VDBB-NcRUmZ2H2x5LT3j1/view"
+        }
       ]
     },
     {
       "id": "showcase-5",
       "title": "Medical Sample Autonomous Delivery & Recovery UAV",
-      "subtitle": "National Aerothon \u201925 \u2014 3rd Overall & Swift Wing Award",
+      "subtitle": "National Aerothon ’25 — 3rd Overall & Swift Wing Award",
       "date": "2025",
       "category": "Aerothon",
       "organization": "Team AeroMavericks",
       "summary": "Architected an autonomous disaster-relief UAV system with custom payload winch mechanism, GPS precision navigation, and autonomous sample collection routines.",
-      "mediaUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240110734-5bad31572de2-1758907419720.webp",
       "highlights": [
-        "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon \u201925.",
+        "Awarded 3rd Overall and the prestigious \"Swift Wing\" title at National Aerothon ’25.",
         "Designed fail-safe payload mechanism with optical confirmation and telemetry feedback.",
         "Completed simulated hazardous medical extraction mission fully autonomously."
       ],
@@ -1756,14 +2486,60 @@ export const initialPortfolioData: PortfolioData = {
       ]
     },
     {
+      "id": "showcase-1",
+      "title": "Decentralized Multi-UAV Swarm Formation Control",
+      "subtitle": "Research & Field Deployment",
+      "date": "2025 – 2026",
+      "category": "Swarm Systems",
+      "organization": "CSN Lab, NUST & INTELGENCY IT Solutions",
+      "summary": "Engineered decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms.",
+      "mediaUrl": "/uploads/1791239927399-a79b5aad575e-1758907419720.webp",
+      "highlights": [
+        "Implemented Reynolds flocking models and virtual leader-follower formation geometry.",
+        "Eliminated centralized single points of failure through peer-to-peer telemetry mesh.",
+        "Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests.",
+        "Achieved sub-meter formation spacing with collision-avoidance potential fields."
+      ],
+      "technologies": [
+        "MAVLink",
+        "ROS",
+        "Python",
+        "ArduPilot",
+        "Gazebo",
+        "Swarm Robotics"
+      ]
+    },
+    {
+      "id": "showcase-2",
+      "title": "Custom Ground Control Station for Multi-UAV Swarms",
+      "subtitle": "Avionics & Telemetry Command Interface",
+      "date": "2025 – 2026",
+      "category": "GCS",
+      "organization": "Team AeroMavericks",
+      "summary": "Developed a centralized, MAVLink-integrated ground control application capable of simultaneous telemetry ingestion, packet inspection, and real-time waypoint mission dispatching for multi-drone fleets.",
+      "mediaUrl": "/uploads/1791240086184-ef7ced3cdd08-1784286261890.webp",
+      "highlights": [
+        "Real-time visualization of GPS coordinates, battery voltage, airspeed, and flight modes for up to 10 vehicles.",
+        "Asynchronous telemetry parser built with PyMAVLink and multi-threaded socket pipelines.",
+        "Emergency failsafe trigger broadcasting return-to-launch (RTL) or loiter commands across all aircraft."
+      ],
+      "technologies": [
+        "PyMAVLink",
+        "Python",
+        "Telemetry Radios",
+        "UI/UX",
+        "ROS"
+      ]
+    },
+    {
       "id": "showcase-6",
       "title": "Software-in-the-Loop (SITL) Gazebo & ArduPilot Simulation",
       "subtitle": "Digital Twin Robotics Framework",
-      "date": "2025 \u2013 2026",
+      "date": "2025 – 2026",
       "category": "Research",
-      "organization": "CSN Lab, SEECS \u2014 NUST",
+      "organization": "CSN Lab, SEECS — NUST",
       "summary": "Built full digital twin testing environments in Gazebo and ROS for simulating complex aerodynamic disturbances, sensor noise, GPS-denied environments, and multi-rotor dynamics.",
-      "mediaUrl": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+      "mediaUrl": "/uploads/1791240115571-bc679937b476-1774126892270.webp",
       "highlights": [
         "Integrated multi-vehicle ArduPilot SITL instances communicating via simulated MAVLink network.",
         "Modeled wind gusts, rotor ground effect, and camera gimbal dynamics.",
@@ -1776,10 +2552,109 @@ export const initialPortfolioData: PortfolioData = {
         "ArduPilot",
         "Linux",
         "Python"
+      ],
+      "links": [
+        {
+          "label": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Mansoor-Ahmed-43"
+        }
+      ]
+    },
+    {
+      "id": "showcase-lawerai",
+      "title": "LawerAI — Legal Intake and Statute Reasoning for Pakistani Law",
+      "subtitle": "Open-source product, live on Vercel",
+      "date": "Sep 2026",
+      "category": "AI Product",
+      "organization": "maverick_.tech",
+      "summary": "A legal assistant that asks one question at a time, builds a live case summary and explains Pakistani statutes (PPC, CrPC, CPC, QSO, family and rent laws, PECA) in English, Urdu and Roman Urdu, without inventing citations.",
+      "mediaUrl": "/uploads/projects/lawerai.webp",
+      "highlights": [
+        "Hybrid BM25 + dense retrieval over statutes, with zero tolerance for hallucinated citations.",
+        "Role-aware intake (aggrieved vs accused), HTML case dossier and OCR for FIRs and cheques.",
+        "Emergency interceptor that surfaces verified Pakistani helplines for domestic violence or self-harm."
+      ],
+      "technologies": [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "FastAPI",
+        "PostgreSQL",
+        "Vector search"
+      ],
+      "links": [
+        {
+          "label": "Live",
+          "url": "https://lawerai-alpha.vercel.app/"
+        },
+        {
+          "label": "Code",
+          "url": "https://github.com/UnknownEng/lawerai"
+        }
+      ]
+    },
+    {
+      "id": "showcase-maverick",
+      "title": "maverick_.tech — High-Velocity Beta Systems Lab",
+      "subtitle": "Sub-Startup of AeroMavericks Technologies",
+      "date": "2026",
+      "category": "Startup & AI Products",
+      "organization": "maverick_.tech / AeroMavericks Technologies",
+      "summary": "Founded maverick_.tech to architect rapid beta systems for modern challenges. Built and deployed LawerAI (legal intelligence) and Sasta Dawa Finder (medicine price transparency).",
+      "mediaUrl": "/uploads/1791229210095-343482-Code_Generated_Image.webp",
+      "highlights": [
+        "LawerAI: AI-powered legal assistant for automated statute reasoning and case analysis (lawerai-alpha.vercel.app).",
+        "Sasta Dawa Finder: Pharmaceutical price transparency and generic medicine engine (sasta-dawa-finder.vercel.app).",
+        "Continuous deployment and AI vector search workflows deployed on Vercel.",
+        "Incubated within AeroMavericks Technologies ecosystem."
+      ],
+      "technologies": [
+        "Next.js",
+        "AI / LLMs",
+        "TypeScript",
+        "Vector Search",
+        "Healthcare Tech",
+        "Vercel"
+      ],
+      "links": [
+        {
+          "label": "LawerAI",
+          "url": "https://lawerai-alpha.vercel.app/"
+        },
+        {
+          "label": "Sasta Dawa Finder",
+          "url": "https://sasta-dawa-finder.vercel.app/"
+        }
       ]
     }
   ],
   "research": [
+    {
+      "id": "res-swarm",
+      "title": "Resilient Decentralized Shape Formation of Multi-Robot Swarms Under Adversarial Real-World Faults in High-Complexity Disaster Environments",
+      "shortDescription": "Leaderless formation control with a control-barrier-function safety filter, evaluated under packet loss, delay, one-way links and robot failure in a simulated collapsed-building arena.",
+      "fullDescription": "Article accompanying the open-source resilient-swarm-formation stack (ROS 2 Jazzy, Gazebo Harmonic).",
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Gazebo Harmonic",
+        "Python",
+        "Control Barrier Functions",
+        "CBF-QP",
+        "EKF",
+        "Consensus Control",
+        "Swarm Robotics"
+      ],
+      "category": "Article",
+      "projectImage": "/uploads/resilient-swarm-formation-faults.webp",
+      "githubUrl": "https://github.com/UnknownEng/resilient-swarm-formation",
+      "liveDemoUrl": "",
+      "documentationUrl": "",
+      "myRole": "Author",
+      "projectDate": "Oct 2026",
+      "featured": true,
+      "status": "published",
+      "order": 0
+    },
     {
       "id": "res-vslam",
       "title": "A Review of Visual and Visual-Inertial SLAM Techniques for Dynamic-Environment Localization and Mapping in Autonomous UAVs",
@@ -1794,11 +2669,11 @@ export const initialPortfolioData: PortfolioData = {
         "GPS-Denied Navigation",
         "SEECS NUST"
       ],
-      "category": "Technical Review (FYP)",
-      "projectImage": "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "category": "Conference Paper (Review)",
+      "projectImage": "https://drive.google.com/file/d/17V9iNkDPI_k27N5nx_rU5o8iiJ6M_7yk/view?usp=sharing=1200&q=80",
+      "githubUrl": "",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "documentationUrl": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7447982",
       "myRole": "Lead Author & FYP Researcher (SEECS NUST)",
       "projectDate": "2026",
       "featured": true,
@@ -1808,8 +2683,8 @@ export const initialPortfolioData: PortfolioData = {
     {
       "id": "res-nav2",
       "title": "A Layered ROS 2/Nav2 Architecture for Fail-Safe Indoor UAV Navigation with Deterministic Dynamic-Obstacle Braking",
-      "shortDescription": "Peer-reviewed research architecture utilizing ROS 2 and Nav2 for deterministic obstacle braking and collision avoidance in indoor UAV flights.",
-      "fullDescription": "Developed a layered ROS 2 and Nav2 autonomy architecture engineered specifically for fail-safe indoor UAV navigation. Integrates deterministic dynamic-obstacle braking layers into local costmaps, ensuring provable collision avoidance bounds during GPS-denied indoor trajectories.",
+      "shortDescription": "Preprint: a layered ROS 2 / Nav2 architecture that separates navigation from a safety layer (collision monitor between Nav2 and ArduPilot) for deterministic dynamic-obstacle braking in indoor UAV flight.",
+      "fullDescription": "Developed a layered ROS 2 and Nav2 autonomy architecture engineered specifically for fail-safe indoor UAV navigation. Integrates deterministic dynamic-obstacle braking layers into local costmaps, targeting deterministic collision avoidance during GPS-denied indoor trajectories.",
       "technologies": [
         "ROS 2",
         "Nav2",
@@ -1818,40 +2693,16 @@ export const initialPortfolioData: PortfolioData = {
         "Indoor Autonomy",
         "Deterministic Systems"
       ],
-      "category": "Peer-Reviewed Paper",
-      "projectImage": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
+      "category": "Preprint",
+      "projectImage": "https://drive.google.com/file/d/1Dz71ZpKJyoNv5Vh97RsaJ3tgn0N7tSvW/view?usp=sharing",
+      "githubUrl": "https://github.com/UnknownEng/Layered-ROS-2-Nav2-Architecture-for-Fail-Safe-Indoor-UAV-Navigation",
       "liveDemoUrl": "",
-      "documentationUrl": "",
+      "documentationUrl": "https://zenodo.org/records/22587966?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6Ijk1NmY3YWQ3LTcyMDEtNDYzOC04Zjc2LWY0MDEzNWYwNjE5ZSIsImRhdGEiOnt9LCJyYW5kb20iOiI0NDk4YjI1MDNkMjE0OWFhMWM2NzMyYzI4OTk2MzJhZSJ9.mVwCYTe07Fly3ewNowEUQ6WrzVqKg-a8hStj2MQ4_SREBc1sT2AzIJEohaguaWARSnQUwwKyfLDrzZr4t9Wwfg",
       "myRole": "Author & Autonomy Architect",
-      "projectDate": "2025 \u2013 2026",
+      "projectDate": "2026",
       "featured": true,
       "status": "published",
       "order": 2
-    },
-    {
-      "id": "res-swarm",
-      "title": "Decentralized Multi-UAV Swarm Formation Control & Peer-to-Peer Consensus",
-      "shortDescription": "Field-deployed decentralized flocking protocols and multi-agent coordination for autonomous quadcopter swarms via MAVLink mesh.",
-      "fullDescription": "Researched and implemented decentralized flocking and multi-agent coordination protocols for autonomous quadcopter swarms using MAVLink, ROS, and distributed consensus algorithms. Validated flight software in multi-vehicle Gazebo SITL simulation before hardware flight tests, achieving sub-meter formation spacing with collision-avoidance potential fields.",
-      "technologies": [
-        "MAVLink",
-        "ROS",
-        "Swarm Robotics",
-        "Gazebo",
-        "Distributed Consensus",
-        "ArduPilot"
-      ],
-      "category": "Swarm Research",
-      "projectImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      "githubUrl": "https://github.com/UnknownEng",
-      "liveDemoUrl": "",
-      "documentationUrl": "",
-      "myRole": "Lead Research Engineer (CSN Lab)",
-      "projectDate": "2025 \u2013 2026",
-      "featured": true,
-      "status": "published",
-      "order": 3
     }
   ]
 };

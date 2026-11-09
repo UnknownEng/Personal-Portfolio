@@ -1,102 +1,37 @@
-# Technical Architecture — Mansoor Ahmed Rind Portfolio
+# Architecture
 
-## 1. System Overview
-The Portfolio web application is designed as a hybrid full-stack web application combining a lightning-fast React 19 client with an Express-based Node.js backend capable of server-side rendering (SSR), API delivery, secure data persistence, and fine-grained HTTP cache control.
+## Overview
 
 ```
-                    +------------------------------------+
-                    |        Client / Crawler            |
-                    | (Googlebot, Mobile, Desktop Web)  |
-                    +-----------------+------------------+
-                                      |
-                           HTTPS / HTTP/2 Requests
-                                      v
-                    +------------------------------------+
-                    |       Edge Proxy / Reverse Proxy   |
-                    |  (Vercel Edge / Node.js Express)   |
-                    +-----------------+------------------+
-                                      |
-         +----------------------------+----------------------------+
-         |                                                         |
-         v (Web Page Requests: GET /)                              v (API & Assets)
-+------------------------------------+             +------------------------------------+
-|        Express SSR Engine          |             |       Express Static & API         |
-|  - Renders React to string         |             |  - Rate Limiting & Helmet Security |
-|  - Injects Metadata, Schema.org    |             |  - /api/portfolio CRUD             |
-|  - Emits Proper HTTP Status (200/404)|           |  - WebP / AVIF Asset Delivery      |
-+-----------------+------------------+             +-----------------+------------------+
-                  |                                                  |
-                  +---------------------------+----------------------+
-                                              |
-                                              v
-                              +--------------------------------+
-                              |         Data Layer             |
-                              | - data/portfolio.json          |
-                              | - Structured Initial Seed      |
-                              +--------------------------------+
+Browser ──► Vercel
+             ├── static files (dist/): public site, CV.pdf, robots.txt, sitemap.xml
+             ├── /<ADMIN_PATH>/  admin CMS page (only when ADMIN_PATH is set at build time)
+             └── /api/*, /uploads/*  ──► api/index.ts ──► Express app (server/index.ts)
+                                                            └── JSON store (data/portfolio.json → /tmp on Vercel)
 ```
 
----
+Every other path is rewritten to `index.html`, where the client shows the 404 page.
 
-## 2. Server-Side Rendering (SSR) & SEO Pipeline
+## Frontend
 
-### 2.1 Server-Side Rendering Engine
-To satisfy technical SEO requirements and eliminate JavaScript-dependent crawling barriers, the server renders the React component tree using `renderToString` into the HTML template:
-- Search engines receive fully-hydrated markup immediately upon initial response.
-- Hero content, headings, project descriptions, research publications, and metadata are rendered in the raw response body.
-- Fallback client-side hydration seamlessly attaches event listeners via `hydrateRoot` in `src/main.tsx`.
+- **Two entries** built by Vite: `index.html` → `src/main.tsx` → `App.tsx` (public site) and `admin.html` → `src/admin-main.tsx` → `AdminApp.tsx` (CMS). They share no entry chunk, so the public bundle contains no admin screens or login code.
+- **State:** `PortfolioContext` loads content from `GET /api/portfolio`. `authCore.ts` holds the shared signed-out auth state; the real `AuthProvider` (login, setup, password change) is only used by the admin.
+- **Styling:** public site uses `src/styles/site.css` (see DESIGN.md); the admin uses Tailwind v4 and `src/index.css`.
 
-### 2.2 Dynamic Metadata & Schema Pipeline
-Every page request injects structured data:
-- **Canonical Tags:** Self-referential canonical URL matching `https://mansoorahmedrind.vercel.app/` or canonical custom domain.
-- **Heading Hierarchy:** Strict document outline starting with exactly one semantic `<h1>`.
-- **JSON-LD Structured Data:**
-  - `Person` & `WebSite` schemas.
-  - `BreadcrumbList` schema showing the user's navigational path.
-  - `FAQPage` schema addressing high-intent recruiter/client questions.
-- **OpenGraph & Twitter Card:** Exact image dimensions, titles, descriptions, and crawler hints.
+## Backend
 
-### 2.3 Status Code Handling
-- Real 404 responses return HTTP status code `404` directly from Express with the custom 404 UI.
-- No soft 404s (where a missing page returns HTTP 200 with error text).
+- Express 5 with Helmet (CSP, HSTS, frame denial), CORS allow-list, per-route rate limits, 64 KB body limit for public routes and 5 MB only after auth for CMS saves.
+- **Data:** a JSON file written atomically. On Vercel the filesystem is per-instance and temporary, so runtime edits and contact messages are not durable there; content changes ship through git.
+- **Auth:** bcrypt (cost 12) + HS256 JWT with a token version for revocation. In production the admin comes from `ADMIN_USERNAME` / `ADMIN_PASSWORD_HASH`; online first-run setup is disabled.
+- **Validation:** CMS saves are checked for shape, unknown keys are dropped, and any URL-like field using `javascript:`, `data:` and similar schemes is rejected (including encoded forms). Contact form fields are type- and length-checked, with a honeypot.
+- **Uploads:** extension, MIME type and magic bytes must agree; SVG and double extensions are refused; files are served with a sandboxing CSP.
+- **Link preview:** admin-only; fetches go through `safeFetchText`, which re-checks every redirect and refuses to connect to private or local addresses.
+- **SSR (self-hosted only):** `server/ssr.ts` renders escaped, published-only HTML for crawlers before React takes over.
 
----
+## Build
 
-## 3. Frontend Architecture
+`npm run build` = `tsc` → `vite build` → `scripts/place-admin.mjs` (moves the admin to `dist/<ADMIN_PATH>/` or removes it) → copies `uploads/`.
 
-### 3.1 Technology Stack
-- **Framework:** React 19 (`react`, `react-dom`)
-- **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`, modern CSS variables)
-- **Icons:** `lucide-react`
-- **Animations:** Framer Motion (`framer-motion`) with strict reduced-motion queries and zero cumulative layout shift.
-- **Build Tool:** Vite 6 / Vite 8 with ESBuild / Rollup tree-shaking.
+## Tests
 
-### 3.2 State Management
-- `PortfolioContext`: Supplies live CMS content, theme preferences, and form dispatch actions.
-- `AuthContext`: Manages JWT admin sessions, login credentials, and session expiry without polluting public bundles.
-
-### 3.3 Responsive & Mobile Strategy
-- Viewport containment: `html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }`.
-- Fluid typography using CSS `clamp()` and responsive Tailwind breakpoints (`sm:`, `md:`, `lg:`, `xl:`).
-- Mobile navigation: Full-screen or sliding drawer with touch dismissal, lock-scroll when open, and keyboard ESC handling.
-
----
-
-## 4. Performance & Asset Delivery Architecture
-
-### 4.1 Modern Image Pipeline
-- Conversion of source images (PNG, JPG) to next-generation **WebP** and **AVIF** formats.
-- Explicit `width` and `height` dimensions on all image tags to prevent Cumulative Layout Shift (CLS).
-- Native `loading="lazy"` on below-the-fold media; `fetchpriority="high"` and `loading="eager"` on LCP hero assets.
-
-### 4.2 Caching & Compression
-- Gzip & Brotli text compression on all static assets (`.js`, `.css`, `.html`, `.svg`).
-- Long-term cache headers (`Cache-Control: public, max-age=31536000, immutable`) on versioned hashed bundles.
-- Stale-while-revalidate policies on API payloads.
-
----
-
-## 5. Security & Edge Configuration
-- **Helmet Middleware:** Enterprise Content Security Policy (CSP), HSTS (63072000s, preload), X-Frame-Options (`DENY`), X-Content-Type-Options (`nosniff`).
-- **Rate Limiting:** IP-based sliding window rate limits on contact form submissions and authentication attempts.
-- **Input Sanitization & Safe URLs:** RFC-compliant URL validation (`sanitizeUrl`, `isSafeUrl`) for all links and media protocols.
+`npm run test:security` starts throwaway servers on a temporary copy of the data and runs 105 attack checks against them.

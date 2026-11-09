@@ -1,196 +1,82 @@
-# Mansoor Ahmed Rind — Engineering Portfolio & Command CMS
+# Mansoor Ahmed Rind — Portfolio
 
-> **Modern Engineering + UAV + Robotics + Software Portfolio with a Full-Featured Admin Panel / CMS**  
-> Visual Identity: **Aerospace Engineering × Robotics × Software Engineering × Drone Control System**
+Personal portfolio of Mansoor Ahmed Rind (UAV autonomy and robotics, NUST), with a private CMS for editing content.
 
-Designed and built for **Mansoor Ahmed Rind** (Electrical & Electronics Engineering at NUST Islamabad, Gold Medalist, UAV Electronics & Swarm Robotics Specialist).
+Live: https://personal-portfolio-swart-sigma-44.vercel.app
 
-All content is strictly sourced from Mansoor's verified **CV (`CV.pdf`)** and LinkedIn: `https://www.linkedin.com/in/mansoorahmedrind`. **No jobs, technologies, degrees, or competitions have been invented.**
+## Stack
 
----
+- **Frontend:** React 19, TypeScript, Vite, plain CSS design system (`src/styles/site.css`), Tailwind v4 for the admin
+- **Backend:** Express 5 API with a JSON file store (`data/portfolio.json`), JWT auth, bcrypt, Helmet, rate limiting
+- **Hosting:** Vercel (static site + serverless API in `api/index.ts`)
 
-## ⚡ Quick Start
-
-### 1. Start Both Frontend & Backend (Development)
+## Run locally
 
 ```bash
+npm install
 npm run dev
 ```
 
-This starts:
-* **Backend API Server**: `http://localhost:5001` (Express, Auth, Multer, Persistent JSON Store)
-* **Frontend Application**: `http://localhost:5173` (Vite + React + Tailwind with hot-reloading)
+- Site: http://localhost:5173
+- Admin: http://localhost:5173/admin.html (first visit shows a local-only setup form)
+- API: http://localhost:5001
 
-### 2. Production Build & Server
+Production build and self-hosted server:
 
 ```bash
 npm run build
 npm start
 ```
 
-The Express server will automatically serve the production build on `http://localhost:5001` with zero configuration needed.
+## Editing content
 
----
+Content lives in `data/portfolio.json`. Edit it through the local admin (or by hand), then commit and push; Vercel redeploys in about a minute. Edits made in the admin on Vercel are not permanent, because Vercel's filesystem is temporary.
 
-## 🔐 Admin Panel / CMS & First-Run Setup
+After large content changes, refresh the bundled fallback copy in `src/data/initialData.ts` so the admin's "reset to defaults" matches.
 
-The admin CMS is a separate page that the public site never links to or bundles.
-* **Local development**: `http://localhost:5173/admin.html`. On first visit it shows a **First-Run Setup** form (local only).
-* **Production**: published only at a secret path. Set `ADMIN_PATH` (12–64 random lowercase letters, digits or dashes, not containing words like "admin") in the hosting environment; the build moves the admin to `/<ADMIN_PATH>/`. Without `ADMIN_PATH` the admin is not published at all, and `/admin` is always a 404.
-* **Production login**: set `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH` (from `npm run hash-password`) and `JWT_SECRET`. Online first-run setup is disabled in production.
-* Passwords are hashed with `bcryptjs` (cost 12); local admins are stored in `data/admin.json` (git-ignored).
-* Subsequent visits present a secure login form authenticated via JSON Web Tokens (JWT).
-* *(You can update your password anytime securely via the **Password** button in the CMS topbar).*
+## Admin panel in production
 
----
+The admin is a separate page (`admin.html`) that the public site never links to or bundles. It is published only at a secret path:
 
-## 🎨 Color System & Dynamic Theme Customization
+| Variable | Purpose |
+| --- | --- |
+| `ADMIN_PATH` | Secret URL segment (12–64 lowercase letters, digits or dashes; must not contain words like "admin"). The admin is served at `/<ADMIN_PATH>/`. Unset means no admin is published. `/admin` is always a 404. |
+| `ADMIN_USERNAME` | Admin login name |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash from `npm run hash-password` |
+| `JWT_SECRET` | Long random string for signing sessions |
+| `ADMIN_TOKEN_VERSION` | Optional; bump to sign out every session |
 
-The site is styled with **CSS variables / design tokens**, allowing immediate, site-wide color updates directly from the Admin Panel (**Appearance & Themes**):
+Set them in Vercel → Settings → Environment Variables, then redeploy. Online first-run setup is disabled in production. See `.env.example` for all options.
 
-### 5 Predefined Professional Themes:
-1. **Theme 01 — Engineering Cyan** (Default): Deep Graphite (`#080B12`) + Electric Cyan (`#22D3EE`) + Technical Blue (`#3B82F6`)
-2. **Theme 02 — Aerospace**: Dark Sky (`#0B0F19`) + Pure White (`#FFFFFF`) + Steel Blue (`#38BDF8`)
-3. **Theme 03 — Robotics**: Deep Space (`#0A0915`) + Electric Blue (`#60A5FA`) + Robotics Purple (`#A855F7`)
-4. **Theme 04 — Minimal**: Pitch Black (`#000000`) + Pure White + Slate Gray
-5. **Theme 05 — Custom**: User-selected color pickers for:
-   * Primary Color
-   * Secondary Color
-   * Background Color
-   * Secondary Background Color
-   * Card Background Color
-   * Primary Text Color
-   * Muted Text Color
-   * Border Color
+## Security
 
-*(Changes update the entire website in real-time without reloading).*
+- `npm run test:security` runs 105 attack-style checks: admin takeover, injection (HTML/script, URL schemes, NoSQL-style operators), prototype pollution, mass assignment, token forgery, SSRF (including DNS rebinding), malicious uploads and path traversal.
+- No SQL database is used, so SQL injection does not apply.
+- Server-rendered HTML escapes all CMS content; uploads are checked by extension, MIME type and magic bytes; the link-preview fetcher requires login and blocks private networks.
 
----
-
-## 🚁 Interactive Aerospace Schematic & Simulation Blueprint
-
-The hero section features a **clean aerospace engineering CAD schematic** inspired by professional avionics and Ground Control Stations (QGroundControl / MAVLink):
-* **Quadcopter CAD Blueprint**: Carbon fiber X-arms, Pixhawk center flight controller, motor hubs with animated CW / CCW rotation vectors.
-* **Interactive 3D Tilt**: Schematic reacts with subtle mathematical tilt tracking cursor movement.
-* **Explicit Simulation Notice**: All demonstration parameters are explicitly tagged `[SIMULATED] / [DEMO SIMULATION]` to maintain strict engineering integrity without misleading claims.
-* **Admin Controls**: Can be toggled on/off anytime via CMS Website Settings or Section Visibility controls.
-
----
-
-## 📂 Project Architecture
+## Project layout
 
 ```text
-portfolio/
-├── CV.pdf                       # Original CV document
-├── data/
-│   ├── portfolio.json           # Atomic, persistent JSON database
-│   └── admin.json               # Hashed admin credentials (Bcrypt)
-├── uploads/                     # Uploaded images, diagrams, certificates
-├── server/
-│   ├── index.ts                 # Express API server & static routes
-│   ├── auth.ts                  # JWT authentication & bcrypt hashing
-│   ├── store.ts                 # Thread-safe persistent JSON store
-│   └── types.ts                 # Server types
-├── src/
-│   ├── main.tsx                 # React DOM root
-│   ├── App.tsx                  # Routing (Public Portfolio <-> Admin CMS)
-│   ├── index.css                # CSS variables, tactical grid, Tailwind v4
-│   ├── types/
-│   │   └── portfolio.ts         # Complete TypeScript interfaces
-│   ├── data/
-│   │   └── initialData.ts       # 100% verified data directly from CV.pdf
-│   ├── context/
-│   │   ├── AuthContext.tsx      # Admin auth, tokens, sessions
-│   │   └── PortfolioContext.tsx # Persistence, live tokens, CRUD operations
-│   ├── components/
-│   │   ├── public/              # Public Engineering Portfolio
-│   │   │   ├── Header.tsx       # Sticky blurred nav with beacons
-│   │   │   ├── Hero.tsx         # Headline, callsign, and drone HUD
-│   │   │   ├── DroneVisualization.tsx # Interactive schematic
-│   │   │   ├── StatusBanner.tsx # Live metrics from real database counts
-│   │   │   ├── About.tsx        # Bio, philosophy, credentials cards
-│   │   │   ├── Skills.tsx       # Filterable skills with proficiencies
-│   │   │   ├── Projects.tsx     # 9 CV projects with technical modals
-│   │   │   ├── Experience.tsx   # 9 CV timeline roles
-│   │   │   ├── Competitions.tsx # Teknofest, National Aerothon honors
-│   │   │   ├── Education.tsx    # NUST Gold Medalist, UCI, Naples
-│   │   │   ├── Contact.tsx      # Verified coordinates & message form
-│   │   │   └── Footer.tsx       # Minimal engineering footer
-│   │   ├── admin/               # Professional SaaS CMS Command Center
-│   │   │   ├── AdminLayout.tsx  # Sidebar, topbar, toast alerts
-│   │   │   ├── DashboardHome.tsx# Live metrics & recent inquiries
-│   │   │   ├── HeroEditor.tsx   # Headlines, CTAs, telemetry indicators
-│   │   │   ├── AboutEditor.tsx  # Bio, philosophy, highlight cards CRUD
-│   │   │   ├── SkillsManager.tsx# Full CRUD, categories, proficiencies
-│   │   │   ├── ProjectsManager.tsx # Full CRUD, markdown specs, reorder
-│   │   │   ├── ExperienceManager.tsx # Full CRUD, timeline, bullet points
-│   │   │   ├── EducationManager.tsx # Degrees, coursework, honors CRUD
-│   │   │   ├── CertificationsManager.tsx # Licenses, IDs, URLs CRUD
-│   │   │   ├── AchievementsManager.tsx # Competitions & awards CRUD
-│   │   │   ├── LeadershipManager.tsx # Large-scale operations CRUD
-│   │   │   ├── MessagesManager.tsx # Inquiries inbox from contact form
-│   │   │   ├── ContactEditor.tsx # Email, phone privacy toggle, coordinates
-│   │   │   ├── SocialLinksEditor.tsx # External profile links CRUD
-│   │   │   ├── NavigationEditor.tsx # Reorder & edit menu items
-│   │   │   ├── VisibilityManager.tsx # Modular section ON/OFF toggles
-│   │   │   ├── AppearanceEditor.tsx # 5 themes & fine-grained token pickers
-│   │   │   ├── MediaManager.tsx # File upload, preview, delete, copy path
-│   │   │   ├── SeoEditor.tsx    # Titles, descriptions, keywords, OG tags
-│   │   │   └── SettingsEditor.tsx # Site config, maintenance mode, restore
-│   │   └── ui/
-│   │       ├── Modal.tsx        # Accessible dialog
-│   │       ├── ConfirmDialog.tsx# Destructive delete confirmations
-│   │       ├── ColorPicker.tsx  # Hex swatches & sliders
-│   │       ├── Icons.tsx        # Clean SVG brand icons
-│   │       └── Toast.tsx        # Floating alert notifications
+admin.html                 Admin page entry (moved to the secret path at build time)
+index.html                 Public site entry
+api/index.ts               Vercel serverless entry for the API
+data/portfolio.json        Site content
+public/                    CV.pdf, robots.txt, sitemap.xml, favicon
+scripts/
+  hash-password.ts         Generates ADMIN_PASSWORD_HASH
+  place-admin.mjs          Publishes the admin at ADMIN_PATH after the build
+server/
+  index.ts                 Express app: API routes, security headers, uploads
+  auth.ts                  JWT + bcrypt
+  security.ts              Escaping, URL checks, SSRF-safe fetch
+  ssr.ts                   Server-rendered HTML for crawlers (self-hosted)
+  store.ts                 JSON store, env-based admin
+src/
+  App.tsx                  Public site
+  AdminApp.tsx             Admin CMS
+  components/public/       Site sections (Hero, Selected work, Experience, ...)
+  components/admin/        CMS editors
+  styles/site.css          Public design system
+tests/security.test.ts     Security test suite
+uploads/                   Images (project illustrations in uploads/projects)
 ```
-
----
-
-## 🔒 Security & Persistence Details
-
-* **No Plaintext Passwords**: All administrator passwords are authenticated using `bcryptjs` with salt rounds 10.
-* **JWT Protected Endpoints**: All CMS mutation routes (`/api/portfolio/*`, `/api/upload`, `/api/contact-messages/*`) require a valid Bearer token.
-* **Atomic JSON Storage**: The backend writes updates to temporary files and utilizes `fs.renameSync` to ensure data integrity during power interrupts or restarts.
-* **File Validation**: Multer verifies MIME types (JPEG, PNG, WEBP, GIF, SVG, PDF) and enforces a 10MB per-file limit.
-* **Safety Confirmation**: Destructive actions (deleting projects, skills, messages, or resetting defaults) always present a confirmation modal.
-
----
-
-## 📋 Verified CV Data Included
-
-1. **Academic Excellence**: NUST Bachelor of Engineering in Electrical & Electronics Engineering (2023–2027) — **Gold Medalist**.
-2. **International Specializations**:
-   * University of California (UCI) — Internet of Things
-   * University of Naples Federico II — Autonomous Vehicle Engineering
-3. **9 Real Engineering Projects**:
-   * Custom Build Ground Control Station for UAV Swarms (MAVLink, PyMAVLink)
-   * Autonomous Kamikaze UAVs for Warfare (Vision Guidance, Loitering Munitions)
-   * Autonomous Interceptor UAV (High-speed aerial tracking)
-   * UAV Orthomosaic Mapping (ROS-based photogrammetry pipeline)
-   * GPS-Denied Navigation (Optical flow, velocity-control, EKF)
-   * Multi-UAV Swarm Formation (Decentralized radio telemetry)
-   * YOLOv8 Road Crack Detection (Edge AI, computer vision)
-   * VTOL UAV Prototype (Hybrid transition dynamics)
-   * ROS/Gazebo Autonomous Flight (ArduCopter SITL simulation)
-4. **9 Real Experience Roles**:
-   * Team AeroMavericks — Founder & Team Captain
-   * INTELGENCY IT Solutions — Drone Swarm Engineer
-   * CSN Lab, SEECS — NUST — Research Student (UAV Autonomy & Swarms)
-   * Team Vitesse, Teknofest Turkey — Vice-Captain & Lead Electronics
-   * Fiverr — Freelance Robotics & Automation Consultant
-   * Aerial Robotics Lab, SINES NUST — Robotics Engineer Intern
-   * Precision Newsletters — Web Developer
-   * KoreaEHT.Co — Summer Intern
-   * National School & College System — Robotics Workshop Instructor
-5. **7 Major Competitions & Honors**:
-   * 3rd Overall — National Aerothon ’25 | Swift Wing title | Autonomous Disaster-Relief UAV
-   * Finalist — Teknofest Turkey 2025 | Dynamic Landing on Moving USV | 160+ teams
-   * Finalist — Teknofest Turkey 2024 | Anti Drone UAV | 160+ teams
-   * Participant — IMeChE UAS Challenge 2025 | Disaster Relief UAV
-   * Ranked 112/200 — International Design, Build & Fly Competition 2025
-   * Finalist — National Design, Build & Fly Competition 2024
-   * Participant — National Engineering Robotics Competition 2024 & 2025
-6. **Certifications & Licensures**:
-   * UAS Remote Pilot Open Category — A1+A3
-   * Introduction to Nephio LFS179 (The Linux Foundation)

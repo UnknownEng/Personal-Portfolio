@@ -1764,26 +1764,7 @@
     "availabilityStatus": "Available for UAV Engineering & Autonomous Systems roles",
     "formEnabled": true
   },
-  "contactMessages": [
-    {
-      "id": "msg-1791240262255",
-      "name": "Mansoor Ahmed RInd",
-      "email": "ahmedmansoorrind1210@gmail.com",
-      "subject": "UAV",
-      "message": "Sure",
-      "createdAt": "2026-10-05T22:44:22.255Z",
-      "read": false
-    },
-    {
-      "id": "msg-1789073520371",
-      "name": "Integration Test Recruiter",
-      "email": "recruiter@aerospace.test",
-      "subject": "Research Engineer Interview",
-      "message": "We reviewed your portfolio and NUST Gold Medalist robotics research.",
-      "createdAt": "2026-09-10T20:52:00.371Z",
-      "read": false
-    }
-  ],
+  "contactMessages": [],
   "media": [
     {
       "id": "media-1791240171099",
