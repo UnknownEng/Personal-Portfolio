@@ -648,9 +648,97 @@
       "order": 1
     },
     {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/Layered-ROS-2-Nav2-Architecture-for-Fail-Safe-Indoor-UAV-Navigation",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-nav2-failsafe",
+      "title": "Layered ROS 2 / Nav2 Architecture for Fail-Safe Indoor UAV Navigation",
+      "shortDescription": "GPS-denied indoor flight with Nav2, SLAM Toolbox and ArduPilot DDS, where a layered safety chain stops a sensor dropout or hung node from leaving the drone on a stale command.",
+      "fullDescription": "A ROS 2 Jazzy package for autonomous indoor, GPS-denied multicopter flight with Nav2, SLAM Toolbox and ArduPilot's native DDS interface. Navigation is separated from a layered safety chain: collision monitor, a cmd_vel bridge with a watchdog, envelope and altitude hold, and a guarded takeoff.\n\nClosed-loop simulation tests with fault injection, judged on simulator ground truth: all 12 scenarios passed in 5 of 5 consecutive full runs, including a pop-up obstacle 0.6 m ahead that the vehicle stops for and then detours around without a collision.",
+      "technologies": [
+        "ROS 2 Jazzy",
+        "Nav2",
+        "SLAM Toolbox",
+        "ArduPilot",
+        "DDS",
+        "LiDAR",
+        "Python",
+        "pytest"
+      ],
+      "category": "Autonomous Navigation",
+      "projectImage": "/uploads/projects/nav2-failsafe.webp",
+      "myRole": "Author — architecture, safety layers and test harness",
+      "projectDate": "2026",
+      "order": 2
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/Reinforcement-Learning-Based-UAV-Navigation",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-rl-forest",
+      "title": "Safe Reinforcement-Learning Navigation of Quadrotors in Procedural Forests",
+      "shortDescription": "A PPO policy flies a quadrotor through dense forest on a 3-D LiDAR, behind a rule-based shield and a barrier-function filter, validated in PX4 SITL.",
+      "fullDescription": "A PPO policy (Stable-Baselines3) steers a quadrotor through procedurally generated forests at four stem densities using a 7 x 90-beam 3-D LiDAR. It is trained in a fast Gymnasium simulator whose dynamics were fitted to PX4 v1.15 x500 step responses, with a density curriculum, moving hazards and domain randomisation.\n\nSafety does not rest on the network alone: a rule shield and a CBF-QP filter sit between the policy and the flight controller. Includes APF, DWA, RRT* and Informed RRT* baselines on the same seeds, and a PX4 SITL + Gazebo Harmonic harness: 10 / 10 SITL flights without contact; collisions with moving hazards cut from 16% to 4%.",
+      "technologies": [
+        "PPO",
+        "Stable-Baselines3",
+        "Gymnasium",
+        "PX4",
+        "Gazebo Harmonic",
+        "ROS 2",
+        "Control Barrier Functions",
+        "LiDAR",
+        "Python"
+      ],
+      "category": "Safe RL",
+      "projectImage": "/uploads/projects/rl-forest.webp",
+      "myRole": "Author — environment, training, safety layers and SITL validation",
+      "projectDate": "2026",
+      "order": 3
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/AeroMaverick-GCS",
+      "liveDemoUrl": "https://github.com/UnknownEng/AeroMaverick-GCS/releases/latest",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-aeromaverick-gcs",
+      "title": "AeroMaverick GCS — Ground Control Station for PX4 & ArduPilot",
+      "shortDescription": "A ground control station for PX4 and ArduPilot over MAVLink or MAVROS, with mission planning, calibration, logs, video and multi-vehicle swarms, on Windows and Android.",
+      "fullDescription": "AeroMaverick GCS connects directly over MAVLink 2 (UDP, TCP, serial, telemetry radios, USB-OTG on phones) or through MAVROS on ROS 1 / ROS 2, and the same engine runs on Windows and Android.\n\nFly, plan (survey grids, geofence, rally points, QGC .plan and Mission Planner files), full parameter editing with the official PX4 and ArduPilot docs built in, sensor and radio calibration, setup for multicopters, planes, VTOLs, rovers, boats and subs, multi-vehicle swarms (centralised formations and onboard follow), Python and Lua scripting, log analysis, live video, terrain following, a DroneCAN inspector and firmware install. Released as v1.1.",
+      "technologies": [
+        "MAVLink",
+        "MAVROS",
+        "PX4",
+        "ArduPilot",
+        "ROS 2",
+        "Python",
+        "Android",
+        "Windows"
+      ],
+      "category": "Ground Control",
+      "projectImage": "/uploads/projects/aeromaverick-gcs.webp",
+      "myRole": "Founder & lead developer (Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 4
+    },
+    {
       "id": "proj-lawerai",
       "title": "LawerAI — Legal Intake and Statute Reasoning for Pakistani Law",
-      "shortDescription": "Open-source legal assistant that explains Pakistani statutes in English, Urdu and Roman Urdu, with citation-grounded answers.",
+      "shortDescription": "Legal assistant that explains Pakistani statutes in English, Urdu and Roman Urdu, with citation-grounded answers.",
       "fullDescription": "Engineered and deployed LawerAI as an agile production beta system under maverick_.tech (sub-startup of AeroMavericks Technologies). Features conversational legal intelligence, structured statute retrieval, document analysis, and natural language query interpretation built to democratize legal accessibility.\n\nLive Deployment: https://lawerai-alpha.vercel.app/",
       "technologies": [
         "AI / LLMs",
@@ -663,7 +751,7 @@
       "category": "AI Systems & Web Apps",
       "projectImage": "/uploads/projects/lawerai.webp",
       "galleryImages": [],
-      "githubUrl": "https://github.com/UnknownEng/lawerai",
+      "githubUrl": "https://github.com/UnknownEng/lawerai-app",
       "liveDemoUrl": "https://lawerai-alpha.vercel.app/",
       "videoUrl": "",
       "documentationUrl": "https://lnkd.in/p/dVFmpw2D",
@@ -672,7 +760,94 @@
       "projectDate": "2026",
       "featured": true,
       "status": "published",
-      "order": 3
+      "order": 5
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/drone-training-simulator",
+      "liveDemoUrl": "https://github.com/UnknownEng/drone-training-simulator/releases/latest",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-drone-sim",
+      "title": "Drone Training Simulator with ArduPilot in the Loop",
+      "shortDescription": "Offline pilot-training simulator: each drone flies on its own ArduPilot parameter file, on a built-in ArduCopter-compatible controller or real ArduCopter SITL in lock-step.",
+      "fullDescription": "A Windows desktop simulator for multirotor pilot training. Each drone flies with its own ArduPilot .param file, either on a built-in ArduCopter-compatible controller or on the official ArduCopter firmware (SITL), which starts with one click and needs no Linux or WSL.\n\n6-DOF physics with motor lag, battery sag, ground effect, vortex-ring state, wind and collisions; GeoTIFF terrain; flight-log calibration and replay; 12 scored training missions with an instructor panel for failures and weather; RC and gamepad support; FPV with an ArduPilot-style OSD; live PID tuning.",
+      "technologies": [
+        "Three.js",
+        "Electron",
+        "ArduPilot SITL",
+        "MAVLink",
+        "JavaScript",
+        "Flight Dynamics"
+      ],
+      "category": "Simulation & Training",
+      "projectImage": "/uploads/projects/drone-sim.webp",
+      "myRole": "Lead developer (Aero-Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 6
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/medical-response-basic",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-medical-drone",
+      "title": "Medical Response Drone — ArUco Precision Landing & Payload Delivery",
+      "shortDescription": "An ArduPilot quadcopter searches for an ArUco marker, lands on it, picks up a payload, delivers it to a GPS point and returns home, with safety checks throughout.",
+      "fullDescription": "An autonomous medical-delivery mission for an ArduPilot quadcopter (Pixhawk + Raspberry Pi + Pi camera): pre-flight checks, an AUTO search route while the camera looks for the allowed ArUco ID (decoys ignored), precision landing from the marker's computed GPS position, servo payload pickup, delivery to a GPS target and RTL.\n\nRuns with pymavlink or ROS 1 / MAVROS, with a full ArduCopter SITL simulation and synced replay video. SITL results: 0.01–0.02 m landing error on the marker, 0.3–0.8 m payload release error at 10 m, 0.04 m return-to-launch error.",
+      "technologies": [
+        "ArduPilot",
+        "pymavlink",
+        "MAVROS",
+        "ROS",
+        "OpenCV",
+        "ArUco",
+        "Raspberry Pi",
+        "Python"
+      ],
+      "category": "Autonomous Delivery",
+      "projectImage": "/uploads/projects/medical-drone.webp",
+      "myRole": "Developer — mission logic, vision and simulation",
+      "projectDate": "2026",
+      "order": 7
+    },
+    {
+      "id": "proj-4",
+      "title": "Autonomous Drone Mapping Pipeline (WebODM)",
+      "shortDescription": "Plan a survey from a GeoTIFF, fly it with ArduPilot + MAVROS, and build an orthophoto, DSM and 3D model in WebODM. Flight-tested on a real drone.",
+      "fullDescription": "End-to-end aerial mapping: survey planning from a GeoTIFF, autonomous flight with ArduPilot and MAVROS (ROS 1 and ROS 2), geotagged photo capture at the right overlap from a Raspberry Pi camera, and orthophoto, elevation-model and textured 3D-model generation in WebODM.\n\nThe first version was flown on a real quadcopter (Pixhawk + Raspberry Pi + IMX477) and the orthophoto was checked in QGIS. The improved version, verified in ArduPilot SITL + Gazebo over a 140 x 140 m area at 40 m: 195 / 195 photos reconstructed, a 3 cm/px orthophoto, and the tallest building measured at 22.3 m against 22.2 m true.",
+      "technologies": [
+        "ArduPilot",
+        "MAVROS",
+        "ROS",
+        "ROS 2",
+        "WebODM",
+        "OpenDroneMap",
+        "Photogrammetry",
+        "Raspberry Pi",
+        "Gazebo",
+        "Python"
+      ],
+      "category": "Aerial Mapping",
+      "projectImage": "/uploads/projects/ortho.webp",
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/webodm-based-mapping-algorithm-using-drone",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "myRole": "Developer — flight software and mapping pipeline",
+      "projectDate": "2026",
+      "featured": true,
+      "status": "published",
+      "order": 8
     },
     {
       "id": "proj-sasta-dawa",
@@ -699,7 +874,61 @@
       "projectDate": "2026",
       "featured": true,
       "status": "published",
-      "order": 4
+      "order": 9
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/fitcheck",
+      "liveDemoUrl": "https://fitcheck-closet-app.vercel.app",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-fitcheck",
+      "title": "FitCheck — AI Closet Scanner & Outfit Tracker",
+      "shortDescription": "Snap your closet once, take one selfie a day: AI tracks what you wear, reminds you when to wash, and plans outfits from clean clothes. Web and Android.",
+      "fullDescription": "One photo of a cupboard and the AI finds every shirt, jeans, kurta and shoe with its colour. A daily mirror selfie adds a wear to each piece; each item has its own wears-before-washing count and moves to a laundry basket when it is reached. \"What do I wear to…\" builds three outfits for an occasion and the weather from clothes that are clean right now.\n\nOnline it uses Gemini or Claude vision; offline it runs SegFormer and CLIP on the phone with a rule-based stylist. No account; data stays on the device.",
+      "technologies": [
+        "TypeScript",
+        "React",
+        "Android",
+        "Gemini Vision",
+        "SegFormer",
+        "CLIP"
+      ],
+      "category": "AI Product",
+      "projectImage": "/uploads/projects/fitcheck.webp",
+      "myRole": "Founder & developer (Maverick Technologies)",
+      "projectDate": "2025",
+      "order": 10
+    },
+    {
+      "featured": true,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/JohnD-Personal-Assistant",
+      "liveDemoUrl": "https://github.com/UnknownEng/JohnD-Personal-Assistant/releases/latest",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-johnd",
+      "title": "JohnD — Offline Voice Assistant for Windows",
+      "shortDescription": "Say \"John D\" to control your PC, set reminders, search documents and chat in English, Urdu or Roman Urdu. Speech and AI run locally.",
+      "fullDescription": "A voice assistant for Windows that runs on your own PC: wake word, offline speech recognition (Vosk / Whisper) and an optional local LLM through Ollama (llama3.2:3b), so no account or API key is needed.\n\nControls apps, volume, files, timers and reminders by voice; holds conversations and multi-step tasks; searches documents; gives a daily briefing and weather; and an away mode drafts Gmail replies that are only sent after approval. Shipped as a Windows installer.",
+      "technologies": [
+        "Python",
+        "Vosk",
+        "Whisper",
+        "Ollama",
+        "LLM",
+        "Windows"
+      ],
+      "category": "AI Product",
+      "projectImage": "/uploads/projects/johnd.webp",
+      "myRole": "Founder & developer (Maverick Technologies)",
+      "projectDate": "2024",
+      "order": 11
     },
     {
       "id": "proj-1",
@@ -726,7 +955,7 @@
       "projectDate": "2025 – 2026",
       "featured": true,
       "status": "published",
-      "order": 5
+      "order": 12
     },
     {
       "id": "proj-2",
@@ -753,7 +982,7 @@
       "projectDate": "2025",
       "featured": true,
       "status": "published",
-      "order": 6
+      "order": 13
     },
     {
       "id": "proj-3",
@@ -780,34 +1009,7 @@
       "projectDate": "2024 – 2025",
       "featured": true,
       "status": "published",
-      "order": 7
-    },
-    {
-      "id": "proj-4",
-      "title": "UAV Orthomosaic Mapping Pipeline",
-      "shortDescription": "ROS-based aerial orthomosaic mapping workflow for automated high-resolution survey and photogrammetry reconstruction.",
-      "fullDescription": "Developed a ROS-based orthomosaic mapping workflow for aerial mapping applications. Features automated grid flight pattern generation, camera trigger synchronization, geo-referenced image stitching, and elevation model generation.",
-      "technologies": [
-        "ROS",
-        "Python",
-        "Photogrammetry",
-        "GIS",
-        "QGroundControl",
-        "OpenCV"
-      ],
-      "category": "Aerial Mapping",
-      "projectImage": "/uploads/projects/ortho.webp",
-      "galleryImages": [],
-      "githubUrl": "https://github.com/UnknownEng/webodm-based-mapping-algorithm-using-drone",
-      "liveDemoUrl": "",
-      "videoUrl": "",
-      "documentationUrl": "",
-      "diagramUrl": "",
-      "myRole": "Workflow & Processing Engineer",
-      "projectDate": "2025",
-      "featured": false,
-      "status": "published",
-      "order": 8
+      "order": 14
     },
     {
       "id": "proj-5",
@@ -825,7 +1027,7 @@
       "category": "Autonomous Navigation",
       "projectImage": "/uploads/projects/gps-denied.webp",
       "galleryImages": [],
-      "githubUrl": "https://github.com/UnknownEng/gps-denied-navigation-via-depth-camera",
+      "githubUrl": "",
       "liveDemoUrl": "",
       "videoUrl": "",
       "documentationUrl": "",
@@ -834,7 +1036,7 @@
       "projectDate": "2025",
       "featured": true,
       "status": "published",
-      "order": 9
+      "order": 15
     },
     {
       "id": "proj-6",
@@ -861,7 +1063,242 @@
       "projectDate": "2025 – 2026",
       "featured": true,
       "status": "published",
-      "order": 10
+      "order": 16
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/APF-Nav_Artificial_Potential_Field_Navigator-",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-apf-nav",
+      "title": "APF-Nav — Artificial Potential Field Obstacle Avoidance",
+      "shortDescription": "Lidar-only 3-D obstacle avoidance for a quadrotor in ROS Noetic and Gazebo, with vortex repulsion and local-minimum escape. 10 / 10 waypoints, 0 collisions.",
+      "fullDescription": "A hector quadrotor flies a waypoint mission through a 30 x 30 m indoor hangar using only a 270° Hokuyo lidar and its pose, with no prior map. Each waypoint attracts, each obstacle the lidar sees repels, and the sum becomes the velocity command; vortex repulsion and a local-minimum escape stop it getting stuck.\n\nIn Gazebo 11 it reached 10 / 10 waypoints in 4 consecutive runs with 0 collisions (closest lidar range 1.35 m, max tilt 3.5°), compared against a rule-based navigator.",
+      "technologies": [
+        "ROS Noetic",
+        "Gazebo 11",
+        "Python",
+        "LiDAR",
+        "Path Planning"
+      ],
+      "category": "Path Planning",
+      "projectImage": "/uploads/projects/apf-nav.webp",
+      "myRole": "Developer",
+      "projectDate": "2026",
+      "order": 17
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/Arduino-Based-F450-Quadcopter-Drone",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-f450-fc",
+      "title": "Arduino F450 Quadcopter Flight Controller",
+      "shortDescription": "Self-levelling flight controller on an Arduino Uno / Nano with an MPU-6050, radio-loss and gyro-failure failsafes, and a PC simulator that runs the real firmware.",
+      "fullDescription": "A complete flight controller for an F450 quadcopter based on YMFC-AL, with bug fixes and added safety: auto-level PID, radio-loss failsafe, gyro-failure protection, low-battery warning and stricter receiver checks.\n\nA PC flight simulator runs the real Arduino code: 42 / 42 flight-test checks passed (motors stop 88 ms after radio loss, 104 ms after an MPU-6050 wire comes loose) and 23 / 23 F450 builds stayed stable across mass, motor, vibration, wind and battery variations.",
+      "technologies": [
+        "Arduino",
+        "C++",
+        "MPU-6050",
+        "PID Control",
+        "Embedded Systems"
+      ],
+      "category": "UAV & Flight Stack",
+      "projectImage": "/uploads/projects/f450-fc.webp",
+      "myRole": "Developer",
+      "projectDate": "2024",
+      "order": 18
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/dukaan2dream-android",
+      "liveDemoUrl": "https://dukaan2dream.vercel.app",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-dukaan2dream",
+      "title": "Dukaan2Dream — Community Funding for Local Brands",
+      "shortDescription": "Loyal customers fund a local brand's next outlet, with no loan and no interest. Money sits in escrow and is released in stages, each only after proof.",
+      "fullDescription": "A crowdfunding platform for local shops in Pakistan: customers back a brand they already love to open its next outlet. Funds are held in escrow and released in stages, each only after proof of progress, with no loan and no interest. Web app plus an Android app.",
+      "technologies": [
+        "TypeScript",
+        "Web App",
+        "Android",
+        "Escrow"
+      ],
+      "category": "Fintech",
+      "projectImage": "/uploads/projects/dukaan2dream.webp",
+      "myRole": "Founder & developer (Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 19
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/hurf-app",
+      "liveDemoUrl": "https://github.com/UnknownEng/hurf-app/releases/latest",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-hurf",
+      "title": "HURF (حرف) — Urdu Reading Screening for Children",
+      "shortDescription": "Urdu reading-difference screening for Class 1–5 that runs fully offline on an ordinary Android phone: seven short games, an instant teacher report and a 4-week plan.",
+      "fullDescription": "An offline Android app that screens children in Class 1–5 for Urdu reading difficulties through seven short games, then gives the teacher an instant report and a 4-week support plan. Built to run on ordinary phones without internet; seeking pilot schools.",
+      "technologies": [
+        "JavaScript",
+        "Android",
+        "Offline-first",
+        "Urdu"
+      ],
+      "category": "EdTech",
+      "projectImage": "/uploads/projects/hurf.webp",
+      "myRole": "Founder & developer (Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 20
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/asclepius-crew-health",
+      "liveDemoUrl": "https://asclepius-crew-health.vercel.app",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-asclepius",
+      "title": "ASCLEPIUS — Crew Health Monitoring for Deep-Space Missions",
+      "shortDescription": "NASA Space Apps 2026: learns each astronaut's normal, catches problems earlier with fewer false alarms than fixed limits, ranks the likely cause and gives the onboard action.",
+      "fullDescription": "Browser-based health monitoring for astronaut crews, built for the NASA Space Apps Challenge 2026. It predicts each astronaut's expected vitals from their baseline, the crew timeline and circadian phase, detects acute events and slow drifts (multivariate deviation score + autocorrelation-corrected CUSUM), and ranks a differential diagnosis (hypoxia, heat stress, fever, AF, dehydration, hypercapnia) with the onboard protocol attached.\n\nIncludes live GOES proton flux and ISS position, career radiation-dose tracking, fault injection and an in-browser Monte Carlo validation of 400 simulated shifts against standard fixed alarm limits. No install, server or API key.",
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "Anomaly Detection",
+        "CUSUM",
+        "NASA APIs",
+        "Monte Carlo"
+      ],
+      "category": "Space Health",
+      "projectImage": "/uploads/projects/asclepius.webp",
+      "myRole": "Team lead & developer",
+      "projectDate": "2026",
+      "order": 21
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "",
+      "liveDemoUrl": "https://forme-platform.vercel.app",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-forme",
+      "title": "Forme — Fit Intelligence for Fashion Retailers",
+      "shortDescription": "One portable fit profile per shopper and a size recommendation for every product, via a one-line widget, a REST API and a merchant console.",
+      "fullDescription": "A B2B platform for fashion retailers: shoppers get one fit profile and the right size for every product. Ships as an embeddable shadow-DOM widget, a REST API with OpenAPI 3.1 docs, a merchant console (analytics, catalogue and size-chart editor, API keys) and an admin panel. Zero third-party dependencies on Node.js 22 with SQLite or Postgres.",
+      "technologies": [
+        "Node.js",
+        "JavaScript",
+        "REST API",
+        "OpenAPI",
+        "SQLite",
+        "Postgres"
+      ],
+      "category": "B2B Platform",
+      "projectImage": "/uploads/projects/forme.webp",
+      "myRole": "Developer (Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 22
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "",
+      "liveDemoUrl": "https://open-shelf-rho.vercel.app",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-open-shelf",
+      "title": "Open Shelf — White-Label Book Lending Platform",
+      "shortDescription": "Readers borrow physical books with credits and join waitlists; libraries and campuses run their own branded shelf with an admin console, partner API and signed webhooks.",
+      "fullDescription": "A white-label, credit-based book lending platform: borrowing, returns, renewals, FIFO waitlists with 48-hour holds, reviews and a credit ledger for members; a staff console with KPIs, catalogue, members, circulation and branding; a partner REST API with SSO hand-off and HMAC-signed webhooks. Zero runtime dependencies (Node.js 22 + SQLite), with end-to-end API tests and 30 browser tests.",
+      "technologies": [
+        "Node.js",
+        "JavaScript",
+        "SQLite",
+        "REST API",
+        "Webhooks"
+      ],
+      "category": "Platform",
+      "projectImage": "/uploads/projects/open-shelf.webp",
+      "myRole": "Developer (Maverick Technologies)",
+      "projectDate": "2026",
+      "order": 23
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/Designing-Lidar",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-lidar-sim",
+      "title": "Designing LIDAR — 2-D Sensor Modelling & Simulation",
+      "shortDescription": "Interactive real-time 2-D LIDAR simulator: vectorised ray casting, Gaussian noise and beam dropout, adjustable FOV and live range plots.",
+      "fullDescription": "A teaching and experimentation tool for mobile-robot perception, built with Python, NumPy and Pygame. 160 beams are cast against every wall and obstacle edge in one vectorised pass; range noise and dropout are adjustable while it runs; the field of view switches between 90°, 180°, 270° and 360°; and three live graphs show range vs angle, minimum range over time and a range histogram.",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "Pygame",
+        "Ray Casting",
+        "Sensor Modelling"
+      ],
+      "category": "Simulation & Perception",
+      "projectImage": "/uploads/projects/lidar-sim.webp",
+      "myRole": "Developer",
+      "projectDate": "2026",
+      "order": 24
+    },
+    {
+      "featured": false,
+      "galleryImages": [],
+      "githubUrl": "https://github.com/UnknownEng/4-DOF-Wifi-Web-Control-Motion-Repeater-Robotic-ARM",
+      "liveDemoUrl": "",
+      "videoUrl": "",
+      "documentationUrl": "",
+      "diagramUrl": "",
+      "status": "published",
+      "id": "proj-robot-arm",
+      "title": "ESP32 4-DOF Robot Arm with Wi-Fi Motion Recording",
+      "shortDescription": "An ESP32 hosts its own Wi-Fi hotspot and a phone web page to drive a 4-servo arm, record moves and play them back with the original timing.",
+      "fullDescription": "An ESP32 creates a Wi-Fi access point and serves a phone-friendly control page over WebSockets for a base, shoulder, elbow and gripper. Moves can be recorded and played back in a loop with their timing, with per-joint limits, smooth motion and a PIN lock. Includes a Wokwi simulation.",
+      "technologies": [
+        "ESP32",
+        "C++",
+        "Arduino",
+        "WebSocket",
+        "Servo Control",
+        "Wokwi"
+      ],
+      "category": "Robotics & Embedded",
+      "projectImage": "/uploads/projects/robot-arm.webp",
+      "myRole": "Developer",
+      "projectDate": "2024",
+      "order": 25
     },
     {
       "id": "proj-7",
@@ -888,7 +1325,7 @@
       "projectDate": "2024",
       "featured": false,
       "status": "published",
-      "order": 11
+      "order": 26
     },
     {
       "id": "proj-8",
@@ -915,7 +1352,7 @@
       "projectDate": "2024 – 2025",
       "featured": false,
       "status": "published",
-      "order": 12
+      "order": 27
     },
     {
       "id": "proj-9",
@@ -943,7 +1380,7 @@
       "projectDate": "2024",
       "featured": false,
       "status": "published",
-      "order": 13
+      "order": 28
     }
   ],
   "gallery": [
@@ -2515,7 +2952,7 @@
         },
         {
           "label": "Code",
-          "url": "https://github.com/UnknownEng/lawerai"
+          "url": "https://github.com/UnknownEng/lawerai-app"
         }
       ]
     },
